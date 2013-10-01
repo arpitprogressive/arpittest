@@ -1,2 +1,2 @@
-django-nsdc
-===========
+django-pursuite
+===============

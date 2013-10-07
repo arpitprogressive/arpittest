@@ -9,15 +9,25 @@ import re
 
 from django.core.exceptions import ValidationError
 
-__all__ = ['validate_code', 'validate_version']
+__all__ = ['validate_os_code', 'validate_qp_code', 'validate_version']
 
 
-def validate_code(value):
+def validate_os_code(value):
     '''
-        Validate code
+        Validate occupational standard code
     '''
-    if not re.match(r'^[A-z]{3}/[A-z]\d{4}$', value):
-        raise ValidationError(u"Invalid Format. Example: SSC/O2951")
+    if not re.match(r'^[A-z]{3}/[NO]\d{4}$', value):
+        raise ValidationError(
+            u"Invalid Format. Example: SSC/O0101 or SSC/N0101"
+        )
+
+
+def validate_qp_code(value):
+    '''
+        Validate qualification pack code
+    '''
+    if not re.match(r'^[A-z]{3}/Q\d{4}$', value):
+        raise ValidationError(u"Invalid Format. Example: SSC/Q0101")
 
 
 def validate_version(value):

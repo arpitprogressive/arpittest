@@ -9,3 +9,4 @@
 """
 # Flake8: noqa
 from test_occupational_standards import *
+from test_qualification_pack import *

@@ -1,61 +1,52 @@
 # -*- coding: utf-8 -*-
 """
-    occupational_standard
+    admin.models.occupational_standard
 
     :copyright: (c) 2013 by Openlabs Technologies & Consulting (P) Limited
     :license: see LICENSE for more details.
 """
+from tinymce.models import HTMLField
 from django.db import models
+from django.contrib import admin
+from django.contrib import messages
+from django.core.exceptions import ValidationError
 
-__all__ = [
-    'PursuiteModel', 'OccupationalStandard', 'OSVersion', 'OSKnowledgeRecord',
-    'OSPerformanceCriterion', 'OSSkill',
-]
+from .validators import validate_code, validate_version
 
-
-class PursuiteModel(models.Model):
-    '''
-        Model class for admin
-    '''
-    class Meta:
-        abstract = True
-        app_label = 'admin'
+__all__ = ['OccupationalStandard']
 
 
-class OccupationalStandard(PursuiteModel):
+class OccupationalStandard(models.Model):
     '''
         Occupational Standard
     '''
-    code = models.CharField(max_length=9, default=None)
-
-    def __unicode__(self):
+    class Meta:
         '''
-            Returns object display name
+            Meta properties for this model
         '''
-        return self.code
+        app_label = 'admin'
+        unique_together = ('code', 'version')
 
-    @property
-    def versions(self):
-        '''
-            Returns active records of all versions of this Occupational
-            Standards.
-        '''
-        return OSVersion.objects.filter(occupational_standard=self.pk)
+    code = models.CharField(
+        max_length=9, default=None, validators=[validate_code],
+        db_index=True,
+    )
+    version = models.CharField(
+        max_length=8, default=None, validators=[validate_version],
+        db_index=True,
+    )
+    is_draft = models.BooleanField(default=True, verbose_name="Draft")
+    sector = models.ForeignKey('Sector', db_index=True)
+    sub_sector = models.ForeignKey('SubSector', db_index=True)
 
-
-class OSVersion(PursuiteModel):
-    '''
-        Occupational Standard Version
-    '''
-    occupational_standard = models.ForeignKey('OccupationalStandard')
-    title = models.CharField(max_length=50, default=None)
+    title = models.CharField(max_length=50, default=None, db_index=True)
     description = models.TextField(default=None)
-    scope = models.TextField(default=None)
+    scope = HTMLField(default=None)
+    performace_criteria = HTMLField(default=None)
+    knowledge = HTMLField(default=None)
+    skills = HTMLField(default=None)
 
-    # Version information
-    version = models.CharField(max_length=8, default=None)
-    is_draft = models.BooleanField(default=True)
-    drafted_on = models.DateField(auto_now_add=True)  # Create date
+    drafted_on = models.DateField(auto_now_add=True)
     last_reviewed_on = models.DateField(auto_now=True)  # Write date
     next_review_on = models.DateField()
 
@@ -64,104 +55,75 @@ class OSVersion(PursuiteModel):
             Returns object display name. This comprises code and version.
             For example: SSC/Q2601-V0.1
         '''
-        return self.occupational_standard.code + "-V" + self.version
+        return self.code + "-V" + self.version
 
-    @property
-    def performance_criteria(self):
+    def clean(self):
         '''
-            Returns active records of all performance criterion of this
-            Occupational Standard version.
+            Validate model instance
         '''
-        return OSPerformanceCriterion.objects.filter(os_version=self.pk)
-
-    @property
-    def knowledge(self):
-        '''
-            Returns active records of all knowledge and understanding
-            requirements of this Occupational Standard version.
-        '''
-        return OSKnowledgeRecord.objects.filter(os_version=self.pk)
-
-    @property
-    def skills(self):
-        '''
-            Returns active records of all skill requirements of this
-            Occupational Standard version.
-        '''
-        return OSSkill.objects.filter(os_version=self.pk)
+        if OccupationalStandard.objects.filter(code=self.code, is_draft=True) \
+                .exclude(pk=self.pk):
+            # Check one OS should have one version in draft
+            raise ValidationError(
+                'There is already a version in draft for %s' % self.code
+            )
+        # Check sector and Subsector
 
 
-class OSPerformanceCriterion(PursuiteModel):
+class OccupationalStandardAdmin(admin.ModelAdmin):
     '''
-        Occupational Standard Performance Criterion
+        Occupational Standard for admin
     '''
-    os_version = models.ForeignKey('OSVersion')
-    sequence = models.IntegerField(default=10)
-    description = models.TextField(default=None)
-
-    def __unicode__(self):
-        '''
-            Returns object display name
-        '''
-        return self.description
-
-
-class OSKnowledgeRecord(PursuiteModel):
-    '''
-        Occupational Standard Knowledge and Understanding
-    '''
-    CATEGORY_CHOICES = {
-        ('OC', 'Organizational Context'),
-        ('TK', 'Technical Knowledge'),
-    }
-
-    os_version = models.ForeignKey('OSVersion')
-    sequence = models.IntegerField(default=10)
-    description = models.TextField(default=None)
-    category = models.CharField(
-        max_length=2, choices=CATEGORY_CHOICES, default=None
+    exclude = ('is_draft',)
+    list_display = (
+        '__unicode__', 'sector', 'sub_sector', 'title', 'drafted_on',
+        'last_reviewed_on', 'next_review_on', 'is_draft',
     )
-
-    def __unicode__(self):
-        '''
-            Returns object display name
-        '''
-        return self.description
-
-
-class OSSkill(PursuiteModel):
-    '''
-        Occupational Standard Skill
-    '''
-    CATEGORY_CHOICES = {
-        ('CS', 'Core Skills'),
-        ('PS', 'Professional Skills'),
-        ('TS', 'Technical Skills'),
-    }
-    TITLE_CHOICES = {
-        ('WS', 'Writing Skills'),
-        ('RS', 'Reading Skills'),
-        ('OC', 'Oral Communication'),
-        ('DM', 'Decision Making'),
-        ('PO', 'Plan and Organize'),
-        ('CC', 'Customer Centricity'),
-        ('PS', 'Problem Solving'),
-        ('AT', 'Analytical Thinking'),
-        ('CT', 'Critical Thinking'),
-        ('AD', 'Attention to Detail'),
-        ('TW', 'Team Working'),
-    }
-
-    os_version = models.ForeignKey('OSVersion')
-    sequence = models.IntegerField(default=10)
-    title = models.CharField(max_length=2, choices=TITLE_CHOICES, default=None)
-    description = models.TextField(default=None)
-    category = models.CharField(
-        max_length=2, choices=CATEGORY_CHOICES, default=None
+    list_filter = (
+        'code', 'sector', 'sub_sector', 'is_draft',
     )
+    list_per_page = 20
+    search_fields = ['code', 'title', 'description']
+    save_as = True
 
-    def __unicode__(self):
+    def bump_new_version(modeladmin, request, queryset):
         '''
-            Returns object display name
+            Action to bump new version
+
+            Publish version in draft and create new draft from the that version
+            with new version: '~' + <old_version>.
         '''
-        return self.description
+        # filter Draft from selected
+        drafts = queryset.filter(is_draft=True).all()
+        for draft in drafts:
+            if '~' in draft.version:
+                # Don't bump if version is invalid
+                messages.error(
+                    request, 'Cannot bump %s-V%s. Invalid version format' %
+                    (draft.code, draft.version)
+                )
+                continue
+            draft.is_draft = False  # Publish previous draft
+            draft.save()
+            new_draft = draft  # Create new item from last version
+            new_draft.pk = None
+            new_draft.is_draft = True
+            new_draft.version = "~" + new_draft.version
+            new_draft.save()  # Save new draft
+            messages.success(
+                request, 'Bumped %s-V%s.' % (draft.code, draft.version)
+            )
+
+    bump_new_version.short_description = "Bump new version"
+    actions = [bump_new_version]
+
+    def get_readonly_fields(self, request, obj=None):
+        '''
+            Returns readonly fields of this admin view
+        '''
+        if obj and not obj.is_draft:
+            return obj._meta.get_all_field_names()
+        return self.readonly_fields
+
+
+admin.site.register(OccupationalStandard, OccupationalStandardAdmin)

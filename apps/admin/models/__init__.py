@@ -6,4 +6,5 @@
     :license: see LICENSE for more details.
 """
 # Flake8: noqa
+from sector import *
 from occupational_standard import *

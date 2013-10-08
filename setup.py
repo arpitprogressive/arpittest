@@ -20,5 +20,6 @@ setup(
         'mysql-python',
         'django-grappelli',
         'django-tinymce',
+        'sphinx',
     ],
 )

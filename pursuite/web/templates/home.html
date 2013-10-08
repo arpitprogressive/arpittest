@@ -1,0 +1,586 @@
+{% extends "base.html" %}
+{% block styles %}
+    <!-- GOOGLE FONTS CSS --> 
+    <style type="text/css">
+      [class^="icon-color"],
+      [class*=" icon-color"] {
+      background-image: url("{{ STATIC_URL }}images/glyphicons-halflings-yellow.png");
+      }
+      [class^="icon-picon-"], 
+      [class*=" icon-picon-"] {
+      background-image: url("{{ STATIC_URL }}images/icons/picons-yellow.png");
+      }
+      .view-display-id-home_portfolio .img-mask-hover, 
+      .view-display-id-portfolio2 .img-mask-hover, 
+      .view-display-id-portfolio3 .img-mask-hover, 
+      .view-display-id-portfolio4 .img-mask-hover{
+      background-image: url('{{ STATIC_URL }}images/portfolio-hover-yellow.png');
+      }
+    </style>
+    <link href="{{ STATIC_URL }}font/stylesheet.css" rel="stylesheet" type="text/css">
+    <style type="text/css" media="all">
+      @import url("{{ STATIC_URL }}css/layerslider.css");
+    </style>
+    <style type="text/css">
+      body{
+      font-family: PlayRegular, Helvetica, arial, sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6{
+      font-weight: normal;
+      }
+      #slider_container h1, #slider_container h2, #slider_container h3, #slider_container h4, #slider_container h5{
+      font-family: PlayBold;
+      } 
+      blockquote{
+      font-family: 'PT Serif', serif;
+      font-style: italic;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div id="slider_container">
+  <div class="row-fluid" >
+    <div class="span12">
+      <div id="skifi-ls-container">
+        <div id="layerslider" style="margin: 0px auto; width:100%; height: 470px; ">
+          <!-- SLIDE 1 -->
+          <div class="ls-layer" style="slidedelay: 6000; ">
+            <img src="{{ STATIC_URL }}images/slides/initiative2.png"  class="ls-s1 " style="slidedirection:  fade; slideoutdirection : left; easingin : easeInQuart; easingOut : easeInOutQuart;  delayIn : 250;  left:15px; top:50px; "/>         
+            <h1 onclick="document.location.href='/content/it-ites-initiative'" class="ls-s2 jsLink " style="slidedirection : right; slideoutdirection : right;  delayIn : 600;  top:100px; left:642px; width:539px; "> IT - ITeS Initiatives</h1>
+            <h3 onclick="document.location.href='/content/foundation-advance-skills-development'" class="ls-s4 jsLink " style="slidedirection : right; slideoutdirection : right;  delayIn : 850;  top:170px; left:642px;  "> - Foundation & Advance Skills Development</h3>
+            <h3 onclick="document.location.href='/content/developing-tomorrows-workforce-today'" class="ls-s5 jsLink " style="slidedirection : right; slideoutdirection : right;  delayIn : 850;  top:200px; left:642px;  "> - Developing Tomorrow’s Workforce Today</h3>
+            <h3 onclick="document.location.href='/content/training-provider'" class="ls-s6 jsLink " style="slidedirection : right; slideoutdirection : right;  delayIn : 850;  top:230px; left:642px;  "> - Training Provider</h3>
+            <h3 onclick="document.location.href='/content/career-guidance'" class="ls-s7 jsLink " style="slidedirection : right; slideoutdirection : right;  delayIn : 850;  top:260px; left:642px;  "> - Career Guidance</h3>
+            <img src="{{ STATIC_URL }}images/slides/vidtour.png" onclick="document.location.href='/content/video-tour'" class="ls-s7 jsLink  " style="slidedirection:  bottom; slideoutdirection : bottom;  delayIn : 720;  top:300px; left:648px; "/>            
+          </div>
+          <!-- SLIDE 2 -->
+          <div class="ls-layer" style="slidedelay: 6000; ">
+            <img src="{{ STATIC_URL }}images/slides/events2.png"  class="ls-s1 " style="slidedirection:  right; slideoutdirection : right;  delayIn : 300;  left:580px; top:40px; "/>        
+            <h1 onclick="document.location.href='/content/events-workforce-enablement'" class="ls-s2 jsLink " style="slidedirection : left; slideoutdirection : left;  delayIn : 420;  left:17px; top:145px; width:520px; "> Events: Workforce Enablement</h1>
+            <a href="/content/listing-programs"  class="ls-s4 btn btn-large btn-theme " style="slidedirection:  bottom; slideoutdirection : bottom;  delayIn : 620;  top:322px; left:21px; ">Programs List </a>             
+            <img src="{{ STATIC_URL }}images/slides/vidtour.png" onclick="document.location.href='/content/video-tour'" class="ls-s5 jsLink  " style="slidedirection:  bottom; slideoutdirection : bottom;  delayIn : 720;  top:332px; left:175px; "/>            
+            <a href="/content/program-registration"  class="ls-s6 btn btn-large btn-theme " style="slidedirection:  top; slideoutdirection : top; durationin : 2200; easingin : easeInOutElastic;  delayIn : 760;  top:92px; left:21px; ">Programs Registration</a>             
+          </div>
+          <!-- SLIDE 3 -->
+          <div class="ls-layer" style="slidedelay: 6000; ">
+            <h1 onclick="document.location.href='/content/vision-mission'" class="ls-s1 jsLink " style="slidedirection : left; slideoutdirection : left;  delayIn : 400;  left:21px; top:100px;  "> SSC NASSCOM Profile</h1>
+            <p  class="ls-s3" style="slidedirection : left; slideoutdirection : left;  delayIn : 700;  left:21px; top:210px; width:460px; "> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
+            <a href="/content/vision-mission"  class="ls-s4 btn btn-theme btn-large " style="slidedirection:  bottom; slideoutdirection : bottom; durationin : 1500;  delayIn : 800;  top:340px; left:21px; ">Know More</a>             
+            <img src="{{ STATIC_URL }}images/slides/vidtour.png" onclick="document.location.href='/content/video-tour'" class="ls-s5 jsLink  " style="slidedirection:  bottom; slideoutdirection : bottom;  delayIn : 950;  left:160px; top:350px;  "/>           
+            <div  class="ls-s6" style="slidedirection : right; slideoutdirection : right; durationin : 2000;  delayIn : 800;  left:650px; top: 80px;  ">
+              <iframe src="http://player.vimeo.com/video/59347900?" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> 
+              <p>
+            </div>
+          </div>
+          <!-- SLIDE 4 -->
+          <!-- SLIDE 5 -->
+        </div>
+      </div>
+      <!-- layerslide fallback image for small devices -->
+      <div id="ls-fallback" ><img src="{{ STATIC_URL }}images/fallback-new.jpg" alt="" /></div>
+    </div>
+  </div>
+</div>
+<!--slider_container-->
+<!-- Dark Highlighted Region -->
+<div id="highlightedRegion" class="dark">
+  <div class="WrapperWidth">
+    <div class="row-fluid">
+      <div id="HighlightedBlock1" class=" span12 ">
+        <div class="region region-dark-highlighted1">
+          <div id="block-block-1" class="clearfix block block-block">
+            <div class="content">
+              <div style="max-width: 920px; margin: auto;" class="alignCenter">
+                <!--<blockquote>
+                  <p style="padding-bottom:14px;">"Nasscom is the premier organisation that represents and sets the tone for public policy for the Indian software industry."</p>
+                  
+                  </blockquote>
+                  
+                  -->
+                <blockquote>
+                  <p style="padding-bottom:14px;"><img src="{{ STATIC_URL }}images/nasscom/careers-that-matter.png"></p>
+                </blockquote>
+                <div class="social-container alignCenter animateIcons" style=" max-width: 500px;">
+                  <div id="social-tagline" style="width: 277px;"></div>
+                  <a href="" class="student-text" target="_blank"><span class="icon-social-facebook" style="margin-top: 0px;"></span></a>
+                  <a class="job-seeker" href="https://twitter.com/nasscom" target="_blank"><span class="icon-social-twitter" style="margin-top: 0px;"></span></a>
+                  <a class="training" href="" target="_blank"><span class="icon-social-linkedin" t="" style="margin-top: 0px;"></span></a>
+                  <a class="industry" href="" target="_blank"><span class="icon-social-aim" style="margin-top: 0px;"></span></a>
+                  <a class="government" href="" target="_blank"><span class="icon-social-youtube" style="margin-top: 0px;"></span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Dark highlighted region-->
+<!-- row1-Region -->
+<div id="row1-Region">
+  <div id="row1-FullSpan">
+    <div class="WrapperWidth">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="region region-row1-full-span">
+            <div id="block-block-23" class="clearfix block block-block">
+              <div class="content">
+                <div class="container-fluid">
+                  <div class="row-fluid" style="position:relative !important;">
+                    <!--row fluid starts-->
+                    <div class="span6" style="text-align:right;">
+                      <span>I am a (n) </span> 
+                      <span>
+                        <select onchange="">
+                          <option value="1">Select</option>
+                          <option value=""> Students </option>
+                          <option value="">Job Seekers</option>
+                          <option value="">Training Provider</option>
+                          <option value="">Industry</option>
+                          <option value="">Government</option>
+                        </select>
+                      </span>
+                    </div>
+                    <!--span six ends-->
+                    <div class="span6">
+                      <div id="searchFormSkifi" style="top:0px; right:inherit; position:relative;">
+                        <div class="region region-search-box">
+                          <div id="block-search-form" class="clearfix block block-search">
+                            <div class="content">
+                              <form method="post" id="search-block-form" accept-charset="UTF-8" novalidate="novalidate">
+                                <div>
+                                  <div class="container-inline">
+                                    <div class="form-item form-type-textfield form-item-search-block-form">
+                                      <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+                                      <input title="Enter the terms you wish to search for." type="text" id="home-search" name="search_block_form" value="search..." onblur="setTimeout('closeResults()',2000); if (this.value == '') {this.value = '';}" onfocus="if (this.value == 'search...') {this.value = '';}" size="15" maxlength="210" class="form-text" style="width:210px; border-radius:0px; height:25px; min-width:210px !important;">
+                                    </div>
+                                    <input id="search-submit-topbar" type="image" src="{{ STATIC_URL }}images/search.png" style="right:inherit; top:8px; left:195px;">
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--span six ends--> 
+                  </div>
+                  <!--row fluid ends-->
+                </div>
+                <!--container fluid ends-->
+                <script type="text/javascript">
+                  $("#search-block-form").submit(function(){
+                  
+                   var searchVal= $("#home-search").val();
+                  
+                   $("#search-block-form").attr("action","search/node/"+ searchVal);
+                  
+                   $(this).submit();
+                  
+                   return false;
+                  
+                  });
+                  
+                  
+                  
+                </script>
+                <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                  <html xmlns="http://www.w3.org/1999/xhtml">
+                  
+                  <head>
+                  
+                  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                  
+                  <title>Untitled Document</title>
+                  
+                  <link rel="stylesheet" href="css/style1.css" type="text/css" media="screen"/>
+                  
+                  Combo Box JavaScript Code Starts 
+                  
+                  <script type="text/javascript" src="js/jquery.min.js"></script>
+                  
+                  <script type="text/javascript" src="js/jquery.scrollablecombo.js"></script>
+                  
+                  <script type="text/javascript">
+                  
+                    $(function() {
+                  
+                      
+                  
+                                  $("#search_block_form").keyup(function(event){
+                  
+                                                 var key = event.keyCode || event.which;
+                  
+                                                 if (key != 13){
+                  
+                                                      alert("sds");
+                  
+                                                 }
+                  
+                                  });
+                  
+                    });
+                  
+                  </script>
+                  
+                  Combo Box JavaScript Code Ends        
+                  
+                  </head>
+                  
+                  
+                  
+                  <body>
+                  
+                  <div class="job-seeker-wrapper">
+                  
+                    <div class="job-seeker-text">I am a (n)</div>
+                  
+                    <select id="ui_element">
+                  
+                          <option value="A" selected>Job Seeker/Student</option>
+                  
+                          <option value="B">Training Provider</option>
+                  
+                          <option value="C">Industry</option>
+                  
+                          <option value="B">Government</option>
+                  
+                          <option value="C">Oil & Gas</option>
+                  
+                          <option value="B">Customer Service/ BPO/ KPO</option>
+                  
+                          <option value="C">Finance & Accounts</option>
+                  
+                          <option value="B">Marketing</option>
+                  
+                          <option value="C">IT</option>
+                  
+                          <option value="C">Oil & Gas</option>
+                  
+                          <option value="B">Customer Service/ BPO/ KPO</option>
+                  
+                          <option value="C">Finance & Accounts</option>
+                  
+                          <option value="B">Marketing</option>
+                  
+                          <option value="C">IT</option>
+                  
+                      </select>
+                  
+                  </div>
+                  
+                  </body>
+                  
+                  </html>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--row1_full_span-->
+  <div id="row1-Blocks">
+    <div class="WrapperWidth">
+      <div class="row-fluid">
+        <div id="row1_b1" class=" span3 ">
+          <div class="region region-row1-b1">
+            <div id="block-block-6" class="clearfix block block-block">
+              <div class="titlecontainer">
+                <h4 class="blocktitle">Let's Grow &amp; Work Together</h4>
+              </div>
+              <div class="content">
+                <p><span class="icons-smashing pull-left" style="margin-right: 15px; margin-top:6px; margin-bottom:40px;"><img src="{{ STATIC_URL }}images/nasscom/work-together.png" alt=""> </span>
+                  Check out the upcoming events, workshops, and also the internship programs in the IT-ITeS industry. 
+                </p>
+                <br>
+                <a href="/content/lets-grow-work-together" class="btn  btn-theme btn-small pull-right">Read more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="row1_b2" class=" span3 ">
+          <div class="region region-row1-b2">
+            <div id="block-block-5" class="clearfix block block-block">
+              <div class="titlecontainer">
+                <h4 class="blocktitle">Assessment &amp; Certification</h4>
+              </div>
+              <div class="content">
+                <p><span class="icons-smashing pull-left" style="margin-right: 15px; margin-top:6px; margin-bottom:40px;"><img src="{{ STATIC_URL }}images/nasscom/worforce-development.png" alt=""> </span>
+                  Gateway to company’s recruitment site, NAC &amp; NAC Tech.
+                </p>
+                <br>
+                <br>
+                <a href="/content/assessment-certification" class="btn  btn-theme btn-small pull-right">Read more</a>
+                <br>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="row1_b3" class=" span3 ">
+          <div class="region region-row1-b3">
+            <div id="block-block-4" class="clearfix block block-block">
+              <div class="titlecontainer">
+                <h4 class="blocktitle">Analyst's Desk</h4>
+              </div>
+              <div class="content">
+                <p><span class="icons-smashing pull-left" style="margin-right: 15px; margin-top:6px; margin-bottom:40px;"><img src="{{ STATIC_URL }}images/nasscom/analysts-desk.png" alt=""> </span>
+                  Industries views on trends, forecast on requirements and skill gaps.<br><br><br>
+                </p>
+                <a href="articles#overlay-context=article&quot;" class="btn  btn-theme btn-small pull-right">Read more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="row1_b4" class=" span3 ">
+          <div class="region region-row1-b4">
+            <div id="block-block-3" class="clearfix block block-block">
+              <div class="titlecontainer">
+                <h4 class="blocktitle">Industry  - where are we?</h4>
+              </div>
+              <div class="content">
+                <p><span class="icons-smashing pull-left" style="margin-right: 15px; margin-top:5px; margin-bottom:40px;"><img src="{{ STATIC_URL }}images/nasscom/industry.png" alt=""></span>
+                  Explore four subsectors of the Indian IT –ITeS Industry for occupational mapping, career information and <br>job availability.
+                  <br>
+                </p>
+                <a href="/content/industry-where-are-we" class="btn  btn-theme btn-small pull-right">Read more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- row1-Region -->
+<!-- row2 region -->
+<!--TITLE REGION-->
+<!-- Content and Sidebar Area -->
+<div id="contentAndSidebars">
+  <!--content_region_title-->
+  <!-- breadcrumb-->
+  <div class="WrapperWidth">
+    <div class="row-fluid">
+      <div class="">
+      </div>
+    </div>
+  </div>
+  <div class="WrapperWidth">
+    <div class="row-fluid">
+      <div class="span9">
+        <div id="contentArea">
+          <div class="tabs"></div>
+          <h1 class="page-title  plain-title">IT-ITeS Workforce Eco-system</h1>
+          <div class="region region-content">
+            <div id="block-system-main" class="clearfix block block-system">
+              <div class="content">
+                <div class="view view-portfolio view-id-portfolio view-display-id-home_portfolio view-dom-id-38b3d6ac1d4f6fcde163250b06c166ea">
+                  <div class="view-content">
+                    <!--
+                      Implementing portfolio effect 
+                      
+                      Credit: http://www.freshdesignweb.com/beautiful-image-hover-effects-with-jquery-css.html 
+                      
+                      -->
+                    <div class="portfolio-container">
+                      <div class="views-row views-row-1 views-row-odd views-row-first">
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/career-information">Career Information </a></span>        
+                        </div>
+                        <div class="views-field views-field-body">
+                          <div class="field-content">
+                            List Of Subsector<br>
+                            <div class="FirstPara15"></div>
+                          </div>
+                        </div>
+                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>        
+                        </div>
+                        <div class="views-field views-field-field-image">
+                          <div class="field-content">
+                            <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
+                              <a class="cboxElement" href="sites/default/files/styles/large/public/WorkforceInformation.jpeg" title="&lt;strong&gt;Career Information &lt;/strong&gt; - 
+                                List Of Subsector
+                                ... &lt;a class='label label-theme ' href='portfolio/career-information'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a> 
+                              <a href="portfolio/career-information"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
+                            </div>
+                            <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
+                            <img typeof="foaf:Image" src="{{ STATIC_URL }}images/portfolio_thumb/WorkforceInformation.jpeg" width="600" height="550" alt="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="views-row views-row-2 views-row-even">
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/development-initiatives">Development Initiatives</a></span>        
+                        </div>
+                        <div class="views-field views-field-body">
+                          <div class="field-content">
+                            <p>Scaling, Quality &amp; Capacity List:</p>
+                          </div>
+                        </div>
+                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>        
+                        </div>
+                        <div class="views-field views-field-field-image">
+                          <div class="field-content">
+                            <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
+                              <a class="cboxElement" href="sites/default/files/styles/large/public/DevelopmentInitiative.jpeg" title="&lt;strong&gt;Development Initiatives&lt;/strong&gt; - 
+                                Scaling, Quality &amp; Capacity List:
+                                &lt;a class='label label-theme ' href='portfolio/development-initiatives'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a> 
+                              <a href="portfolio/development-initiatives"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
+                            </div>
+                            <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
+                            <img typeof="foaf:Image" src="{{ STATIC_URL }}images/portfolio_thumb/DevelopmentInitiative.jpeg" width="600" height="550" alt="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="views-row views-row-3 views-row-odd">
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/market-indicators">Market Indicators</a></span>        
+                        </div>
+                        <div class="views-field views-field-body">
+                          <div class="field-content">
+                            <p> Wondering about market trends?</p>
+                          </div>
+                        </div>
+                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>        
+                        </div>
+                        <div class="views-field views-field-field-image">
+                          <div class="field-content">
+                            <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
+                              <a class="cboxElement" href="sites/default/files/styles/large/public/WorkforceMarketIndicator.jpg" title="&lt;strong&gt;Market Indicators&lt;/strong&gt; -  Wondering about market trends?
+                                &lt;a class='label label-theme ' href='portfolio/market-indicators'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a> 
+                              <a href="portfolio/market-indicators"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
+                            </div>
+                            <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
+                            <img typeof="foaf:Image" src="{{ STATIC_URL }}images/portfolio_thumb/WorkforceMarketIndicator.jpg" width="600" height="550" alt="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="views-row views-row-4 views-row-even views-row-last" style="margin-right: 0px;">
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/research-reports">Research &amp; Reports</a></span>        
+                        </div>
+                        <div class="views-field views-field-body">
+                          <div class="field-content">
+                            Get industry facts &amp; figures!
+                          </div>
+                        </div>
+                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>        
+                        </div>
+                        <div class="views-field views-field-field-image">
+                          <div class="field-content">
+                            <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
+                              <a class="cboxElement" href="sites/default/files/styles/large/public/added-soon.jpeg" title="&lt;strong&gt;Research &amp; Reports&lt;/strong&gt; - 
+                                Get industry facts &amp; figures!
+                                &lt;a class='label label-theme ' href='portfolio/research-reports'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a> 
+                              <a href="portfolio/research-reports"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
+                            </div>
+                            <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
+                            <img typeof="foaf:Image" src="{{ STATIC_URL }}images/portfolio_thumb/added-soon.jpeg" width="600" height="550" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span3 sidebar">
+        <div id="right-sidebar">
+          <div class="region region-right-sidebar">
+            <div id="block-block-17" class="clearfix block block-block">
+              <div class="titlecontainer">
+                <h4 class="blocktitle">Industry Speak</h4>
+              </div>
+              <div class="content">
+                <div class="comment-pop" style="position: relative; height: 346px;">
+                  <!-- testimonial 1 -->
+                  <div class="block-testimonial" style="position: absolute; top: 0px; z-index: 2; opacity: 0.295936; display: block;">
+                    <!-- testimonail comment goes here- -->
+                    <div class="review">
+                      "The economic complications and the inter-twined business environment today have made projecting the future, a rare art. Unlike in the past, it needs much more than just the knowledge of the present to envision the future. It needs greater foresight to not just project the future, 
+                      <div class="notch"></div>
+                    </div>
+                    <div class="reviewer">
+                      <!-- you can replace image path and client name -->
+                      <img src="http://t0.gstatic.com/images?q=tbn:ANd9GcSldlth-uNM9YGf1kX61Kwee-fJB9HemJsBpwCvUeOmN8xtup35_-iitxc">
+                      <br>
+                      - Natarajan Chandrasekaran
+                    </div>
+                  </div>
+                  <!-- testimonial 2 -->
+                  <div class="block-testimonial" style="position: absolute; top: 0px; z-index: 1; display: block; opacity: 0.704064;">
+                    <!-- testimonail comment goes here- -->
+                    <div class="review">
+                      "but to imagine the “unknown” and prepare for it and if need be, engineer and co-create it. <br>The new-look leaders will have to be“Imagineers” who don’t just predict but transform the future.<br>  I look forward to seeing a lot many of them at NILF 2013.""
+                      <div class="notch"></div>
+                    </div>
+                    <div class="reviewer">
+                      <!-- you can replace image path and client name -->
+                      <img src="http://t0.gstatic.com/images?q=tbn:ANd9GcSldlth-uNM9YGf1kX61Kwee-fJB9HemJsBpwCvUeOmN8xtup35_-iitxc">
+                      <br>
+                      - Natarajan Chandrasekaran
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- under content region -->
+</div>
+{% endblock %}
+{% block script %}
+    <script>
+      $('a.student-text').bind('mouseover', function() {
+        $('#social-tagline').text('Student');
+      })
+      $('a.job-seeker').bind('mouseover', function() {
+        $('#social-tagline').text('Job Seekers');
+      })
+      $('a.training').bind('mouseover', function() {
+        $('#social-tagline').text('Training Provider');
+      })
+      $('a.industry').bind('mouseover', function() {
+        $('#social-tagline').text('Industry');
+      })
+      $('a.government').bind('mouseover', function() {
+        $('#social-tagline').text('Government');
+      })
+    </script>
+    <!-- LAYER SLIDER SETTINGS -->
+    <script type="text/javascript">
+      (function ($) { 
+      
+        $(document).ready(function() {
+      
+          $('#layerslider').layerSlider({
+      
+                    // Options should go here follwing the layer slider documentation syntax
+      
+                    animateFirstLayer : true,
+      
+                    skin              : 'fullwidth',
+      
+                    skinsPath         : '{{ STATIC_URL }}css/',
+      
+                    responsive : false,
+      
+                    responsiveUnder : 1200,
+      
+                    sublayerContainer : 1200,
+      
+                  });
+      
+          
+      
+        });
+      
+      })(jQuery);
+      
+    </script>
+{% endblock %}

@@ -8,6 +8,8 @@
     :license: see LICENSE for more details.
 """
 # Flake8: noqa
+import os
+PROJECT_PATH = os.path.normpath(os.path.join(os.path.dirname(__file__), "../../"))
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -75,6 +77,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    PROJECT_PATH + "/pursuite/web/static/",
 )
 
 # List of finder classes that know how to find static files in
@@ -124,6 +127,7 @@ TEMPLATE_DIRS = (
     #   "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    PROJECT_PATH + "/pursuite/web/templates/",
 )
 
 INSTALLED_APPS = (

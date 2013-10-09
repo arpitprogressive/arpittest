@@ -1,24 +1,22 @@
 # -*- coding: utf-8 -*-
 """
-    admin.models.occupational_standard
+    admin.models.qualification_pack
 
     :copyright: (c) 2013 by Openlabs Technologies & Consulting (P) Limited
     :license: see LICENSE for more details.
 """
-from tinymce.models import HTMLField
 from django.db import models
 from django.contrib import admin
 from django.contrib import messages
-from django.core.exceptions import ValidationError
 
-from .validators import validate_os_code, validate_version
+from .validators import validate_qp_code, validate_version
 
-__all__ = ['OccupationalStandard']
+__all__ = ['QualificationPack']
 
 
-class OccupationalStandard(models.Model):
+class QualificationPack(models.Model):
     '''
-        Occupational Standard
+        Qualification Pack(QP)
     '''
     class Meta:
         '''
@@ -28,7 +26,7 @@ class OccupationalStandard(models.Model):
         unique_together = ('code', 'version')
 
     code = models.CharField(
-        max_length=9, default=None, validators=[validate_os_code],
+        max_length=9, default=None, validators=[validate_qp_code],
         db_index=True,
     )
     version = models.CharField(
@@ -36,21 +34,30 @@ class OccupationalStandard(models.Model):
         db_index=True,
     )
     is_draft = models.BooleanField(default=True, verbose_name="Draft")
-    sector = models.ForeignKey(
-        'Sector', db_index=True, verbose_name="Industry",
-    )
-    sub_sector = models.ForeignKey(
-        'SubSector', db_index=True, verbose_name="Industry Sub-sector",
-    )
+    sector = models.ForeignKey('Sector', db_index=True)
+    sub_sector = models.ForeignKey('SubSector', db_index=True)
+    occupation = models.CharField(max_length=50, default=None, db_index=True)
 
-    title = models.CharField(
-        max_length=50, default=None, db_index=True, verbose_name="Unit Title",
+    job_role = models.CharField(max_length=50, default=None, db_index=True)
+    alias = models.TextField(default=None)
+    role_description = models.TextField(default=None)
+    nveqf_level = models.CharField(max_length=5, default=None)
+    min_educational_qualification = models.CharField(
+        max_length=50, default=None,
     )
-    description = models.TextField(default=None)
-    scope = HTMLField(default=None)
-    performace_criteria = HTMLField(default=None)
-    knowledge = HTMLField(default=None)
-    skills = HTMLField(default=None)
+    max_educational_qualification = models.CharField(
+        max_length=50, default=None,
+    )
+    training = models.TextField()
+    experience = models.TextField(default=None)
+    os_compulsory = models.ManyToManyField(
+        'OccupationalStandard', related_name='os_compulsory',
+        verbose_name='Occupational Standard (Compulsory)',
+    )
+    os_optional = models.ManyToManyField(
+        'OccupationalStandard', related_name='os_optional',
+        verbose_name='Occupational Standard (Optional)', null=True, blank=True,
+    )
 
     drafted_on = models.DateTimeField(auto_now_add=True)
     last_reviewed_on = models.DateTimeField(auto_now=True)  # Write date
@@ -59,29 +66,17 @@ class OccupationalStandard(models.Model):
     def __unicode__(self):
         '''
             Returns object display name. This comprises code and version.
-            For example: SSC/O2601-V0.1
+            For example: SSC/Q2601-V0.1
         '''
         return "%s-V%s%s (%s)" % (
             self.code, self.version, "draft" if self.is_draft else "",
-            self.title,
+            self.job_role,
         )
 
-    def clean(self):
-        '''
-            Validate model instance
-        '''
-        if OccupationalStandard.objects.filter(code=self.code, is_draft=True) \
-                .exclude(pk=self.pk):
-            # Check one OS should have one version in draft
-            raise ValidationError(
-                'There is already a version in draft for %s' % self.code
-            )
-        # Check sector and Subsector
 
-
-class OccupationalStandardAdmin(admin.ModelAdmin):
+class QualificationPackAdmin(admin.ModelAdmin):
     '''
-        Occupational Standard for admin
+        Oqualification Pack for Admin
     '''
     exclude = ('is_draft',)
     list_display = (
@@ -135,4 +130,4 @@ class OccupationalStandardAdmin(admin.ModelAdmin):
         return self.readonly_fields
 
 
-admin.site.register(OccupationalStandard, OccupationalStandardAdmin)
+admin.site.register(QualificationPack, QualificationPackAdmin)

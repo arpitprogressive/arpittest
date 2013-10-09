@@ -8,3 +8,4 @@
 # Flake8: noqa
 from sector import *
 from occupational_standard import *
+from qualification_pack import *

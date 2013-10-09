@@ -8,6 +8,8 @@
 #Flake8: noqa
 from common import *
 
+STATIC_ROOT = '/opt/pursuite/www/static'
+ALLOWED_HOSTS = ['pursuite.openlabs.us']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

@@ -26,6 +26,17 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pursuite.settings.production")
 
 print os.environ.get('DJANGO_SETTINGS_MODULE')
 
+# Validate Models to register them with admin
+import settings
+import django.core.management
+django.core.management.setup_environ(settings)  # Setup settings for core mgmt
+
+utility = django.core.management.ManagementUtility()
+command = utility.fetch_command('runserver')
+
+command.validate()  # Validate
+
+
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.

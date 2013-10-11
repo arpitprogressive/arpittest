@@ -206,7 +206,7 @@ a:focus, .btn:focus, * {
 #logocontainer {
 	float: left;
 	margin-right: 10px;
-	margin-top:-1px !important;
+	margin-top: 20px !important;
 }
 
 #logocontainer img{
@@ -2816,4 +2816,32 @@ a.orange:hover{background-color:#fff; color:#f8a900; }
 }
 .content form{
 	margin-bottom: 0;
+}
+.center{
+	text-align: center
+}
+.map-img img{
+  box-shadow: none;
+}
+.somepad{
+  padding: 5px 0;
+}
+.somepad label{
+  font-size: 15px;
+}
+.somepad .label-field{
+  width: 20%;
+}
+.content blockquote{
+  border-left: none;
+}
+#searchFormSkifi input{
+	width:120px;
+	-webkit-transition: all .5s ease-in-out;
+	-moz-transition: all .5s ease-in-out;
+	-o-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+}
+#searchFormSkifi input:focus{
+	width: 170px;
 }

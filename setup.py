@@ -18,8 +18,12 @@ setup(
     install_requires=[
         'django>=1.5,<1.6',
         'mysql-python',
-        'django-grappelli',
         'django-tinymce',
+        'django-cms',
+        'django-hvad',
+        'django-reversion',
+        'djangocms_admin_style',
+        'PIL',
         'sphinx',
     ],
 )

@@ -24,6 +24,9 @@ setup(
         'django-reversion',
         'djangocms_admin_style',
         'PIL',
+        'django-haystack',
+        'pyelasticsearch',
+        'html2text',
         'sphinx',
     ],
 )

@@ -2814,3 +2814,6 @@ a.orange:hover{background-color:#fff; color:#f8a900; }
 .icon-parliament{
   background: url(../images/parliament.jpg);
 }
+.content form{
+	margin-bottom: 0;
+}

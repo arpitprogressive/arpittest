@@ -37,7 +37,7 @@ class Company(models.Model):
         max_length=20, verbose_name='Nasscom Membership Number',
         default='N/A', validators=[
             RegexValidator(
-                r'^((N/A)|([0-z]*))$',
+                r'^((N/A)|(NSCM/\d{4}/\d+/\d+))$',
                 message='Membership number should be Alphanumeric.',
                 code='invalid_membership_number',
             ),

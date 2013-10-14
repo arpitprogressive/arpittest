@@ -320,7 +320,6 @@ margin-top:15px !important;
 #slider_container{
 	z-index: 90;
 	position: relative;
-	--background-image:url('../nasscom/slider-back.jpg');
 	color:#000000;
 }
 
@@ -2844,4 +2843,31 @@ a.orange:hover{background-color:#fff; color:#f8a900; }
 }
 #searchFormSkifi input:focus{
 	width: 170px;
+}
+/*** banner backgrounds ***/
+.banner-1{
+	background-image: url(../images/banner/industry.jpg); 
+	background-size: cover;
+}
+.banner-2{
+	background-image: url(../images/banner/student-back.jpg);
+	background-size: cover;
+}
+.banner-3{
+	background-image: url(../images/banner/training.jpg);
+	background-size: cover;
+}
+.banner-4{
+	background-image: url(../images/banner/banner.jpg);
+	background-size: cover;
+}
+.black{
+	color: #373435;
+}
+.dark-black{
+	color: #1B1B1B;
+}
+h1.black{
+	color: #373435;
+	text-shadow: black 0 0 0.03em;
 }

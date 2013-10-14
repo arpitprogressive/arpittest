@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="title-region">
+  <div class="WrapperWidth">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="inner">
+          <h1 class="page-title">Contact Us</h1>
+          <!-- search box-->
+          <div id="searchFormSkifi">
+            <div class="region region-search-box">
+              <div id="block-search-form" class="clearfix block block-search">
+                <div class="content">
+                  <form class="form-search" method="post">
+                    <input type="text" class="input-small search-query" placeholder="search..">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Content and Sidebar Area -->
+<div id="contentAndSidebars">
+  <!--content_region_title-->
+  <!-- breadcrumb-->
+  <div class="WrapperWidth">
+    <div class="row-fluid">
+      <div class="breadcrumb">
+        You are here: 
+        <h2 class="element-invisible">You are here</h2>
+        <a href="/">Home</a> / Contact Us
+      </div>
+    </div>
+  </div>
+  <div class="WrapperWidth">
+    <div class="row-fluid">
+      <div class="span12">
+        <div id="contentArea" >
+          <div class="region region-content">
+            <div id="block-system-main" class="clearfix block block-system">
+              <div class="content">
+                <div class="node node-page" about="/contact">
+                  <div class="meta">
+                    <div class="content clearfix row-fluid">
+                      <div class="field field-name-body field-type-text-with-summary field-label-hidden">
+                        <div class="field-items">
+                          <div class="field-item even">
+                            <h1 class="bordered">IT-ITeS SSC NASSCOM</h1>
+                            <div class="row-fluid">
+                              <div class="span6 center map-img">
+                                <img src="{{ STATIC_URL }}images/india_triangle_map.jpg">
+                              </div>
+                              <div id="underContent_b1" class=" span6 ">
+                                <div class="region region-undercontent-1">
+                                  <div id="block-block-15" class="clearfix block block-block">
+                                    <div class="titlecontainer">
+                                      <h4 class="blocktitle" >Our Address</h4>
+                                    </div>
+                                    <div class="content">
+                                      <div class="row-fluid">
+                                        <h2>IT-ITeS Sector Skills Council</h2>
+                                        <br>
+                                        <address>
+                                          <strong>4E-Vandana Building (4th Floor) </strong><br>
+                                          11, Tolstoy Marg<br>
+                                          New Delhi-110001<br>
+                                          <abbr title="Phone">P: </abbr> 91-11- 4151 9230/60<br>
+                                          <abbr title="Fax">Fax: </abbr>91-11- 4151 9240<br>
+                                          <strong>Email: </strong><a  href="mailto:ssc@nasscom.in">ssc@nasscom.in</a><br>
+                                        </address>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- under content region -->
+    <div id="underContent-Region">
+      <!--row2_full_span-->
+      <div id="underContent-Blocks" >
+        <div class="WrapperWidth">
+          <div class="row-fluid">
+            <div class="titlecontainer">
+              <h4 class="blocktitle" >Leave a message</h4>
+            </div>
+            <form class="form-inline" id="contact-us-form">
+              <br>
+              <br>
+              <div class="row-fluid somepad">
+                <div class="span4">
+                  <label class="span4">Full Name <span class="form-required" title="This field is required.">*</span></label>
+                  <input type="text" class="span8" id="fullname"  name="fullname" required>
+                </div>
+                <div class="span4">
+                  <label class="span4">E-mail <span class="form-required" title="This field is required.">*</span></label>
+                  <input class="span8" type="email" id="useremail" name="useremail" required>
+                </div>
+              </div>
+              <div class="row-fluid somepad">
+                <div class="span4">
+                  <label class="span4">Mobile no </label>
+                  <input type="text" class="span8"/ ><br><br>
+                </div>
+                <div class="span4">
+                  <label class="span4">Telephone</label>
+                  <input type="text" class="span8"/>
+                </div>
+              </div>
+              <div class="row-fluid somepad">
+                <div class="span8">
+                  <label class="span2">Message <span class="form-required" title="This field is required.">*</span></label>
+                  <textarea rows="3" class="span10" name="yourmessage" id="yourmessage" required></textarea>
+                </div>
+              </div>
+              <div class="row-fluid somepad">
+                <div class="span8">
+                  <button class="btn btn-default pull-right">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    <!-- row2-Region -->
+    </div>
+  </div>
+{% endblock %}

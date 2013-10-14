@@ -8,6 +8,7 @@ urlpatterns = patterns(
     '',
     # Examples:
     url(r'^$', 'admin.views.site.home', name='home'),
+    url(r'^contact_us/', 'admin.views.site.contact_us', name='contact_us'),
     # url(r'^pursuite/', include('pursuite.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

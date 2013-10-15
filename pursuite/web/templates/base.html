@@ -47,7 +47,7 @@
       }
       #slider_container h1, #slider_container h2, #slider_container h3, #slider_container h4, #slider_container h5{
       font-family: PlayBold;
-      } 
+      }
       blockquote{
       font-family: 'PT Serif', serif;
       font-style: italic;
@@ -56,7 +56,7 @@
     <style type="text/css">
       /*
       * LAYOUT SETTING
-      */ 
+      */
       .WrapperWidth{
       max-width: 1170px;
       }
@@ -84,17 +84,17 @@
       #mainMenu{
       font-size: 12px
       }
-      /* 
+      /*
       * custom colors --------------------------
-      * 
+      *
       */
-      .theme-scheme, .node-product .product-title, #contentAndSidebars .menu-arrow, .btn.node-add-to-cart, 
-      .btn.node-add-to-cart:hover, .node-product .product-title, #title-region, .curly-brac, 
-      .dropdown-menu .active > a, 
-      .dropdown-menu .active > a:hover, 
+      .theme-scheme, .node-product .product-title, #contentAndSidebars .menu-arrow, .btn.node-add-to-cart,
+      .btn.node-add-to-cart:hover, .node-product .product-title, #title-region, .curly-brac,
+      .dropdown-menu .active > a,
+      .dropdown-menu .active > a:hover,
       .dropdown-menu li > a:hover,
       .dropdown-menu li > a:focus,
-      .dropdown-submenu:hover > a, 
+      .dropdown-submenu:hover > a,
       .label-theme   {
       background-color: #FBB829  ;
       }
@@ -113,7 +113,7 @@
       #BottomRegion .color{
       color: #fff;
       }
-      .theme-border, .sf-menu li ul,  .box, .plain-title, .portfolio-container .views-field-created, 
+      .theme-border, .sf-menu li ul,  .box, .plain-title, .portfolio-container .views-field-created,
       #FooterRegion, #contentAndSidebars .blocktitle, #highlightedRegion{
       border-color: #FBB829 ;
       }
@@ -126,14 +126,14 @@
       .product-title-border{
       background: #fdd47f ;
       }
-      .btn.btn-theme, .btn-theme:focus, 
-      .btn-theme:active,  .btn.node-add-to-cart, 
+      .btn.btn-theme, .btn-theme:focus,
+      .btn-theme:active,  .btn.node-add-to-cart,
       #buttonMenu #secondary-menu-links li a{
       background: #FBB829; /* Old browsers */
       }
-      ul.plan  li.head, .meta .terms .field-item, 
-      .dropdown-menu .active > a, 
-      .dropdown-menu .active > a:hover, 
+      ul.plan  li.head, .meta .terms .field-item,
+      .dropdown-menu .active > a,
+      .dropdown-menu .active > a:hover,
       .dropdown-menu li > a:hover,
       .dropdown-menu li > a:focus,
       .dropdown-submenu:hover > a  {
@@ -146,7 +146,7 @@
       background: -o-linear-gradient(top,  #fcca5f 0%,#FBB829 100%); /* Opera 11.10+ */
       background: -ms-linear-gradient(top,  #fcca5f 0%,#FBB829 100%); /* IE10+ */
       background: linear-gradient(to bottom,  #fcca5f 0%,#FBB829 100%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcca5f', endColorstr='#FBB829',GradientType=0 ); /* IE6-8 */    
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcca5f', endColorstr='#FBB829',GradientType=0 ); /* IE6-8 */
       border-right:none;
       border-left:1px solid #fcca5f;
       box-shadow: -1px 0 0 0 rgba(0,0,0,.07) inset;
@@ -205,7 +205,7 @@
       background-color: #161616;
       }
       #feedback-link:hover{
-      background: #FBB829; 
+      background: #FBB829;
       }
       a,  .more-link a{
       color: #FBB829;
@@ -225,7 +225,7 @@
       margin-top: 12px;
       }
       #headerRight{
-      margin-top: 0px; 
+      margin-top: 0px;
       }
     </style>
     <!--[if lt IE 10]>
@@ -251,83 +251,45 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/layerslider.kreaturamedia.jquery.js"></script>
     <script type="text/javascript">
       (function ($) {
-      
         // color box
-      
         $(document).ready(function(){
-      
                 //Examples of how to assign the ColorBox event to elements
-      
                 $(".group1").colorbox({rel:'group1'});
-      
                 $(".group2").colorbox({rel:'group2', transition:"fade"});
-      
                 $(".group3").colorbox({rel:'group3', transition:"none", width:"75%", height:"75%"});
-      
                 $(".group4").colorbox({rel:'group4', slideshow:true});
-      
                 $(".ajax").colorbox();
-      
                 $(".youtube").colorbox({iframe:true, innerWidth:425, innerHeight:344});
-      
-                $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});        
-      
+                $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
               });
-      
       })(jQuery);
-      
-    </script>   
+    </script>
     <!--script executions -->
     <script type="text/javascript">
       (function ($) {
-      
           // portfolio hover effect
-      
           $(function(){
-      
             $('.ch-item').bind('hover', function(e){});
-      
           });
-      
-        })(jQuery);      
+        })(jQuery);
         (function ($) {
           //back to top
-      
           $(function() {
-      
             $(window).scroll(function() {
-      
               if($(this).scrollTop() > 300) {
-      
                 $('#toTop').fadeIn();
-      
-                $('#feedback-div').fadeIn();  
-      
+                $('#feedback-div').fadeIn();
               } else {
-      
                 $('#toTop').fadeOut();
-      
                 $('#feedback-div').fadeOut();
-      
               }
-      
             });
-      
-      
-      
             $('#toTop').click(function() {
-      
               $('body,html').animate({scrollTop:0},1000);
-      
-            }); 
-      
+            });
             fontSize("#fontRsz", "p,h2,h4,div", 9, 12, 20);
-      
           });
-      
         })(jQuery);
-      
-        
     </script>
     <script type="text/javascript">
       function fontSize(container, target, minSize, defSize, maxSize) {
@@ -335,14 +297,11 @@
         var maxCaption = "Make font size larger"; //title for largefont button
         var minCaption = "Make font size smaller"; //title for smallFont button
         var defCaption = "Make font size default"; //title for defaultFont button
-
         //Now we'll add the font size changer interface in container
-      
         smallFontHtml = "<a href='javascript:void(0);' class='smallFont' title='" + minCaption +"'></a> ";
         largeFontHtml = "<a href='javascript:void(0);' class='largeFont' title='" + maxCaption +"'></a> ";
         defFontHtml = "<a href='javascript:void(0);' class='defaultFont' title='" + defCaption +"'></a> ";
         $(container).html("Font Size :"+ defFontHtml+ largeFontHtml + smallFontHtml);
-      
         //Read cookie & sets the fontsize
         if ($.cookie != undefined) {
           var cookie = target.replace(/[#. ]/g,'');
@@ -352,7 +311,7 @@
           }
         }
         //on clicking small font button, font size is decreased by 1px
-        $(container + " .smallFont").click(function(){ 
+        $(container + " .smallFont").click(function(){
           curSize = parseInt($(target).css("font-size"));
           newSize = curSize - 1;
           if (newSize >= minSize) {
@@ -366,7 +325,6 @@
           }
           updatefontCookie(target, newSize); //sets the cookie
         });
-
         //on clicking default font size button, font size is reset
         $(container + " .defaultFont").click(function(){
           $(target).css('font-size', defSize);
@@ -374,7 +332,6 @@
           $(container + " .largeFont").removeClass("ldisabled");
           updatefontCookie(target, defSize);
         });
-      
         //on clicking large font size button, font size is incremented by 1 to the maximum limit
         $(container + " .largeFont").click(function(){
           curSize = parseInt($(target).css("font-size"));
@@ -390,7 +347,6 @@
           }
           updatefontCookie(target, newSize);
         });
-      
         function updatefontCookie(target, size) {
           if ($.cookie != undefined) { //If cookie plugin available, set a cookie
             var cookie = target.replace(/[#. ]/g,'');
@@ -535,7 +491,7 @@
                                       <li class="leaf"><a href="">Research & Reports</a><span class="menu-arrow"></span></li>
                                     </ul>
                                   </li>
-                                  <li class="last leaf"><a href="/contact_us/">Contact Us</a><span class="menu-arrow"></span></li>
+                                  <li class="last leaf"><a href="/contact-us/">Contact Us</a><span class="menu-arrow"></span></li>
                                 </ul>
                                 <select class="selectnav" id="selectnav1">
                                   <option value="">- Navigation -</option>
@@ -629,7 +585,7 @@
                                     <span class="menu-arrow"></span>
                                   </li>
                                   <li class="leaf"><a href="">SSC Projects</a><span class="menu-arrow"></span></li>
-                                  <li class="last leaf"><a href="/contact_us/">Contact Us</a><span class="menu-arrow"></span></li>
+                                  <li class="last leaf"><a href="/contact-us/">Contact Us</a><span class="menu-arrow"></span></li>
                                 </ul>
                               </div>
                             </div>
@@ -680,13 +636,9 @@
                           </ul>
                           <!--  <address style="font-size:13px;">
                             <a href="#"><strong>Twitter, Inc.</strong></a><br/>
-                            
                             795 Folsom Ave, Suite 600<br/>
-                            
                             San Francisco, CA 94107<br/>
-                            
                             <a href="mailto:#">contact@example.com</a>
-                            
                             </address>-->
                         </div>
                       </div>
@@ -763,10 +715,10 @@
                 <div class="region region-footer">
                   <div id="block-block-21" class="clearfix block block-block">
                     <div class="content"><a href="">Copyright © IT-ITeS SSC NASSCOM &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    </a>
-                      <a href=""> Terms &amp; Conditions</a> |  
-                      <a href="">Disclaimer</a> |   
-                      <a href="">Privacy Policy </a>|   
-                      <a href="">Security Policy</a> | 
+                      <a href=""> Terms &amp; Conditions</a> |
+                      <a href="">Disclaimer</a> |
+                      <a href="">Privacy Policy </a>|
+                      <a href="">Security Policy</a> |
                       <a href="">Site Map</a></div>
                   </div>
                 </div>
@@ -789,12 +741,12 @@
           jQuery('ul.sf-menu').superfish();
         });
       })(jQuery);
-    </script> 
+    </script>
     <!-- Bootstrap scripts -->
-    <script type="text/javascript"> 
+    <script type="text/javascript">
       (function ($) {
-        $(document).ready(function () {  
-          $("[rel=tooltip]").tooltip();  
+        $(document).ready(function () {
+          $("[rel=tooltip]").tooltip();
         });
         $('.carousel').carousel()
         $("a[rel=popover]").popover({html : true});

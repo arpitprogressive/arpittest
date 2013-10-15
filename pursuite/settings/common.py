@@ -167,6 +167,8 @@ INSTALLED_APPS = (
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 CMS_TEMPLATES = (
+    ('home.html', 'Home'),
+    ('contact.html', 'Contact'),
     ('article.html', 'Article'),
 )
 

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block styles %}
-    <!-- GOOGLE FONTS CSS --> 
+    <!-- GOOGLE FONTS CSS -->
     <style type="text/css">
       .view-display-id-home_portfolio .img-mask-hover,
       .view-display-id-portfolio2 .img-mask-hover,
@@ -22,14 +22,13 @@
       }
       #slider_container h1, #slider_container h2, #slider_container h3, #slider_container h4, #slider_container h5{
       font-family: PlayBold;
-      } 
+      }
       blockquote{
       font-family: 'PT Serif', serif;
       font-style: italic;
       }
     </style>
 {% endblock %}
-
 {% block content %}
 <div id="slider_container">
   <div class="row-fluid" >
@@ -43,17 +42,17 @@
             <h3 class="ls-s5 jsLink " style="slidedirection : right; slideoutdirection : right;  delayIn : 850;  top:200px; left:21px;  "> - Developing Tomorrow’s Workforce Today</h3>
             <h3 class="ls-s6 jsLink " style="slidedirection : right; slideoutdirection : right;  delayIn : 850;  top:230px; left:21px;  "> - Training Provider</h3>
             <h3 class="ls-s7 jsLink " style="slidedirection : right; slideoutdirection : right;  delayIn : 850;  top:260px; left:21px;  "> - Career Guidance</h3>
-            <img src="{{ STATIC_URL }}images/slides/vidtour.png" class="ls-s7 jsLink  " style="slidedirection:  bottom; slideoutdirection : bottom;  delayIn : 720;  top:300px; left:21px; "/>            
+            <img src="{{ STATIC_URL }}images/slides/vidtour.png" class="ls-s7 jsLink  " style="slidedirection:  bottom; slideoutdirection : bottom;  delayIn : 720;  top:300px; left:21px; "/>
           </div>
           <!-- SLIDE 2 -->
-          <div class="ls-layer banner-2" style="slidedelay: 6000; ">      
+          <div class="ls-layer banner-2" style="slidedelay: 6000; ">
             <h1 class="ls-s2 jsLink " style="slidedirection : left; slideoutdirection : left;  delayIn : 420;  left:17px; top:145px;"> From convocation to coronation - Guiding you <br>through every single step</h1>
             <a href=""  class="ls-s4 btn btn-large btn-theme " style="slidedirection:  bottom; slideoutdirection : bottom;  delayIn : 620;  top:322px; left:21px; ">Programs List </a>
           </div>
           <!-- SLIDE 3 -->
           <div class="ls-layer banner-3 black" style="slidedelay: 6000; ">
             <h1 class="ls-s1 jsLink " style="slidedirection : left; slideoutdirection : left;  delayIn : 400;  left:21px; top:100px;  "> Training that helps you meet industry <br>standards with precision</h1>
-            <a href=""  class="ls-s4 btn btn-theme btn-large " style="slidedirection:  bottom; slideoutdirection : bottom; durationin : 1500;  delayIn : 800;  top:250px; left:21px; ">Know More</a>             
+            <a href=""  class="ls-s4 btn btn-theme btn-large " style="slidedirection:  bottom; slideoutdirection : bottom; durationin : 1500;  delayIn : 800;  top:250px; left:21px; ">Know More</a>
           </div>
           <div class="ls-layer banner-1" style="slidedelay: 6000; ">
             <h1 class="ls-s1 jsLink" style="slidedirection : left; slideoutdirection : left;  delayIn : 400;  left:21px; top:150px;  ">Helping you select the right person for the job</h1>
@@ -84,9 +83,7 @@
               <div style="max-width: 920px; margin: auto;" class="alignCenter">
                 <!--<blockquote>
                   <p style="padding-bottom:14px;">"Nasscom is the premier organisation that represents and sets the tone for public policy for the Indian software industry."</p>
-                  
                   </blockquote>
-                  
                   -->
                 <blockquote>
                   <p style="padding-bottom:14px;"><img src="{{ STATIC_URL }}images/nasscom/careers-that-matter.png"></p>
@@ -121,7 +118,7 @@
                   <div class="row-fluid" style="position:relative !important;">
                     <!--row fluid starts-->
                     <div class="span6" style="text-align:right;">
-                      <span>I am a (n) </span> 
+                      <span>I am a (n) </span>
                       <span>
                         <select onchange="">
                           <option value="1">Select</option>
@@ -155,114 +152,61 @@
                         </div>
                       </div>
                     </div>
-                    <!--span six ends--> 
+                    <!--span six ends-->
                   </div>
                   <!--row fluid ends-->
                 </div>
                 <!--container fluid ends-->
                 <script type="text/javascript">
                   $("#search-block-form").submit(function(){
-                  
                    var searchVal= $("#home-search").val();
-                  
                    $("#search-block-form").attr("action","search/node/"+ searchVal);
-                  
                    $(this).submit();
-                  
                    return false;
-                  
                   });
-                  
-                  
-                  
                 </script>
                 <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                   <html xmlns="http://www.w3.org/1999/xhtml">
-                  
                   <head>
-                  
                   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                  
                   <title>Untitled Document</title>
-                  
                   <link rel="stylesheet" href="css/style1.css" type="text/css" media="screen"/>
-                  
-                  Combo Box JavaScript Code Starts 
-                  
+                  Combo Box JavaScript Code Starts
                   <script type="text/javascript" src="js/jquery.min.js"></script>
-                  
                   <script type="text/javascript" src="js/jquery.scrollablecombo.js"></script>
-                  
                   <script type="text/javascript">
-                  
                     $(function() {
-                  
-                      
-                  
                                   $("#search_block_form").keyup(function(event){
-                  
                                                  var key = event.keyCode || event.which;
-                  
                                                  if (key != 13){
-                  
                                                       alert("sds");
-                  
                                                  }
-                  
                                   });
-                  
                     });
-                  
                   </script>
-                  
-                  Combo Box JavaScript Code Ends        
-                  
+                  Combo Box JavaScript Code Ends
                   </head>
-                  
-                  
-                  
                   <body>
-                  
                   <div class="job-seeker-wrapper">
-                  
                     <div class="job-seeker-text">I am a (n)</div>
-                  
                     <select id="ui_element">
-                  
                           <option value="A" selected>Job Seeker/Student</option>
-                  
                           <option value="B">Training Provider</option>
-                  
                           <option value="C">Industry</option>
-                  
                           <option value="B">Government</option>
-                  
                           <option value="C">Oil & Gas</option>
-                  
                           <option value="B">Customer Service/ BPO/ KPO</option>
-                  
                           <option value="C">Finance & Accounts</option>
-                  
                           <option value="B">Marketing</option>
-                  
                           <option value="C">IT</option>
-                  
                           <option value="C">Oil & Gas</option>
-                  
                           <option value="B">Customer Service/ BPO/ KPO</option>
-                  
                           <option value="C">Finance & Accounts</option>
-                  
                           <option value="B">Marketing</option>
-                  
                           <option value="C">IT</option>
-                  
                       </select>
-                  
                   </div>
-                  
                   </body>
-                  
                   </html>-->
               </div>
             </div>
@@ -283,7 +227,7 @@
               </div>
               <div class="content">
                 <p><span class="icons-smashing pull-left" style="margin-right: 15px; margin-top:6px; margin-bottom:40px;"><img src="{{ STATIC_URL }}images/nasscom/work-together.png" alt=""> </span>
-                  Check out the upcoming events, workshops, and also the internship programs in the IT-ITeS industry. 
+                  Check out the upcoming events, workshops, and also the internship programs in the IT-ITeS industry.
                 </p>
                 <br>
                 <a href="/content/lets-grow-work-together" class="btn  btn-theme btn-small pull-right">Read more</a>
@@ -370,14 +314,12 @@
                 <div class="view view-portfolio view-id-portfolio view-display-id-home_portfolio view-dom-id-38b3d6ac1d4f6fcde163250b06c166ea">
                   <div class="view-content">
                     <!--
-                      Implementing portfolio effect 
-                      
-                      Credit: http://www.freshdesignweb.com/beautiful-image-hover-effects-with-jquery-css.html 
-                      
+                      Implementing portfolio effect
+                      Credit: http://www.freshdesignweb.com/beautiful-image-hover-effects-with-jquery-css.html
                       -->
                     <div class="portfolio-container">
                       <div class="views-row views-row-1 views-row-odd views-row-first">
-                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/career-information">Career Information </a></span>        
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/career-information">Career Information </a></span>
                         </div>
                         <div class="views-field views-field-body">
                           <div class="field-content">
@@ -385,14 +327,14 @@
                             <div class="FirstPara15"></div>
                           </div>
                         </div>
-                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>        
+                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>
                         </div>
                         <div class="views-field views-field-field-image">
                           <div class="field-content">
                             <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
-                              <a class="cboxElement" href="sites/default/files/styles/large/public/WorkforceInformation.jpeg" title="&lt;strong&gt;Career Information &lt;/strong&gt; - 
+                              <a class="cboxElement" href="sites/default/files/styles/large/public/WorkforceInformation.jpeg" title="&lt;strong&gt;Career Information &lt;/strong&gt; -
                                 List Of Subsector
-                                ... &lt;a class='label label-theme ' href='portfolio/career-information'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a> 
+                                ... &lt;a class='label label-theme ' href='portfolio/career-information'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a>
                               <a href="portfolio/career-information"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
                             </div>
                             <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
@@ -401,21 +343,21 @@
                         </div>
                       </div>
                       <div class="views-row views-row-2 views-row-even">
-                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/development-initiatives">Development Initiatives</a></span>        
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/development-initiatives">Development Initiatives</a></span>
                         </div>
                         <div class="views-field views-field-body">
                           <div class="field-content">
                             <p>Scaling, Quality &amp; Capacity List:</p>
                           </div>
                         </div>
-                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>        
+                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>
                         </div>
                         <div class="views-field views-field-field-image">
                           <div class="field-content">
                             <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
-                              <a class="cboxElement" href="sites/default/files/styles/large/public/DevelopmentInitiative.jpeg" title="&lt;strong&gt;Development Initiatives&lt;/strong&gt; - 
+                              <a class="cboxElement" href="sites/default/files/styles/large/public/DevelopmentInitiative.jpeg" title="&lt;strong&gt;Development Initiatives&lt;/strong&gt; -
                                 Scaling, Quality &amp; Capacity List:
-                                &lt;a class='label label-theme ' href='portfolio/development-initiatives'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a> 
+                                &lt;a class='label label-theme ' href='portfolio/development-initiatives'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a>
                               <a href="portfolio/development-initiatives"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
                             </div>
                             <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
@@ -424,20 +366,20 @@
                         </div>
                       </div>
                       <div class="views-row views-row-3 views-row-odd">
-                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/market-indicators">Market Indicators</a></span>        
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/market-indicators">Market Indicators</a></span>
                         </div>
                         <div class="views-field views-field-body">
                           <div class="field-content">
                             <p> Wondering about market trends?</p>
                           </div>
                         </div>
-                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>        
+                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>
                         </div>
                         <div class="views-field views-field-field-image">
                           <div class="field-content">
                             <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
                               <a class="cboxElement" href="sites/default/files/styles/large/public/WorkforceMarketIndicator.jpg" title="&lt;strong&gt;Market Indicators&lt;/strong&gt; -  Wondering about market trends?
-                                &lt;a class='label label-theme ' href='portfolio/market-indicators'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a> 
+                                &lt;a class='label label-theme ' href='portfolio/market-indicators'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a>
                               <a href="portfolio/market-indicators"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
                             </div>
                             <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
@@ -446,21 +388,21 @@
                         </div>
                       </div>
                       <div class="views-row views-row-4 views-row-even views-row-last" style="margin-right: 0px;">
-                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/research-reports">Research &amp; Reports</a></span>        
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/research-reports">Research &amp; Reports</a></span>
                         </div>
                         <div class="views-field views-field-body">
                           <div class="field-content">
                             Get industry facts &amp; figures!
                           </div>
                         </div>
-                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>        
+                        <div class="views-field views-field-created">        <span class="field-content">Apr 2013</span>
                         </div>
                         <div class="views-field views-field-field-image">
                           <div class="field-content">
                             <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
-                              <a class="cboxElement" href="sites/default/files/styles/large/public/added-soon.jpeg" title="&lt;strong&gt;Research &amp; Reports&lt;/strong&gt; - 
+                              <a class="cboxElement" href="sites/default/files/styles/large/public/added-soon.jpeg" title="&lt;strong&gt;Research &amp; Reports&lt;/strong&gt; -
                                 Get industry facts &amp; figures!
-                                &lt;a class='label label-theme ' href='portfolio/research-reports'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a> 
+                                &lt;a class='label label-theme ' href='portfolio/research-reports'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a>
                               <a href="portfolio/research-reports"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
                             </div>
                             <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
@@ -489,7 +431,7 @@
                   <div class="block-testimonial" style="position: absolute; top: 0px; z-index: 2; opacity: 0.295936; display: block;">
                     <!-- testimonail comment goes here- -->
                     <div class="review">
-                      "The economic complications and the inter-twined business environment today have made projecting the future, a rare art. Unlike in the past, it needs much more than just the knowledge of the present to envision the future. It needs greater foresight to not just project the future, 
+                      "The economic complications and the inter-twined business environment today have made projecting the future, a rare art. Unlike in the past, it needs much more than just the knowledge of the present to envision the future. It needs greater foresight to not just project the future,
                       <div class="notch"></div>
                     </div>
                     <div class="reviewer">
@@ -544,33 +486,18 @@
     </script>
     <!-- LAYER SLIDER SETTINGS -->
     <script type="text/javascript">
-      (function ($) { 
-      
+      (function ($) {
         $(document).ready(function() {
-      
           $('#layerslider').layerSlider({
-      
                     // Options should go here follwing the layer slider documentation syntax
-      
                     animateFirstLayer : true,
-      
                     skin              : 'fullwidth',
-      
                     skinsPath         : '{{ STATIC_URL }}css/',
-      
                     responsive : false,
-      
                     responsiveUnder : 1200,
-      
                     sublayerContainer : 1200,
-      
                   });
-      
-          
-      
         });
-      
       })(jQuery);
-      
     </script>
 {% endblock %}

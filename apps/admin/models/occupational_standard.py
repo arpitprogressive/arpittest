@@ -10,10 +10,12 @@ from django.db import models
 from django.contrib import admin
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from haystack import indexes
 
 from .validators import validate_os_code, validate_version
+import admin.common as common
 
-__all__ = ['OccupationalStandard']
+__all__ = ['OccupationalStandard', 'OccupationalStandardIndex']
 
 
 class OccupationalStandard(models.Model):
@@ -136,3 +138,65 @@ class OccupationalStandardAdmin(admin.ModelAdmin):
 
 
 admin.site.register(OccupationalStandard, OccupationalStandardAdmin)
+
+
+class OccupationalStandardIndex(indexes.SearchIndex, indexes.Indexable):
+    """
+    Occupational Standard Index for Haystack
+    """
+    text = indexes.CharField(document=True)
+    code = indexes.CharField(model_attr='code')
+    sector = indexes.CharField(model_attr='sector')
+    sub_sector = indexes.CharField(model_attr='sub_sector')
+    knowledge = indexes.CharField(model_attr='knowledge')
+    skills = indexes.CharField(model_attr='skills')
+    description = indexes.CharField(model_attr='description')
+    scope = indexes.CharField(model_attr='scope')
+    performace_criteria = indexes.CharField(model_attr='performace_criteria')
+
+    def get_model(self):
+        "Return model class for current index"
+        return OccupationalStandard
+
+    def index_queryset(self, using=None):
+        "Used when the entire index for model is updated."
+        return self.get_model().objects.filter(is_draft=False)
+
+    def prepare_sector(self, obj):
+        "Fetch sector name for indexing"
+        return obj.sector.name
+
+    def prepare_sub_sector(self, obj):
+        "Fetch sub sector name for indexing"
+        return obj.sub_sector.name
+
+    def prepare_description(self, obj):
+        "Fetch description and convert to plain text for indexing"
+        return common.html2text(obj.description)
+
+    def prepare_scope(self, obj):
+        "Fetch scope and convert to plain text for indexing"
+        return common.html2text(obj.scope)
+
+    def prepare_performace_criteria(self, obj):
+        "Fetch performace and convert to plain text for indexing"
+        return common.html2text(obj.performace_criteria)
+
+    def prepare_knowledge(self, obj):
+        "Fetch knowledge and convert to plain text for indexing"
+        return common.html2text(obj.knowledge)
+
+    def prepare_skills(self, obj):
+        "Fetch skills and convert to plain text for indexing"
+        return common.html2text(obj.skills)
+
+    def prepare_text(self, obj):
+        "Prepare primary document for search"
+        patrn = "{code}\n\n{description}\n\n{scope}\n\n{knowledge}\n\n{skills}"
+        return patrn.format(
+            code=obj.code,
+            description=common.html2text(obj.description),
+            scope=common.html2text(obj.scope),
+            knowledge=common.html2text(obj.knowledge),
+            skills=common.html2text(obj.skills),
+        )

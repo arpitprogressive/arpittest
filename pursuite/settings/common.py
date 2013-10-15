@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'menus',
     'south',
     'sekizai',
+    'haystack',
     'cms.plugins.file',
     'cms.plugins.flash',
     'cms.plugins.link',
@@ -175,3 +176,11 @@ CMS_TEMPLATES = (
 LANGUAGES = [
     ('en', 'English'),
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}

@@ -10,6 +10,8 @@
 from datetime import datetime
 
 from django.test import TestCase
+from django.core.management import call_command
+from haystack.query import SearchQuerySet
 from admin.models import OccupationalStandard, Sector, SubSector
 
 
@@ -60,3 +62,50 @@ class TestOccupationalStandard(TestCase):
             Test creation of record
         '''
         self.create_defaults()
+
+    def test_haystack(self):
+        '''
+            Test Haystack full-text search
+        '''
+        defaults = self.create_defaults()
+        sub_sector = defaults['sub_sector']
+        sector = defaults['sector']
+
+        OccupationalStandard.objects.create(
+            code="SSC/Q2602",
+            sector=sector,
+            sub_sector=sub_sector,
+            title="test title",
+            scope="test scope",
+            description="test description",
+            version="0.1",
+            drafted_on=datetime.today().date(),
+            last_reviewed_on=datetime.today().date(),
+            next_review_on=datetime.today().date(),
+            performace_criteria="test performance",
+            knowledge="test knowledge",
+            skills="test skills",
+            is_draft=False,
+        )
+
+        OccupationalStandard.objects.create(
+            code="SSC/Q2603",
+            sector=sector,
+            sub_sector=sub_sector,
+            title="test title with steroid",
+            scope="test scope with Python",
+            description="test description of superman",
+            version="0.1",
+            drafted_on=datetime.today().date(),
+            last_reviewed_on=datetime.today().date(),
+            next_review_on=datetime.today().date(),
+            performace_criteria="test performance with flash",
+            knowledge="test knowledge with xavior",
+            skills="test skills with superman",
+            is_draft=False,
+        )
+
+        call_command('rebuild_index', verbosity=1, interactive=False)
+        # check total number of records indexed (is_draft=False records)
+        self.assertEqual(len(SearchQuerySet().all()), 2)
+        self.assertEqual(len(SearchQuerySet().filter(content='superman')), 1)

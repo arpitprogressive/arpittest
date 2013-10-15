@@ -1,3 +1,4 @@
+{% load cms_tags sekizai_tags %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:og="http://ogp.me/ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" class="js js">
   <head profile="http://www.w3.org/1999/xhtml/vocab">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -399,6 +400,7 @@
       }
     </script>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/skin.css" type="text/css">
+    {% render_block "css" %}
   </head>
   <body class="html front not-logged-in no-sidebars page-home-portfolio i18n-en skifibody" id="skifiBody">
     <style>
@@ -801,5 +803,8 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
     <div id="cboxOverlay" style="display: none;"></div>
     {% block script %} {% endblock %}
+      {% placeholder base_content %}
+      {% block base_content%}{% endblock %}
+    {% render_block "js" %}
   </body>
 </html>

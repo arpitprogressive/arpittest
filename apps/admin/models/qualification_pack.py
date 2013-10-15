@@ -8,10 +8,11 @@
 from django.db import models
 from django.contrib import admin
 from django.contrib import messages
+from haystack import indexes
 
 from .validators import validate_qp_code, validate_version
 
-__all__ = ['QualificationPack']
+__all__ = ['QualificationPack', 'QualificationPackIndex']
 
 
 class QualificationPack(models.Model):
@@ -131,3 +132,57 @@ class QualificationPackAdmin(admin.ModelAdmin):
 
 
 admin.site.register(QualificationPack, QualificationPackAdmin)
+
+
+class QualificationPackIndex(indexes.SearchIndex, indexes.Indexable):
+    '''
+        Qualification Pack Index for Haystack
+    '''
+    text = indexes.CharField(document=True)
+    code = indexes.CharField(model_attr='code')
+    sector = indexes.CharField(model_attr='sector')
+    sub_sector = indexes.CharField(model_attr='sub_sector')
+    occupation = indexes.CharField(model_attr='occupation')
+    job_role = indexes.CharField(model_attr='job_role')
+    alias = indexes.CharField(model_attr='alias')
+    role_description = indexes.CharField(model_attr='role_description')
+    training = indexes.CharField(model_attr='training')
+    experience = indexes.CharField(model_attr='experience')
+    os_compulsory = indexes.CharField(model_attr='os_compulsory')
+    os_optional = indexes.CharField(model_attr='os_optional')
+
+    def get_model(self):
+        "Return model class for current index"
+        return QualificationPack
+
+    def index_queryset(self, using=None):
+        "Used when the entire index for model is updated."
+        return self.get_model().objects.filter(is_draft=False)
+
+    def prepare_sector(self, obj):
+        "Fetch sector name for indexing"
+        return obj.sector.name
+
+    def prepare_sub_sector(self, obj):
+        "Fetch sub sector name for indexing"
+        return obj.sub_sector.name
+
+    def prepare_os_compulsory(self, obj):
+        "Fetch os_compulsory name for indexing"
+        return "\n".join([f.title for f in obj.os_compulsory.all()])
+
+    def prepare_os_optional(self, obj):
+        "Fetch os_optional name for indexing"
+        return "\n".join([f.title for f in obj.os_optional.all()])
+
+    def prepare_text(self, obj):
+        "Prepare primary document for search"
+        pattern = ("{code}\n\n{occupation}\n\n{job_role}\n\n{role_description}"
+                "\n\n{alias}")
+        return pattern.format(
+            code=obj.code,
+            occupation=obj.occupation,
+            job_role=obj.job_role,
+            role_description=obj.role_description,
+            alias=obj.alias,
+        )

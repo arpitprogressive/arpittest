@@ -1,42 +1,5 @@
-{% extends "base.html" %}
-{% block content %}
-<div id="title-region">
-  <div class="WrapperWidth">
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="inner">
-          <h1 class="page-title">Contact Us</h1>
-          <!-- search box-->
-          <div id="searchFormSkifi">
-            <div class="region region-search-box">
-              <div id="block-search-form" class="clearfix block block-search">
-                <div class="content">
-                  <form class="form-search" method="post">
-                    <input type="text" class="input-small search-query" placeholder="search..">
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Content and Sidebar Area -->
-<div id="contentAndSidebars">
-  <!--content_region_title-->
-  <!-- breadcrumb-->
-  <div class="WrapperWidth">
-    <div class="row-fluid">
-      <div class="breadcrumb">
-        You are here:
-        <h2 class="element-invisible">You are here</h2>
-        <a href="/">Home</a> / Contact Us
-      </div>
-    </div>
-  </div>
-  <div class="WrapperWidth">
+{% extends "article.html" %}
+{% block article %}
     <div class="row-fluid">
       <div class="span12">
         <div id="contentArea" >
@@ -139,5 +102,4 @@
       </div>
     <!-- row2-Region -->
     </div>
-  </div>
 {% endblock %}

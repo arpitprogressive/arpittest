@@ -598,7 +598,9 @@
               </div>
             </div>
             <!-- HEADER -->
-            {% block content %}{% endblock %}
+            {% block content %}
+              {% cms_toolbar %}
+            {% endblock %}
             <!-- footer blocks -->
             <div id="FooterRegion">
               <div class="WrapperWidth">

@@ -1,7 +1,45 @@
 {% extends "base.html" %}
-{% load cms_tags %}
-{% cms_toolbar %}
+{% load cms_tags menu_tags %}
 {% block content %}
-  {% placeholder content %}
-  {% cms_toolbar %}
+  <!--Title region start-->
+  <div id="title-region">
+	  <div class="WrapperWidth">
+	    <div class="row-fluid">
+	      <div class="span12">
+	        <div class="inner">
+	          <h1 class="page-title">{% placeholder heading %}</h1>
+	          <!-- search box-->
+	          <div id="searchFormSkifi">
+	            <div class="region region-search-box">
+	              <div id="block-search-form" class="clearfix block block-search">
+	                <div class="content">
+	                  <form class="form-search" method="post">
+	                    <input type="text" class="input-small search-query" placeholder="search..">
+	                  </form>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+  <!--Title region ends-->
+  <!-- Content and Sidebar Region Start-->
+  <div id="contentAndSidebars">
+    <div class="container">
+      <!--breadcrumb starts here-->
+      <div class="row-fluid">
+        <ul class="breadcrumb">
+          {% show_breadcrumb %}
+        </ul>
+      </div>
+      <!-- breadcrumb ends here -->
+      {% block article %}
+        {% placeholder content %}
+      {% endblock %}
+    </div>
+  </div>
+  <!-- Content and Sidebar Region Ends  -->
 {% endblock %}

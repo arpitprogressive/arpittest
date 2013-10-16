@@ -3,28 +3,32 @@
 {% block content %}
   <!--Title region start-->
   <div id="title-region">
-	  <div class="WrapperWidth">
-	    <div class="row-fluid">
-	      <div class="span12">
-	        <div class="inner">
-	          <h1 class="page-title">{% placeholder heading %}</h1>
-	          <!-- search box-->
-	          <div id="searchFormSkifi">
-	            <div class="region region-search-box">
-	              <div id="block-search-form" class="clearfix block block-search">
-	                <div class="content">
-	                  <form class="form-search" method="post">
-	                    <input type="text" class="input-small search-query" placeholder="search..">
-	                  </form>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+    <div class="WrapperWidth">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="inner">
+            <h1 class="page-title">
+              {% placeholder heading or %}
+                {% page_attribute "page_title" %}
+              {% endplaceholder %}
+            </h1>
+            <!-- search box-->
+            <div id="searchFormSkifi">
+              <div class="region region-search-box">
+                <div id="block-search-form" class="clearfix block block-search">
+                  <div class="content">
+                    <form class="form-search" method="post">
+                      <input type="text" class="input-small search-query" placeholder="search..">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--Title region ends-->
   <!-- Content and Sidebar Region Start-->
   <div id="contentAndSidebars">

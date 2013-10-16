@@ -1,11 +1,11 @@
-{% load cms_tags sekizai_tags %}
+{% load cms_tags sekizai_tags menu_tags %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:og="http://ogp.me/ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" class="js js">
   <head profile="http://www.w3.org/1999/xhtml/vocab">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
     <link rel="shortcut icon" href="misc/favicon.ico" type="image/vnd.microsoft.icon">
-    <title>IT-ITeS Workforce Eco-system | SSC</title>
+    <title>{% page_attribute "page_title" %} | SSC</title>
     <style type="text/css" media="all">
       @import url("{{ STATIC_URL }}css/system.base.css");
       @import url("{{ STATIC_URL }}css/system.menus.css");
@@ -243,7 +243,6 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dd.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-easing-1.3.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.cycle.lite.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/selectnav.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/superfish.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jq.imgHover.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.colorbox-min.js"></script>
@@ -359,6 +358,7 @@
     {% render_block "css" %}
   </head>
   <body class="html front not-logged-in no-sidebars page-home-portfolio i18n-en skifibody" id="skifiBody">
+    {% cms_toolbar %}
     <style>
       .abc{padding-right:5px;}
       #contentAndSidebars
@@ -457,58 +457,11 @@
                             <div id="block-system-main-menu" class="clearfix block block-system block-menu">
                               <div class="content">
                                 <ul id="nav" class="sf-menu sf-js-enabled sf-shadow">
-                                  <li class="first leaf"><a href="/" title="" class="active">Home</a><span class="menu-arrow"></span></li>
-                                  <li class="expanded">
-                                    <a href="" title="" class="sf-with-ul">About us<span class="sf-sub-indicator"> »</span></a>
-                                    <ul id="nav" class="sf-menu sf-js-enabled sf-shadow" style="display: none; visibility: hidden;">
-                                      <li class="first expanded">
-                                        <a href="" class="sf-with-ul">SSC NASSCOM<span class="sf-sub-indicator"> »</span><span class="sf-sub-indicator"> »</span></a>
-                                        <ul id="nav" class="sf-menu sf-js-enabled sf-shadow" style="display: none; visibility: hidden;">
-                                          <li class="first leaf"><a href="">Vision / Mission</a><span class="menu-arrow"></span></li>
-                                          <li class="leaf"><a href="">Governing Council</a><span class="menu-arrow"></span></li>
-                                          <li class="leaf"><a href="">SSC Secretariat</a><span class="menu-arrow"></span></li>
-                                          <li class="last expanded">
-                                            <a href="" class="sf-with-ul">Projects<span class="sf-sub-indicator"> »</span><span class="sf-sub-indicator"> »</span><span class="sf-sub-indicator"> »</span></a>
-                                            <ul id="nav" class="sf-menu sf-js-enabled sf-shadow" style="display: none; visibility: hidden;">
-                                              <li class="first leaf"><a href="" title="">Projects</a><span class="menu-arrow"></span></li>
-                                              <li class="last leaf"><a href="" title="">Project Boards</a><span class="menu-arrow"></span></li>
-                                            </ul>
-                                            <span class="menu-arrow"></span>
-                                          </li>
-                                        </ul>
-                                        <span class="menu-arrow"></span>
-                                      </li>
-                                      <li class="leaf"><a href="">NASSCOM</a><span class="menu-arrow"></span></li>
-                                      <li class="last leaf"><a href="">NSDC</a><span class="menu-arrow"></span></li>
-                                    </ul>
-                                    <span class="menu-arrow"></span>
+                                  <li>
+                                    <a href="{% page_url 'home' %}" class="active">Home</a>
                                   </li>
-                                  <li class="expanded">
-                                    <a href="" title="" class="sf-with-ul">SSC Projects<span class="sf-sub-indicator"> »</span></a>
-                                    <ul id="nav" class="sf-menu sf-js-enabled sf-shadow" style="display: none; visibility: hidden;">
-                                      <li class="leaf"><a href="">Development Initiatives</a><span class="menu-arrow"></span></li>
-                                      <li class="leaf"><a href="">Market Indicators</a><span class="menu-arrow"></span></li>
-                                      <li class="leaf"><a href="">Research & Reports</a><span class="menu-arrow"></span></li>
-                                    </ul>
-                                  </li>
-                                  <li class="last leaf"><a href="/contact-us/">Contact Us</a><span class="menu-arrow"></span></li>
+                                  {% show_menu_below_id "home" %}
                                 </ul>
-                                <select class="selectnav" id="selectnav1">
-                                  <option value="">- Navigation -</option>
-                                  <option value="" selected="">HOME</option>
-                                  <option value="">ABOUT US</option>
-                                  <option value="">→ SSC NASSCOM</option>
-                                  <option value="">→→ Vision / Mission</option>
-                                  <option value="">→→ Governing Council</option>
-                                  <option value="">→→ SSC Secretariat</option>
-                                  <option value="">→→ Projects</option>
-                                  <option value="">→→→ Projects</option>
-                                  <option value="">→→→ Project Boards</option>
-                                  <option value="">→ NASSCOM</option>
-                                  <option value="">→ NSDC</option>
-                                  <option value="">SSC PROJECTS</option>
-                                  <option value="">CONTACT US</option>
-                                </select>
                               </div>
                             </div>
                           </div>
@@ -531,61 +484,13 @@
                       <div id="StickyMainMenu">
                         <div class="region region-main-menu">
                           <div class="region region-main-menu">
-                            <div id="block-lang-dropdown-language" class="clearfix block block-lang-dropdown">
-                              <div class="content">
-                                <form action="/" method="post" id="lang-dropdown-form" accept-charset="UTF-8">
-                                  <div>
-                                    <div class="form-item form-type-select form-item-lang-dropdown-select">
-                                      <select style="width:95px" class="lang-dropdown-select-element form-select" id="edit-lang-dropdown-select" name="lang_dropdown_select">
-                                        <option value="en" selected="selected">English</option>
-                                        <option value="hi">हिन्दी</option>
-                                      </select>
-                                    </div>
-                                    <input type="hidden" name="lang_dropdown_type" value="language">
-                                    <input type="hidden" name="en" value="/">
-                                    <input type="hidden" name="hi" value="/hi">
-                                    <noscript>&lt;div&gt;
-                                      &lt;input class=" btn  form-submit" type="submit" id="edit-submit--2" name="op" value="Go" /&gt;
-                                      &lt;/div&gt;
-                                    </noscript>
-                                    <input type="hidden" name="form_build_id" value="form-EhC7FD7z1-xWpXLAX-3snLCHlQ1rQIW_Rm_Kg2UM5Tw">
-                                    <input type="hidden" name="form_id" value="lang_dropdown_form">
-                                  </div>
-                                </form>
-                                <div style="clear:both;"></div>
-                              </div>
-                            </div>
                             <div id="block-system-main-menu--2" class="clearfix block block-system block-menu">
                               <div class="content">
                                 <ul id="nav" class="sf-menu sf-js-enabled sf-shadow">
-                                  <li class="first leaf"><a href="" title="" class="active">Home</a><span class="menu-arrow"></span></li>
-                                  <li class="expanded">
-                                    <a href="" title="" class="sf-with-ul">About us<span class="sf-sub-indicator"> »</span></a>
-                                    <ul id="nav" class="sf-menu sf-js-enabled sf-shadow" style="display: none; visibility: hidden;">
-                                      <li class="first expanded">
-                                        <a href="" class="sf-with-ul">SSC NASSCOM<span class="sf-sub-indicator"> »</span><span class="sf-sub-indicator"> »</span></a>
-                                        <ul id="nav" class="sf-menu sf-js-enabled sf-shadow" style="display: none; visibility: hidden;">
-                                          <li class="first leaf"><a href="">Vision / Mission</a><span class="menu-arrow"></span></li>
-                                          <li class="leaf"><a href="">Governing Council</a><span class="menu-arrow"></span></li>
-                                          <li class="leaf"><a href="">SSC Secretariat</a><span class="menu-arrow"></span></li>
-                                          <li class="last expanded">
-                                            <a href="" class="sf-with-ul">Projects<span class="sf-sub-indicator"> »</span><span class="sf-sub-indicator"> »</span><span class="sf-sub-indicator"> »</span></a>
-                                            <ul id="nav" class="sf-menu sf-js-enabled sf-shadow" style="display: none; visibility: hidden;">
-                                              <li class="first leaf"><a href="" title="">Projects</a><span class="menu-arrow"></span></li>
-                                              <li class="last leaf"><a href="" title="">Project Boards</a><span class="menu-arrow"></span></li>
-                                            </ul>
-                                            <span class="menu-arrow"></span>
-                                          </li>
-                                        </ul>
-                                        <span class="menu-arrow"></span>
-                                      </li>
-                                      <li class="leaf"><a href="">NASSCOM</a><span class="menu-arrow"></span></li>
-                                      <li class="last leaf"><a href="">NSDC</a><span class="menu-arrow"></span></li>
-                                    </ul>
-                                    <span class="menu-arrow"></span>
+                                  <li>
+                                    <a href="{% page_url 'home' %}" class="active">Home</a>
                                   </li>
-                                  <li class="leaf"><a href="">SSC Projects</a><span class="menu-arrow"></span></li>
-                                  <li class="last leaf"><a href="/contact-us/">Contact Us</a><span class="menu-arrow"></span></li>
+                                  {% show_menu_below_id "home" %}
                                 </ul>
                               </div>
                             </div>
@@ -599,7 +504,6 @@
             </div>
             <!-- HEADER -->
             {% block content %}
-              {% cms_toolbar %}
             {% endblock %}
             <!-- footer blocks -->
             <div id="FooterRegion">
@@ -757,8 +661,6 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
     <div id="cboxOverlay" style="display: none;"></div>
     {% block script %} {% endblock %}
-      {% placeholder base_content %}
-      {% block base_content%}{% endblock %}
     {% render_block "js" %}
   </body>
 </html>

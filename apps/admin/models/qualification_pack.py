@@ -59,6 +59,7 @@ class QualificationPack(models.Model):
         'OccupationalStandard', related_name='os_optional',
         verbose_name='Occupational Standard (Optional)', null=True, blank=True,
     )
+    attachment = models.FileField(upload_to='qp_attachments')
 
     drafted_on = models.DateTimeField(auto_now_add=True)
     last_reviewed_on = models.DateTimeField(auto_now=True)  # Write date

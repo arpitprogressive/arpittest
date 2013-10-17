@@ -464,40 +464,67 @@
     </div>
   </div>
   <!-- under content region -->
+  <!--Training Providers and Partners -->
+  <section class="sponsors-img">
+  <div class="container">
+    <div class="row-fluid partners">
+      <ul class="inline center">
+        <li>
+          <img src="{{ STATIC_URL }}images/partners/accenture.png">
+        </li>
+        <li>
+          <img src="{{ STATIC_URL }}images/partners/infosys.png">
+        </li>
+        <li>
+          <img src="{{ STATIC_URL }}images/partners/niit.png">
+        </li>
+        <li>
+          <img src="{{ STATIC_URL }}images/partners/tcs.png">
+        </li>
+        <li>
+          <img src="{{ STATIC_URL }}images/partners/accenture.png">
+        </li>
+        <li>
+          <img src="{{ STATIC_URL }}images/partners/openlabslogo.png">
+        </li>
+      </ul>
+    </div>
+  </div>
+  </section>
 </div>
 {% endblock %}
 {% block script %}
-    <script>
-      $('a.student-text').bind('mouseover', function() {
-        $('#social-tagline').text('Student');
-      })
-      $('a.job-seeker').bind('mouseover', function() {
-        $('#social-tagline').text('Job Seekers');
-      })
-      $('a.training').bind('mouseover', function() {
-        $('#social-tagline').text('Training Provider');
-      })
-      $('a.industry').bind('mouseover', function() {
-        $('#social-tagline').text('Industry');
-      })
-      $('a.government').bind('mouseover', function() {
-        $('#social-tagline').text('Government');
-      })
-    </script>
-    <!-- LAYER SLIDER SETTINGS -->
-    <script type="text/javascript">
-      (function ($) {
-        $(document).ready(function() {
-          $('#layerslider').layerSlider({
-                    // Options should go here follwing the layer slider documentation syntax
-                    animateFirstLayer : true,
-                    skin              : 'fullwidth',
-                    skinsPath         : '{{ STATIC_URL }}css/',
-                    responsive : false,
-                    responsiveUnder : 1200,
-                    sublayerContainer : 1200,
-                  });
+  <script>
+    $('a.student-text').bind('mouseover', function() {
+      $('#social-tagline').text('Student');
+    })
+    $('a.job-seeker').bind('mouseover', function() {
+      $('#social-tagline').text('Job Seekers');
+    })
+    $('a.training').bind('mouseover', function() {
+      $('#social-tagline').text('Training Provider');
+    })
+    $('a.industry').bind('mouseover', function() {
+      $('#social-tagline').text('Industry');
+    })
+    $('a.government').bind('mouseover', function() {
+      $('#social-tagline').text('Government');
+    })
+  </script>
+  <!-- LAYER SLIDER SETTINGS -->
+  <script type="text/javascript">
+    (function ($) {
+      $(document).ready(function() {
+        $('#layerslider').layerSlider({
+          // Options should go here follwing the layer slider documentation syntax
+          animateFirstLayer : true,
+          skin              : 'fullwidth',
+          skinsPath         : '{{ STATIC_URL }}css/',
+          responsive : false,
+          responsiveUnder : 1200,
+          sublayerContainer : 1200,
         });
-      })(jQuery);
-    </script>
+      });
+    })(jQuery);
+  </script>
 {% endblock %}

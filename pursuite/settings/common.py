@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'south',
     'sekizai',
     'haystack',
+    'cmsindex',
     'cms.plugins.file',
     'cms.plugins.flash',
     'cms.plugins.link',
@@ -178,8 +179,6 @@ CMS_TEMPLATES = (
 LANGUAGES = [
     ('en', 'English'),
 ]
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 HAYSTACK_CONNECTIONS = {
     'default': {

@@ -172,6 +172,7 @@ CMS_TEMPLATES = (
     ('contact.html', 'Contact'),
     ('article.html', 'Article'),
     ('inner-article.html', 'Inner Article'),
+    ('register.html', 'Login/Register'),
 )
 
 LANGUAGES = [

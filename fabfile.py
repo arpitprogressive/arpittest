@@ -44,7 +44,7 @@ def notify_hipchat(
 
 
 @hosts('%s@pursuite.openlabs.us' % getpass.getuser())
-def deploy_staging(schema_update=False):
+def deploy_staging(schema_update=False, migrate=False):
     "Deploy to staging"
     notify_hipchat("Beginning deployment", from_="Staging")
     root_path = '/opt/pursuite'
@@ -59,9 +59,15 @@ def deploy_staging(schema_update=False):
 
                 manage = 'python manage.py '
                 settings = '--settings="pursuite.settings.staging" '
-                run(manage + ' collectstatic ' + settings)
+                run(manage + ' collectstatic --noinput ' + settings)
+
                 if schema_update:
+                    notify_hipchat("Running syncdb", from_="Staging")
                     run(manage + ' syncdb ' + settings)
+
+                if migrate:
+                    notify_hipchat("Running migrate", from_="Staging")
+                    run(manage + ' migrate ' + settings)
 
             notify_hipchat("Restarting services", from_="Staging")
             sudo('bin/supervisorctl restart all')

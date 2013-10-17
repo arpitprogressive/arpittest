@@ -1,10 +1,15 @@
 from django.conf import settings
 from django.conf.urls import patterns, url, include
 from django.conf.urls.static import static
+from haystack.views import FacetedSearchView
+from haystack.forms import FacetedSearchForm
+from haystack.query import SearchQuerySet
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+
+sqs = SearchQuerySet().facet('model_type').facet('sector').facet('sub_sector')
 
 urlpatterns = patterns(
     '',
@@ -19,6 +24,11 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^account/', include('allauth.urls')),
+    url(r'^search/$', FacetedSearchView(
+        form_class=FacetedSearchForm,
+        template='search-result.html',
+        searchqueryset=sqs,
+        results_per_page=10,
+        ), name='haystack_search'),
     url(r'^', include('cms.urls')),
-    url(r'^search/', include('haystack.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

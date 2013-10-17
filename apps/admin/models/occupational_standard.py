@@ -53,6 +53,7 @@ class OccupationalStandard(models.Model):
     performace_criteria = HTMLField(default=None)
     knowledge = HTMLField(default=None)
     skills = HTMLField(default=None)
+    attachment = models.FileField(upload_to='os_attachments')
 
     drafted_on = models.DateTimeField(auto_now_add=True)
     last_reviewed_on = models.DateTimeField(auto_now=True)  # Write date

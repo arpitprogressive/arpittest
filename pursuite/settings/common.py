@@ -163,6 +163,7 @@ INSTALLED_APPS = (
     'djangocms_admin_style',
     'django.contrib.admin',
     'raven.contrib.django.raven_compat',
+    'south',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

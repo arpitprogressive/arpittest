@@ -28,5 +28,6 @@ setup(
         'pyelasticsearch',
         'html2text',
         'sphinx',
+        'raven',
     ],
 )

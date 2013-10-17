@@ -49,3 +49,10 @@ LOGGING = {
         },
     }
 }
+
+# Raven configuration
+# Set your DSN value
+RAVEN_CONFIG = {
+    'dsn': 'http://e542381309e640bebb79ae26123e52e5:' + \
+            '85869376ce9143a699ed05d07b552059@sentry.openlabs.co.in/22',
+}

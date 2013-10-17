@@ -162,6 +162,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'djangocms_admin_style',
     'django.contrib.admin',
+    'raven.contrib.django.raven_compat',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

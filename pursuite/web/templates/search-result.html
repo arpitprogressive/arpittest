@@ -1,0 +1,108 @@
+{% extends "article.html" %}
+{% block article %}
+<div class="row-fluid">
+  <div class="span3">
+    <div class="accordion" id="filter-by-profile">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#filter-by-profile" href="#collapseOne">
+            Filter By
+          </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            <form>
+              <label class="checkbox">
+                <input type="checkbox">Student & Job Seeker
+              </label>
+              <label class="checkbox">
+                <input type="checkbox">Training Provider
+              </label>
+              <label class="checkbox">
+                <input type="checkbox">Industry
+              </label>
+              <label class="checkbox">
+                <input type="checkbox">Government
+              </label>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion" id="filter-by-sectors">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#filter-by-sectors" href="#collapseTwo">
+            Sectors
+          </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            <form>
+              <label class="checkbox">
+                <input type="checkbox">Sector 1
+              </label>
+              <label class="checkbox">
+                <input type="checkbox">Sector 2
+              </label>
+              <label class="checkbox">
+                <input type="checkbox">Sector 3
+              </label>
+              <label class="checkbox">
+                <input type="checkbox">Sector 4
+              </label>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Search Result Pane-->
+  <div class="span9">
+    <div class="row-fluid">
+      <!--Searched term -->
+      <form>
+        <div class="input-append">
+          <input id="appendedInputButton" class="input-xlarge" type="text" value="NASSCOM">
+          <button class="btn" type="button"><i class="icon-search"></i></button>
+        </div>
+      </form>
+      <h4 class="searched-query">"NASSCOM"</h4>
+    </div>
+    <div class="row-fluid">
+      <!-- Search Object -->
+      <div class="media">
+        <div class="media-body">
+          <a href=""><h4 class="media-heading">Search result name one</h4></a>
+          <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+            Cras purus odio, vestibulum in vulputate at</p>
+        </div>
+      </div>
+      <div class="media">
+        <div class="media-body">
+          <a href=""><h4 class="media-heading">Search result name two</h4></a>
+          <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+            Cras purus odio, vestibulum in vulputate at</p>
+        </div>
+      </div>
+      <div class="media">
+        <div class="media-body">
+          <a href=""><h4 class="media-heading">Search result name three</h4></a>
+          <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+            Cras purus odio, vestibulum in vulputate at</p>
+        </div>
+      </div>
+      <!--Pagination -->
+      <div class="pagination pull-right">
+        <ul>
+          <li><a href="#">Prev</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </div>     
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -410,7 +410,7 @@ margin-top:15px !important;
 	display: none;
 }
 .breadcrumb {
-	font-size: 11px;
+	font-size: 15px;
 	color: #8f8f8f;
 	background: none;
 	padding: 6px 0;
@@ -2341,6 +2341,9 @@ h1.black{
 form input{
   min-height: 30px;
 }
+.input-append .btn{
+  height: 30px;
+}
 .seperator{
   display: inline-block;
   position: relative;
@@ -2382,4 +2385,13 @@ p.register-main span{
   padding-bottom: 5px;
   display: inline-block;
   border-bottom: 1px solid #eee;
+}
+.media a{
+  color: #333;
+}
+.pagination a{
+  color: #333;
+}
+.searched-query{
+  margin: -15px 0 20px 0;
 }

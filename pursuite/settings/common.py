@@ -178,6 +178,19 @@ CMS_TEMPLATES = (
     ('register.html', 'Login/Register'),
 )
 
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "advanced",
+    'theme_advanced_toolbar_location' : "top",
+    'plugins': "table,spellchecker,contextmenu",
+    'theme_advanced_buttons1': "bold,italic,underline,separator,bullist,\
+        separator,outdent,indent,separator,undo,redo,table,image,link,\
+        spellchecker",
+    'width': 900,
+    'height': 300,
+    'resize': "both",
+    'contextmenu': "link image inserttable | cell row column deletetable",
+}
+
 LANGUAGES = [
     ('en', 'English'),
 ]

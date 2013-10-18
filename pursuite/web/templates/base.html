@@ -514,16 +514,25 @@
                     <div class="region region-footer1">
                       <div id="block-twitter-profile-widget-0" class="clearfix block block-twitter-profile-widget">
                         <div class="titlecontainer">
-                          <h4 class="blocktitle">Social</h4>
+                          <h4 class="blocktitle">Connect with us</h4>
+                        </div>
+                        <div class="content social-sprite">
+                          <!-- icons -->
+                          <a href="https://www.facebook.com/NASSCOMOfficial"><span class="icon-picon-facebook"></span></a> &nbsp; &nbsp;
+                          <a href="http://twitter.com/nasscom"><span class="icon-picon-twitter"></span></a> &nbsp; &nbsp;
+                          <a href="http://www.linkedin.com/company/nasscom"><span class="icon-picon-linkedin"></span></a>  &nbsp; &nbsp;
+                          <a href="https://plus.google.com/105749156768692050803/posts"><span class="icon-picon-gplus"></span></a> &nbsp; &nbsp;
+                          <a href="https://www.youtube.com/user/NASSCOMVideos"><span class="icon-picon-youtube"></span></a> &nbsp; &nbsp;
                         </div>
                         <div class="content">
-                          <div class="twitter_profile_widget">
-                            <img src="{{ STATIC_URL }}images/twitter_icon.png"><a href="http://twitter.com/nasscom"> Follow us on twitter</a><br><br>
-                            <img src="{{ STATIC_URL }}images/facebook.png"><a href="https://www.facebook.com/NASSCOMOfficial"> Facebook </a><br><br>
-                            <img src="{{ STATIC_URL }}images/linkedin.png"><a href="http://www.linkedin.com/company/nasscom"> LinkedIn </a><br><br>
-                            <img src="{{ STATIC_URL }}images/google+.png"><a href="https://plus.google.com/105749156768692050803/posts"> Google Plus + </a><br><br>
-                            <img src="{{ STATIC_URL }}images/youtube.png"><a href="https://www.youtube.com/user/NASSCOMVideos"> YouTube </a><br><br>
-                          </div>
+                          <ul>
+                            {% show_menu_below_id "lists" %}
+                          </ul>
+                        </div>
+                        <div class="content">
+                          <br>
+                          <br>
+                          <a href="{% page_url "advertise-with-us" %}" class="btn btn-theme">Advertise With Us</a>
                         </div>
                       </div>
                     </div>

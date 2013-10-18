@@ -1962,7 +1962,7 @@ ul.tabs a {
   *margin-right: .3em;
   line-height: 32px;
   vertical-align: text-top;
-  background-image: url("../images/icons/picons/picons-orange.png");
+  background-image: url("../images/picons/picons-orange.png");
   background-position:32px 32px;
   background-repeat: no-repeat;
   margin-top: 1px;
@@ -2007,7 +2007,7 @@ ul.tabs a {
     background-position:-384px 0px;
 }
 .icon-picon-linkedin{
-    background: url(../images/teacher.png);
+    background-position:-416px 0px;
 }
 .icon-picon-vimeo{
     background-position:-448px 0px;
@@ -2424,6 +2424,6 @@ p.register-main span{
 .searched-query{
   margin: -15px 0 20px 0;
 }
-.social-container a [class^="icon-"], a [class*=" icon-"] {
+.social-container a [class^="icon-"], a [class*=" icon-"],.social-sprite a [class^="icon-"],.social-sprite  a [class*=" icon-"]{
 display: inline-block;
 }

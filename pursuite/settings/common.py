@@ -182,8 +182,12 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
     'theme_advanced_toolbar_location' : "top",
     'plugins': "table,spellchecker,contextmenu",
-    'theme_advanced_buttons1': "bold,italic,underline,separator,bullist,\
-        separator,outdent,indent,separator,undo,redo,table,image,link,\
+    'theme_advanced_buttons1': "bold,italic,underline,strikethrough,separator,\
+        styleselect,formatselect,fontselect,fontsizeselect",
+    'theme_advanced_buttons2': "cut,copy,paste,separator,bullist,numlist,\
+        separator,outdent,indent,blockquote,separator,undo,redo,separator,\
+        table,link,unlink,anchor,image,code,separator,forecolor,backcolor,\
+        separator,hr,removeformat,separator,charmap,fullscreen,separator,\
         spellchecker",
     'width': 900,
     'height': 300,

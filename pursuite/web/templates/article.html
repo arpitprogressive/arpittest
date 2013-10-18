@@ -8,9 +8,11 @@
         <div class="span12">
           <div class="inner">
             <h1 class="page-title">
+            {% block heading %}
               {% placeholder heading or %}
                 {% page_attribute "page_title" %}
               {% endplaceholder %}
+            {% endblock %}
             </h1>
             <!-- search box-->
             <div id="searchFormSkifi">

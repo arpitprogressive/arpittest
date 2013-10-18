@@ -108,6 +108,8 @@ TEMPLATE_CONTEXT_PROCESSORS = {
     "django.core.context_processors.request",
     'cms.context_processors.media',
     'sekizai.context_processors.sekizai',
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
 }
 
 MIDDLEWARE_CLASSES = (
@@ -122,6 +124,14 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # allauth specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 ROOT_URLCONF = 'pursuite.urls'
@@ -155,6 +165,13 @@ INSTALLED_APPS = (
     'cms.plugins.video',
     'cms.plugins.text',
     'django.contrib.auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.linkedin',
+    'allauth.socialaccount.providers.twitter',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -176,7 +193,6 @@ CMS_TEMPLATES = (
     ('article.html', 'Article'),
     ('inner-article.html', 'Inner Article'),
     ('inner-article-with-box.html', 'Inner Article With Box'),
-    ('register.html', 'Login/Register'),
 )
 
 TINYMCE_DEFAULT_CONFIG = {
@@ -207,3 +223,15 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'haystack',
     },
 }
+
+# Email Settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = ''
+EMAIL_PORT = 0
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+
+# django-all-auth Settings
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True

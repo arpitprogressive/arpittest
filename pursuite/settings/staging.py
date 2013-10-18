@@ -9,6 +9,7 @@
 from common import *
 
 STATIC_ROOT = '/opt/pursuite/www/static'
+MEDIA_ROOT = '/opt/pursuite/www/media'
 ALLOWED_HOSTS = ['pursuite.openlabs.us']
 DATABASES = {
     'default': {

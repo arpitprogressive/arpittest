@@ -2424,3 +2424,6 @@ p.register-main span{
 .searched-query{
   margin: -15px 0 20px 0;
 }
+.social-container a [class^="icon-"], a [class*=" icon-"] {
+display: inline-block;
+}

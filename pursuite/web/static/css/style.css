@@ -2427,3 +2427,52 @@ p.register-main span{
 .social-container a [class^="icon-"], a [class*=" icon-"],.social-sprite a [class^="icon-"],.social-sprite  a [class*=" icon-"]{
 display: inline-block;
 }
+.well-small{
+  background-color: #f5f5f5;
+  border: 1px solid #d8d8d8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.home-search{
+  margin: 30px 0;
+}
+.home-search form{
+  margin-bottom:0;
+}
+.home-search .input-append{
+  margin-bottom: 0;
+}
+.home-search form input, .home-search form .btn{
+  height: 40px;
+}
+.home-search form {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+.home-search form input[type=text] {
+  float: left;
+  font-size: 19px;
+  line-height: 24px;
+  width: 95%;
+  margin-bottom: 0;
+  -webkit-border-radius: 6px 0 0 6px;
+  -moz-border-radius: 6px 0 0 6px;
+  border-radius: 6px 0 0 6px;
+  border-right: 0;
+}
+.home-search form .btn{
+  height: 40px;
+}
+.home-search form button{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 46px;
+  height: 40px;
+  -webkit-border-radius: 0 6px 6px 0;
+  -moz-border-radius: 0 6px 6px 0;
+  border-radius: 0 6px 6px 0;
+}

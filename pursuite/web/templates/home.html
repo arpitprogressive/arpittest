@@ -106,112 +106,14 @@
 </div>
 <!--Dark highlighted region-->
 <!-- row1-Region -->
-<div id="row1-Region">
-  <div id="row1-FullSpan">
-    <div class="WrapperWidth">
-      <div class="row-fluid">
-        <div class="span12">
-          <div class="region region-row1-full-span">
-            <div id="block-block-23" class="clearfix block block-block">
-              <div class="content">
-                <div class="container-fluid">
-                  <div class="row-fluid" style="position:relative !important;">
-                    <!--row fluid starts-->
-                    <div class="span6" style="text-align:right;">
-                      <span>I am a (n) </span>
-                      <span>
-                        <select onchange="">
-                          <option value="1">Select</option>
-                          <option value=""> Students </option>
-                          <option value="">Job Seekers</option>
-                          <option value="">Training Provider</option>
-                          <option value="">Industry</option>
-                          <option value="">Government</option>
-                        </select>
-                      </span>
-                    </div>
-                    <!--span six ends-->
-                    <div class="span6">
-                      <div id="searchFormSkifi" style="top:0px; right:inherit; position:relative;">
-                        <div class="region region-search-box">
-                          <div id="block-search-form" class="clearfix block block-search">
-                            <div class="content">
-                              <form method="post" id="search-block-form" accept-charset="UTF-8" novalidate="novalidate">
-                                <div>
-                                  <div class="container-inline">
-                                    <div class="form-item form-type-textfield form-item-search-block-form">
-                                      <label class="element-invisible" for="edit-search-block-form--2">Search </label>
-                                      <input title="Enter the terms you wish to search for." type="text" id="home-search" name="search_block_form" value="search..." onblur="setTimeout('closeResults()',2000); if (this.value == '') {this.value = '';}" onfocus="if (this.value == 'search...') {this.value = '';}" size="15" maxlength="210" class="form-text" style="width:210px; border-radius:0px; height:25px; min-width:210px !important;">
-                                    </div>
-                                    <input id="search-submit-topbar" type="image" src="{{ STATIC_URL }}images/search.png" style="right:inherit; top:8px; left:195px;">
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--span six ends-->
-                  </div>
-                  <!--row fluid ends-->
-                </div>
-                <!--container fluid ends-->
-                <script type="text/javascript">
-                  $("#search-block-form").submit(function(){
-                   var searchVal= $("#home-search").val();
-                   $("#search-block-form").attr("action","search/node/"+ searchVal);
-                   $(this).submit();
-                   return false;
-                  });
-                </script>
-                <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-                  <html xmlns="http://www.w3.org/1999/xhtml">
-                  <head>
-                  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                  <title>Untitled Document</title>
-                  <link rel="stylesheet" href="css/style1.css" type="text/css" media="screen"/>
-                  Combo Box JavaScript Code Starts
-                  <script type="text/javascript" src="js/jquery.min.js"></script>
-                  <script type="text/javascript" src="js/jquery.scrollablecombo.js"></script>
-                  <script type="text/javascript">
-                    $(function() {
-                                  $("#search_block_form").keyup(function(event){
-                                                 var key = event.keyCode || event.which;
-                                                 if (key != 13){
-                                                      alert("sds");
-                                                 }
-                                  });
-                    });
-                  </script>
-                  Combo Box JavaScript Code Ends
-                  </head>
-                  <body>
-                  <div class="job-seeker-wrapper">
-                    <div class="job-seeker-text">I am a (n)</div>
-                    <select id="ui_element">
-                          <option value="A" selected>Job Seeker/Student</option>
-                          <option value="B">Training Provider</option>
-                          <option value="C">Industry</option>
-                          <option value="B">Government</option>
-                          <option value="C">Oil & Gas</option>
-                          <option value="B">Customer Service/ BPO/ KPO</option>
-                          <option value="C">Finance & Accounts</option>
-                          <option value="B">Marketing</option>
-                          <option value="C">IT</option>
-                          <option value="C">Oil & Gas</option>
-                          <option value="B">Customer Service/ BPO/ KPO</option>
-                          <option value="C">Finance & Accounts</option>
-                          <option value="B">Marketing</option>
-                          <option value="C">IT</option>
-                      </select>
-                  </div>
-                  </body>
-                  </html>-->
-              </div>
-            </div>
-          </div>
-        </div>
+<div id="row1-Region">l
+  <div class="WrapperWidth">
+    <div class="row-fluid home-search">
+      <div class="span8 offset2 well well-small">
+        <form>
+            <input type="text" placeholder="Search trainings, jobs here..">
+            <button class="btn btn-theme" type="button"><i class="icon-search"></i></button>
+        </form>        
       </div>
     </div>
   </div>

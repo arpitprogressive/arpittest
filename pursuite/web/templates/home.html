@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load cms_tags %}
 {% block styles %}
     <!-- GOOGLE FONTS CSS -->
     <style type="text/css">
@@ -128,7 +129,7 @@
                   Check out the upcoming events, workshops, and also the internship programs in the IT-ITeS industry.
                 </p>
                 <br>
-                <a href="/content/lets-grow-work-together" class="btn  btn-theme btn-small pull-right">Read more</a>
+                <a href="{% page_url "lets-grow-work-together" %}" class="btn  btn-theme btn-small pull-right">Read more</a>
               </div>
             </div>
           </div>
@@ -145,7 +146,7 @@
                 </p>
                 <br>
                 <br>
-                <a href="/content/assessment-certification" class="btn  btn-theme btn-small pull-right">Read more</a>
+                <a href="{% page_url "assessment-certification" %}" class="btn  btn-theme btn-small pull-right">Read more</a>
                 <br>
                 <br>
               </div>
@@ -162,7 +163,7 @@
                 <p><span class="icons-smashing pull-left" style="margin-right: 15px; margin-top:6px; margin-bottom:40px;"><img src="{{ STATIC_URL }}images/nasscom/analysts-desk.png" alt=""> </span>
                   Industries views on trends, forecast on requirements and skill gaps.<br><br><br>
                 </p>
-                <a href="articles#overlay-context=article&quot;" class="btn  btn-theme btn-small pull-right">Read more</a>
+                <a href="{% page_url "analysts-desk" %}" class="btn  btn-theme btn-small pull-right">Read more</a>
               </div>
             </div>
           </div>
@@ -178,7 +179,7 @@
                   Explore four subsectors of the Indian IT –ITeS Industry for occupational mapping, career information and <br>job availability.
                   <br>
                 </p>
-                <a href="/content/industry-where-are-we" class="btn  btn-theme btn-small pull-right">Read more</a>
+                <a href="{% page_url "industry-where-are-we" %}" class="btn  btn-theme btn-small pull-right">Read more</a>
               </div>
             </div>
           </div>
@@ -217,7 +218,7 @@
                       -->
                     <div class="portfolio-container">
                       <div class="views-row views-row-1 views-row-odd views-row-first">
-                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/career-information">Career Information </a></span>
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="{% page_url "career-information" %}">Career Information </a></span>
                         </div>
                         <div class="views-field views-field-body">
                           <div class="field-content">
@@ -233,7 +234,7 @@
                               <a class="cboxElement" href="sites/default/files/styles/large/public/WorkforceInformation.jpeg" title="&lt;strong&gt;Career Information &lt;/strong&gt; -
                                 List Of Subsector
                                 ... &lt;a class='label label-theme ' href='portfolio/career-information'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a>
-                              <a href="portfolio/career-information"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
+                              <a href="{% page_url "career-information" %}"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
                             </div>
                             <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
                             <img typeof="foaf:Image" src="{{ STATIC_URL }}images/portfolio_thumb/WorkforceInformation.jpeg" width="600" height="550" alt="">
@@ -241,7 +242,7 @@
                         </div>
                       </div>
                       <div class="views-row views-row-2 views-row-even">
-                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/development-initiatives">Development Initiatives</a></span>
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="{% page_url "development-initiatives" %}">Development Initiatives</a></span>
                         </div>
                         <div class="views-field views-field-body">
                           <div class="field-content">
@@ -256,7 +257,7 @@
                               <a class="cboxElement" href="sites/default/files/styles/large/public/DevelopmentInitiative.jpeg" title="&lt;strong&gt;Development Initiatives&lt;/strong&gt; -
                                 Scaling, Quality &amp; Capacity List:
                                 &lt;a class='label label-theme ' href='portfolio/development-initiatives'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a>
-                              <a href="portfolio/development-initiatives"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
+                              <a href="{% page_url "development-initiatives" %}"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
                             </div>
                             <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
                             <img typeof="foaf:Image" src="{{ STATIC_URL }}images/portfolio_thumb/DevelopmentInitiative.jpeg" width="600" height="550" alt="">
@@ -264,7 +265,7 @@
                         </div>
                       </div>
                       <div class="views-row views-row-3 views-row-odd">
-                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/market-indicators">Market Indicators</a></span>
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="{% page_url "market-indicators" %}">Market Indicators</a></span>
                         </div>
                         <div class="views-field views-field-body">
                           <div class="field-content">
@@ -278,7 +279,7 @@
                             <div class="img-mask-hover" style="position: absolute; width: 174px; height: 160px; display: none;">
                               <a class="cboxElement" href="sites/default/files/styles/large/public/WorkforceMarketIndicator.jpg" title="&lt;strong&gt;Market Indicators&lt;/strong&gt; -  Wondering about market trends?
                                 &lt;a class='label label-theme ' href='portfolio/market-indicators'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a>
-                              <a href="portfolio/market-indicators"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
+                              <a href="{% page_url "market-indicators" %}"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
                             </div>
                             <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
                             <img typeof="foaf:Image" src="{{ STATIC_URL }}images/portfolio_thumb/WorkforceMarketIndicator.jpg" width="600" height="550" alt="">
@@ -286,7 +287,7 @@
                         </div>
                       </div>
                       <div class="views-row views-row-4 views-row-even views-row-last" style="margin-right: 0px;">
-                        <div class="views-field views-field-title">        <span class="field-content"><a href="/portfolio/research-reports">Research &amp; Reports</a></span>
+                        <div class="views-field views-field-title">        <span class="field-content"><a href="{% page_url "research-and-reports" %}">Research &amp; Reports</a></span>
                         </div>
                         <div class="views-field views-field-body">
                           <div class="field-content">
@@ -301,7 +302,7 @@
                               <a class="cboxElement" href="sites/default/files/styles/large/public/added-soon.jpeg" title="&lt;strong&gt;Research &amp; Reports&lt;/strong&gt; -
                                 Get industry facts &amp; figures!
                                 &lt;a class='label label-theme ' href='portfolio/research-reports'&gt;View Full&lt;/a&gt; "><img class="portfolio-enlarge" alt="zoom" src="{{ STATIC_URL }}images/icons/magnifier_zoom_in.png"></a>
-                              <a href="portfolio/research-reports"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
+                              <a href="{% page_url "research-and-reports" %}"><img class="portfolio-link" alt="zoom" src="{{ STATIC_URL }}images/icons/link.png"></a>
                             </div>
                             <div class="img-mask" style="position: absolute; width: 174px; height: 160px;"></div>
                             <img typeof="foaf:Image" src="{{ STATIC_URL }}images/portfolio_thumb/added-soon.jpeg" width="600" height="550" alt="">

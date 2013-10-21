@@ -2284,20 +2284,12 @@ a.orange:hover{background-color:#fff; color:#f8a900; }
 	width: 170px;
 }
 /*** banner backgrounds ***/
-.banner-1{
-	background-image: url(../images/banner/industry.jpg);
-	background-size: cover;
-}
 .banner-2{
-	background-image: url(../images/banner/student-back.jpg);
-	background-size: cover;
+  background-image: url(../images/slides/slider-back2.jpg);
+  background-size: cover;
 }
 .banner-3{
-	background-image: url(../images/banner/training.jpg);
-	background-size: cover;
-}
-.banner-4{
-	background-image: url(../images/banner/banner.jpg);
+	background-image: url(../images/slides/slider-back3.jpg);
 	background-size: cover;
 }
 .black{
@@ -2477,4 +2469,45 @@ display: inline-block;
   -webkit-border-radius: 0 6px 6px 0;
   -moz-border-radius: 0 6px 6px 0;
   border-radius: 0 6px 6px 0;
+}
+.ls-layer h1{
+  font-weight: 400;
+}
+h1.ls-s2{
+  font-weight:400;
+}
+#custom-search-form {
+  margin:0;
+  margin-top: 5px;
+  padding: 0;
+}
+#custom-search-form .search-query {
+  padding-right: 7px;
+  padding-right: 8px \9;
+  padding-left: 8px;
+  padding-left: 4px \9;
+  /* IE7-8 doesn't have border-radius, so don't indent the padding */
+  margin-bottom: 0;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+#custom-search-form button {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  /** belows styles are working good */
+  padding:5px 5px 0 5px;
+  height: 25px;
+  position: relative;
+  left: -28px;
+  /* IE7-8 doesn't have border-radius, so don't indent the padding */
+  margin-bottom: 0;
+  color: #5E5E5E;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.search-query:focus + button {
+  z-index: 3;   
 }

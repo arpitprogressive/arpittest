@@ -525,8 +525,8 @@
                           <a href="https://www.youtube.com/user/NASSCOMVideos"><span class="icon-picon-youtube"></span></a> &nbsp; &nbsp;
                         </div>
                         <div class="content">
-                          <ul>
-                            {% show_menu_below_id "lists" %}
+                          <ul class="unstyled">
+                            {% show_menu_below_id "lists" 0 100 100 100 "menu/footer/lists.html" %}
                           </ul>
                         </div>
                         <div class="content">
@@ -544,18 +544,21 @@
                           <h4 class="blocktitle">International Sector Skills Council</h4>
                         </div>
                         <div class="content">
-                          <!--<h2 style="margin:0 0 15px 0;">1-800-192-4926</h2>-->
                           <ul class="unstyled">
-                            <li><span class="icon-color-envelope"></span>&nbsp;&nbsp; <a href="http://www.e-skills.com" target="_blank">e-skills</a></li>
-                            <li><span class="icon-color-envelope"></span>&nbsp;&nbsp; <a href="http://www.ictc-ctic.ca" target="_blank">Information and Communications Technology Council</a></li>
-                            <!--  <div style="margin-top:68px;"><img src="{{ STATIC_URL }}images/nasscom/bottom-img1.png"></div><br>-->
+                            <li>
+                              <span class="icon-globe orange"></span>&nbsp;&nbsp;
+                              <a href="http://www.e-skills.com" target="_blank">
+                                e-skills
+                              </a>
+                            </li>
+                            <li>
+                              <span class="icon-globe orange"></span>&nbsp;&nbsp;
+                              <a href="http://www.ictc-ctic.ca" target="_blank">
+                                Information and Communications Technology Council
+                              </a>
+                            </li>
+                            {% show_menu_below_id "issc" 0 100 100 100 "menu/footer/issc.html" %}
                           </ul>
-                          <!--  <address style="font-size:13px;">
-                            <a href="#"><strong>Twitter, Inc.</strong></a><br/>
-                            795 Folsom Ave, Suite 600<br/>
-                            San Francisco, CA 94107<br/>
-                            <a href="mailto:#">contact@example.com</a>
-                            </address>-->
                         </div>
                       </div>
                     </div>
@@ -570,18 +573,7 @@
                         <div class="content">
                           <div class="view view-recent-news view-id-recent_news view-display-id-block view-dom-id-d8e89a1423eafc51ca91060e8e1e2afd">
                             <div class="view-content">
-                              <div class="views-row views-row-1 views-row-odd views-row-first">
-                                <div class="views-field views-field-title">        <span class="field-content"><a href="">Qualification Packs</a></span>  </div>
-                                <div class="views-field views-field-created">    <span class="views-label views-label-created">Post date: </span>    <span class="field-content">Thursday, May 30, 2013 - 12:33</span>  </div>
-                              </div>
-                              <div class="views-row views-row-2 views-row-even">
-                                <div class="views-field views-field-title">        <span class="field-content"><a href="">Articles</a></span>  </div>
-                                <div class="views-field views-field-created">    <span class="views-label views-label-created">Post date: </span>    <span class="field-content">Tuesday, November 13, 2012 - 11:24</span>  </div>
-                              </div>
-                              <div class="views-row views-row-3 views-row-odd views-row-last">
-                                <div class="views-field views-field-title">        <span class="field-content"><a href="">Sed diam nonummy nibh </a></span>  </div>
-                                <div class="views-field views-field-created">    <span class="views-label views-label-created">Post date: </span>    <span class="field-content">Tuesday, November 13, 2012 - 11:24</span>  </div>
-                              </div>
+                              {% show_menu_below_id "news" 0 100 100 100 "menu/footer/news.html" %}
                             </div>
                           </div>
                         </div>
@@ -597,25 +589,30 @@
                         </div>
                         <div class="content">
                           Training Providers
-                          <ul>
-                            <a href="">
-                              <li>GBFS</li>
-                            </a>
-                            <a href="">
-                              <li>FSIT</li>
-                            </a>
-                            <a href="">
-                              <li>Occupational Standards</li>
-                            </a>
+                          <ul class="unstyled">
+                            {% show_menu_below_id "training-providers" 0 100 100 100 "menu/footer/training-providers.html" %}
+                            <li>
+                                <span class="icon-bookmark orange"></span>&nbsp;&nbsp;
+                                <a href="{% page_url "occupational-standards" %}" target="_blank">
+                                    Occupational Standards
+                                </a>
+                            </li>
                           </ul>
                           Academia
-                          <ul>
-                            <a href="http://nac.nic.in/" target="_blank">
-                              <li>NAC</li>
-                            </a>
-                            <a href="http://nactech.nasscom.in/" target="_blank">
-                              <li>NAC-Tech</li>
-                            </a>
+                          <ul class="unstyled">
+                            <li>
+                                <span class="icon-book orange"></span>&nbsp;&nbsp;
+                                <a href="{% page_url "nac" %}" target="_blank">
+                                    NAC
+                                </a>
+                            </li>
+                            <li>
+                                <span class="icon-book orange"></span>&nbsp;&nbsp;
+                                <a href="{% page_url "nac-tech" %}" target="_blank">
+                                    NAC Tech
+                                </a>
+                            </li>
+                            {% show_menu_below_id "academia" 0 100 100 100 "menu/footer/academia.html" %}
                           </ul>
                         </div>
                       </div>

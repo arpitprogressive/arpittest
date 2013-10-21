@@ -1,0 +1,17 @@
+{% load menu_tags %}
+{% for child in children %}
+  <div class="views-row views-row-1 views-row-odd views-row-first">
+    <div class="views-field views-field-title">
+      <span class="field-content">
+        <span class="icon-file-text-alt orange"></span>&nbsp;&nbsp;
+        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" target="_blank">
+          {{ child.get_menu_title }}
+        </a><br>
+        <span class="field-content">Post date: {{ child.page.publication_date }}</span>
+      </span>
+    </div>
+  </div>
+  {% if child.children %}
+      {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+  {% endif %}
+{% endfor %}

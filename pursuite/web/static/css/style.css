@@ -2419,6 +2419,35 @@ p.register-main span{
 .social-container a [class^="icon-"], a [class*=" icon-"],.social-sprite a [class^="icon-"],.social-sprite  a [class*=" icon-"]{
 display: inline-block;
 }
+div.mid-box-flip{
+  padding: 20px 20px 30px 30px;
+}
+div.mid-box-flip h1,h2{
+  font-size: 22px;
+  margin-top: 0;
+  margin-bottom: 3px;
+}
+a.btn-theme2{
+  background: #FBB829;
+  color: #ffffff;
+  line-height: 20px;
+  padding: 3px 17px 4px 17px;
+  display: inline-block;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  text-decoration: none;
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all .3s linear;
+  font-size: 12px;
+}
+a.btn-theme2:hover,a.btn-theme2:active{
+  color: #ffffff;
+  background: #FFC547;
+}
 .ls-layer a.btn{
   border-bottom: none;
 }.well-small{

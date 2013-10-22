@@ -175,6 +175,7 @@ CMS_TEMPLATES = (
     ('contact.html', 'Contact'),
     ('article.html', 'Article'),
     ('inner-article.html', 'Inner Article'),
+    ('inner-article-with-box.html', 'Inner Article With Box'),
     ('register.html', 'Login/Register'),
 )
 

@@ -1,0 +1,28 @@
+{% extends "article.html" %}
+{% load cms_tags menu_tags fix_menu_tags %}
+{% block article %}
+  <div class="row-fluid">
+    <!--Sidebar Starts here-->
+    <div class="span3 sidebar">
+      <div class="block content">
+        <ul class="menu">
+          {% show_menu_below_id "inner-article" 0 100 100 100 "menu/inner-article-list-menu.html" %}
+        </ul>
+      </div>
+    </div>
+    <!--Sidebar Ends here-->
+    <!-- ContentArea Starts here -->
+    <div class="span9 article">
+      <div class="row-fluid">
+        <!--Article Content -->
+        {% placeholder content %}
+
+        <!-- content box -->
+        <div class="row-fluid">
+          {% fix_show_sub_menu 1 None 1 "menu/read-more-box.html" %}
+        </div>
+      </div>
+    </div>
+    <!-- ContentArea Ends here -->
+  </div>
+{% endblock %}

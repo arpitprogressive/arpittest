@@ -1,10 +1,10 @@
 {% load menu_tags %}
 {% for child in children %}
-  <div class="span6">
+  <div class="span6" style='margin-left:0px;'>
     <div class="mid-box-flip">
       <h1>{{ child.get_menu_title }}</h1>
       <h2 class="color"></h2>
-      <p>{{ child.description }}</p>
+      <p><!-- description --></p>
       <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="btn-theme2">Read More</a>
     </div>
   </div>

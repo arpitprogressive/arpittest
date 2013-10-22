@@ -13,7 +13,7 @@ from django.test import TestCase
 from django.core.management import call_command
 from haystack.query import SearchQuerySet
 from admin.models import OccupationalStandard, Sector, SubSector, \
-    QualificationPack
+    QualificationPack, Occupation
 
 
 class TestQualificationPack(TestCase):
@@ -35,10 +35,15 @@ class TestQualificationPack(TestCase):
         )
         self.assert_(sub_sector.pk)
 
+        # Create Occupation
+        occupation = Occupation.objects.create(
+            name="Test Occupation",
+            sub_sector=sub_sector,
+        )
+
         # Create an Occupational Standard
         os_ = OccupationalStandard.objects.create(
             code="SSC/O2601",
-            sector=sector,
             sub_sector=sub_sector,
             title="test title",
             scope="test scope",
@@ -54,9 +59,7 @@ class TestQualificationPack(TestCase):
         qp = QualificationPack.objects.create(
             code="SSC/Q0101",
             version="0.1",
-            sector=sector,
-            sub_sector=sub_sector,
-            occupation="Test occupation",
+            occupation=occupation,
             job_role="Associate - CRM",
             alias="Customer Service Associate",
             role_description="test description",
@@ -75,6 +78,7 @@ class TestQualificationPack(TestCase):
             'sector': sector,
             'sub_sector': sub_sector,
             'qp': qp,
+            'occupation': occupation,
         }
 
     def test_creation(self):
@@ -89,11 +93,10 @@ class TestQualificationPack(TestCase):
         '''
         defaults = self.create_defaults()
         sub_sector = defaults['sub_sector']
-        sector = defaults['sector']
+        occupation = defaults['occupation']
 
         OccupationalStandard.objects.create(
             code="SSC/O2602",
-            sector=sector,
             sub_sector=sub_sector,
             title="test title",
             scope="test scope",
@@ -110,9 +113,7 @@ class TestQualificationPack(TestCase):
         QualificationPack.objects.create(
             code="SSC/Q0102",
             version="0.1",
-            sector=sector,
-            sub_sector=sub_sector,
-            occupation="Test occupation",
+            occupation=occupation,
             job_role="Associate - CRM",
             alias="Customer Service Associate",
             role_description="test description",

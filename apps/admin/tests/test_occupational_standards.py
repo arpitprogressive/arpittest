@@ -37,7 +37,6 @@ class TestOccupationalStandard(TestCase):
         # Create an Occupational Standard
         os_ = OccupationalStandard.objects.create(
             code="SSC/Q2601",
-            sector=sector,
             sub_sector=sub_sector,
             title="test title",
             scope="test scope",
@@ -69,11 +68,9 @@ class TestOccupationalStandard(TestCase):
         '''
         defaults = self.create_defaults()
         sub_sector = defaults['sub_sector']
-        sector = defaults['sector']
 
         OccupationalStandard.objects.create(
             code="SSC/Q2602",
-            sector=sector,
             sub_sector=sub_sector,
             title="test title",
             scope="test scope",
@@ -90,7 +87,6 @@ class TestOccupationalStandard(TestCase):
 
         OccupationalStandard.objects.create(
             code="SSC/Q2603",
-            sector=sector,
             sub_sector=sub_sector,
             title="test title with steroid",
             scope="test scope with Python",

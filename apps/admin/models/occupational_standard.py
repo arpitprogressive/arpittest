@@ -38,9 +38,6 @@ class OccupationalStandard(models.Model):
         db_index=True,
     )
     is_draft = models.BooleanField(default=True, verbose_name="Draft")
-    sector = models.ForeignKey(
-        'Sector', db_index=True, verbose_name="Industry",
-    )
     sub_sector = models.ForeignKey(
         'SubSector', db_index=True, verbose_name="Industry Sub-sector",
     )
@@ -69,6 +66,13 @@ class OccupationalStandard(models.Model):
             self.title,
         )
 
+    @property
+    def sector(self):
+        """
+        Returns sector corresponding to occupational standard.
+        """
+        return self.sub_sector.sector
+
     def clean(self):
         '''
             Validate model instance
@@ -92,7 +96,7 @@ class OccupationalStandardAdmin(admin.ModelAdmin):
         'last_reviewed_on', 'next_review_on', 'is_draft',
     )
     list_filter = (
-        'code', 'sector', 'sub_sector', 'is_draft',
+        'code', 'sub_sector', 'is_draft',
     )
     list_per_page = 20
     search_fields = ['code', 'title', 'description']

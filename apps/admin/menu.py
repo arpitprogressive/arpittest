@@ -18,10 +18,6 @@ class NodeModifier(Modifier):
         """
         for node in nodes:
             node.page = Page.objects.filter(pk=node.id)[0]
-            content, = node.page.placeholders.filter(slot='content')\
-                or (None,)
-            plugin = content.get_plugins_list() if content else None
-            node.description = str(plugin[0].text)[:50] if plugin else ''
         return nodes
 
 menu_pool.register_modifier(NodeModifier)

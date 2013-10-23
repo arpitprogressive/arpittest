@@ -1,0 +1,12 @@
+{% load menu_tags %}
+{% for child in children %}
+    <li>
+        <span class="icon-book orange"></span>&nbsp;&nbsp;
+        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" target="_blank">
+            {{ child.get_menu_title }}
+        </a>
+    </li>
+    {% if child.children %}
+        {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+    {% endif %}
+{% endfor %}

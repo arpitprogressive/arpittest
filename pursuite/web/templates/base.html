@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
     <link rel="shortcut icon" href="misc/favicon.ico" type="image/vnd.microsoft.icon">
-    <title>{% page_attribute "page_title" %} | SSC</title>
+    <title>
+      {% block title %}
+        {% page_attribute "page_title" %}
+      {% endblock %} | SSC
+    </title>
     <style type="text/css" media="all">
       @import url("{{ STATIC_URL }}css/system.base.css");
       @import url("{{ STATIC_URL }}css/system.menus.css");
@@ -449,8 +453,13 @@
                         <div id="buttonMenu">
                           <h2 class="element-invisible">Secondary menu</h2>
                           <ul id="secondary-menu-links" class="links inline clearfix">
-                            <li class="menu-356 first"><a href="" title="">Log in</a></li>
-                            <li class="menu-357 last"><a href="" title="">Create new account</a></li>
+                            {% if user.is_authenticated %}
+                            Welcome {{ user }}
+                            <li class="menu-356 first"><a href="{% url 'account_logout' %}" title="">Log out</a></li>
+                            {% else %}
+                            <li class="menu-356 first"><a href="{% url 'account_login' %}" title="">Log in</a></li>
+                            <li class="menu-357 last"><a href="{% url 'account_login' %}#new-account" title="">Create new account</a></li>
+                            {% endif %}
                           </ul>
                         </div>
                         <div id="mainMenu">

@@ -8,8 +8,8 @@
 
 .ls-inner {
 	position: relative;
-	background-position: center center;
-	background: url(../images/nasscom/slider-back.jpg) ;
+	background-image: url(../images/nasscom/slider-back.jpg) ;
+	background-size: cover;
 	color:#ffffff;
 }
 

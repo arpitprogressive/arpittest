@@ -22,6 +22,13 @@ DATABASES = {
     }
 }
 
+# Email Settings
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'mailtrap.io'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'nasscom-5ae7880ac967ae5d'
+EMAIL_HOST_PASSWORD = 'eb5073db7bdb7af1'
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.

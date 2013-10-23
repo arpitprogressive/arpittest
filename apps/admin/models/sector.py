@@ -59,7 +59,7 @@ class SubSector(models.Model):
         '''
             Returns object display name
         '''
-        return self.name
+        return "%s/%s" % (self.sector, self.name)
 
 
 class SubSectorAdmin(admin.ModelAdmin):
@@ -69,5 +69,5 @@ class SubSectorAdmin(admin.ModelAdmin):
     list_display = ('name', 'sector')
 
 
-admin.site.register(SubSector)
+admin.site.register(SubSector, SubSectorAdmin)
 admin.site.register(Sector)

@@ -35,9 +35,7 @@ class QualificationPack(models.Model):
         db_index=True,
     )
     is_draft = models.BooleanField(default=True, verbose_name="Draft")
-    sector = models.ForeignKey('Sector', db_index=True)
-    sub_sector = models.ForeignKey('SubSector', db_index=True)
-    occupation = models.CharField(max_length=50, default=None, db_index=True)
+    occupation = models.ForeignKey('Occupation', default=None, db_index=True)
 
     job_role = models.CharField(max_length=50, default=None, db_index=True)
     alias = models.TextField(default=None)
@@ -75,6 +73,20 @@ class QualificationPack(models.Model):
             self.job_role,
         )
 
+    @property
+    def sector(self):
+        """
+        Returns sector corresponding to qualification pack
+        """
+        return self.occupation.sector
+
+    @property
+    def sub_sector(self):
+        """
+        Returns sub-sector corresponding to qualification pack
+        """
+        return self.occupation.sub_sector
+
 
 class QualificationPackAdmin(admin.ModelAdmin):
     '''
@@ -82,11 +94,11 @@ class QualificationPackAdmin(admin.ModelAdmin):
     '''
     exclude = ('is_draft',)
     list_display = (
-        '__unicode__', 'sector', 'sub_sector', 'drafted_on',
+        '__unicode__', 'occupation', 'drafted_on',
         'last_reviewed_on', 'next_review_on', 'is_draft',
     )
     list_filter = (
-        'code', 'sector', 'sub_sector', 'is_draft',
+        'code', 'occupation', 'is_draft',
     )
     list_per_page = 20
     search_fields = ['code', 'title', 'description']

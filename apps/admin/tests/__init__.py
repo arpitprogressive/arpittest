@@ -12,3 +12,4 @@ from test_occupational_standards import *
 from test_qualification_pack import *
 from test_institution import *
 from test_company import *
+from test_occupation import *

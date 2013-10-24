@@ -63,7 +63,7 @@ def deploy_staging(schema_update=False, migrate=False):
 
                 if schema_update:
                     notify_hipchat("Running syncdb", from_="Staging")
-                    run(manage + ' syncdb ' + settings)
+                    run(manage + ' syncdb --all ' + settings)
 
                 if migrate:
                     notify_hipchat("Running migrate", from_="Staging")

@@ -2540,3 +2540,7 @@ h1.ls-s2{
 .search-query:focus + button {
   z-index: 3;   
 }
+.advs img{
+    margin-bottom:10px;
+    border: solid 2px #f8a900;
+}

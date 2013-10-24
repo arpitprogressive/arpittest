@@ -538,11 +538,6 @@
                             {% show_menu_below_id "lists" 0 100 100 100 "menu/footer/lists.html" %}
                           </ul>
                         </div>
-                        <div class="content">
-                          <br>
-                          <br>
-                          <a href="{% page_url "advertise-with-us" %}" class="btn btn-theme">Advertise With Us</a>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -550,28 +545,15 @@
                     <div class="region region-footer2">
                       <div id="block-block-13" class="clearfix block block-block">
                         <div class="titlecontainer">
-                          <h4 class="blocktitle">International Sector Skills Council</h4>
+                          <h4 class="blocktitle">Sector Skills Council</h4>
                         </div>
                         <div class="content">
                           <ul class="unstyled">
-                            <li>
-                              <span class="icon-globe orange"></span>&nbsp;&nbsp;
-                              <a href="http://www.e-skills.com" target="_blank">
-                                e-skills
-                              </a>
-                            </li>
-                            <li>
-                              <span class="icon-globe orange"></span>&nbsp;&nbsp;
-                              <a href="http://www.ictc-ctic.ca" target="_blank">
-                                Information and Communications Technology Council
-                              </a>
-                            </li>
-                            {% show_menu_below_id "issc" 0 100 100 100 "menu/footer/issc.html" %}
+                            {% show_menu_below_id "ssc-list" 0 100 100 100 "menu/footer/issc.html" %}
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <img style="margin-bottom:5px;" src="{{ STATIC_URL }}images/nasscom/bottom-img1.png">
                   </div>
                   <div id="footer3" class=" span3 ">
                     <div class="region region-footer3">
@@ -582,13 +564,13 @@
                         <div class="content">
                           <div class="view view-recent-news view-id-recent_news view-display-id-block view-dom-id-d8e89a1423eafc51ca91060e8e1e2afd">
                             <div class="view-content">
-                              {% show_menu_below_id "news" 0 100 100 100 "menu/footer/news.html" %}
+                              {% show_menu_below_id "recent-news" 0 100 100 100 "menu/footer/news.html" %}
                             </div>
+                            <a href="{% page_url "recent-news" %}" class="pull-right">View All</a>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <img style="margin-bottom:5px" src="{{ STATIC_URL }}images/nasscom/bottom-img2.png">
                   </div>
                   <div id="footer4" class=" span3 ">
                     <div class="region region-footer4">
@@ -599,6 +581,24 @@
                         <div class="content">
                           Training Providers
                           <ul class="unstyled">
+                            <li>
+                                <span class="icon-bookmark orange"></span>&nbsp;&nbsp;
+                                <a href="{% page_url "gbfs" %}" target="_blank">
+                                    GBFS
+                                </a>
+                            </li>
+                            <li>
+                                <span class="icon-bookmark orange"></span>&nbsp;&nbsp;
+                                <a href="{% page_url "fsit" %}" target="_blank">
+                                    FSIT
+                                </a>
+                            </li>
+                            <li>
+                                <span class="icon-bookmark orange"></span>&nbsp;&nbsp;
+                                <a href="{% page_url "epp" %}" target="_blank">
+                                    EPP
+                                </a>
+                            </li>
                             {% show_menu_below_id "training-providers" 0 100 100 100 "menu/footer/training-providers.html" %}
                             <li>
                                 <span class="icon-bookmark orange"></span>&nbsp;&nbsp;
@@ -607,7 +607,7 @@
                                 </a>
                             </li>
                           </ul>
-                          Academia
+                          Employability Assessments
                           <ul class="unstyled">
                             <li>
                                 <span class="icon-book orange"></span>&nbsp;&nbsp;
@@ -626,9 +626,25 @@
                         </div>
                       </div>
                     </div>
-                    <img style="margin-bottom:5px" src="{{ STATIC_URL }}images/nasscom/bottom-img3.png">
                   </div>
                 </div>
+                <div class="row-fluid advs">
+                  <div id="footer1" class="span3">
+                    <div class="content">
+                      <a href="/article/advertise-with-us/" class="btn btn-theme">Advertise With Us</a>
+                    </div>
+                  </div>
+                  <div id="footer2" class="span3">
+                    {% show_placeholder "training-providers-footer-ad" "common-blocks" %}
+                  </div>
+                  <div id="footer3" class="span3">
+                    {% show_placeholder "company-footer-ad" "common-blocks" %}
+                  </div>
+                  <div id="footer4" class="span3">
+                    {% show_placeholder "institution-footer-ad" "common-blocks" %}
+                  </div>
+                </div>
+
                 <!--this div is used to find out position from jQuery, do NOT remove it -->
                 <div id="positionLeft" style="width:1px; height:1px; float: right; overflow:hidden; line-height:1px;"></div>
                 <!--end-->

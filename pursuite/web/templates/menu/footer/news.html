@@ -1,10 +1,10 @@
 {% load menu_tags %}
-{% for child in children %}
+{% for child in children|slice:":5" %}
   <div class="views-row views-row-1 views-row-odd views-row-first">
     <div class="views-field views-field-title">
       <span class="field-content">
         <span class="icon-file-text-alt orange"></span>&nbsp;&nbsp;
-        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" target="_blank">
+        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
           {{ child.get_menu_title }}
         </a><br>
         <span class="field-content">Post date: {{ child.page.publication_date }}</span>

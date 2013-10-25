@@ -193,7 +193,20 @@ CMS_TEMPLATES = (
     ('article.html', 'Article'),
     ('inner-article.html', 'Inner Article'),
     ('inner-article-with-box.html', 'Inner Article With Box'),
+    ('common_blocks.html', 'Common Blocks'),
 )
+
+CMS_PLACEHOLDER_CONF = {
+    'training-providers-footer-ad': {
+        "plugins": ['PicturePlugin',]
+    },
+    'company-footer-ad': {
+        "plugins": ['PicturePlugin',]
+    },
+    'institution-footer-ad': {
+        "plugins": ['PicturePlugin',]
+    },
+}
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",

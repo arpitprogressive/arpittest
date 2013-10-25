@@ -223,6 +223,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'height': 300,
     'resize': "both",
     'contextmenu': "link image inserttable | cell row column deletetable",
+    'style_formats' : [
+      {'title' : 'Button', 'selector' : 'a', 'classes' : 'btn btn-theme'},
+    ],
 }
 
 LANGUAGES = [

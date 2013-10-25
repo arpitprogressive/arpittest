@@ -361,6 +361,7 @@
     </script>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/skin.css" type="text/css">
     {% render_block "css" %}
+    <meta name="google-translate-customization" content="fdf03b5eb524068e-8d908cf85ece8756-gcf1ebfac3709c684-14"></meta>
   </head>
   <body class="html front not-logged-in no-sidebars page-home-portfolio i18n-en skifibody" id="skifiBody">
     {% cms_toolbar %}
@@ -429,14 +430,11 @@
                           <div class="span3 pull-right">
                             <div id="block-lang-dropdown-language" class="block-lang-dropdown">
                               <div class="content">
-                                <form action="/" method="post" id="lang-dropdown-form" accept-charset="UTF-8" novalidate="novalidate">
-                                  <div class="form-item form-type-select form-item-lang-dropdown-select">
-                                    <select style="width:110px" class="lang-dropdown-select-element form-select" id="edit-lang-dropdown-select" name="lang_dropdown_select">
-                                      <option value="">English</option>
-                                      <option value="">हिन्दी</option>
-                                    </select>
-                                  </div>
-                                </form>
+                              <div id="google_translate_element"></div><script type="text/javascript">
+                              function googleTranslateElementInit() {
+                                new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                              }
+                              </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                               </div>
                             </div>
                           </div>

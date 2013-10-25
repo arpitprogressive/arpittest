@@ -674,6 +674,8 @@
     <!--superfish call-->
     <script type="text/javascript">
       (function ($) {
+        // Fix ads plugin links to target=_blank
+        $(".advs .plugin_picture a").attr('target', '_blank');
         // initialise plugins
         jQuery(function(){
           jQuery('ul.sf-menu').superfish();

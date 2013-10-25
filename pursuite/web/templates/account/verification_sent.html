@@ -1,0 +1,16 @@
+{% extends "article.html" %}
+
+{% block title %}
+  Verfiy Email
+{% endblock %}
+
+{% block heading %}
+  Verify Your Email Address
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+<p>We have sent an e-mail to <a href="mailto:{{email}}">{{ email }}</a> for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.</p>
+{% endblock %}

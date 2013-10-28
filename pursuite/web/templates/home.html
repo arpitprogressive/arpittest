@@ -78,11 +78,10 @@
                 </blockquote>
                 <div class="social-container alignCenter animateIcons" style=" max-width: 500px;">
                   <div id="social-tagline" style="width: 277px;"></div>
-                  <a href="" class="student-text" target="_blank"><span class="icon-social-facebook" style="margin-top: 0px;"></span></a>
-                  <a class="job-seeker" href="https://twitter.com/nasscom" target="_blank"><span class="icon-social-twitter" style="margin-top: 0px;"></span></a>
-                  <a class="training" href="" target="_blank"><span class="icon-social-linkedin" t="" style="margin-top: 0px;"></span></a>
-                  <a class="industry" href="" target="_blank"><span class="icon-social-aim" style="margin-top: 0px;"></span></a>
-                  <a class="government" href="" target="_blank"><span class="icon-social-youtube" style="margin-top: 0px;"></span></a>
+                  <a class="job-seeker" href="{% page_url 'student-job-seeker' %}" target="_blank"><span class="icon-social-twitter" style="margin-top: 0px;"></span></a>
+                  <a class="training" href="{% page_url 'list-training-providers' %}" target="_blank"><span class="icon-social-linkedin" t="" style="margin-top: 0px;"></span></a>
+                  <a class="industry" href="{% page_url 'list-companies' %}" target="_blank"><span class="icon-social-aim" style="margin-top: 0px;"></span></a>
+                  <a class="government" href="{% page_url 'list-ministries' %}" target="_blank"><span class="icon-social-youtube" style="margin-top: 0px;"></span></a>
                 </div>
               </div>
             </div>
@@ -356,11 +355,8 @@
 {% endblock %}
 {% block script %}
   <script>
-    $('a.student-text').bind('mouseover', function() {
-      $('#social-tagline').text('Student');
-    })
     $('a.job-seeker').bind('mouseover', function() {
-      $('#social-tagline').text('Job Seekers');
+      $('#social-tagline').text('Students/Job Seekers');
     })
     $('a.training').bind('mouseover', function() {
       $('#social-tagline').text('Training Provider');

@@ -8,7 +8,4 @@
     <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
     <span class="menu-arrow"></span>
 </li>
-{% if child.children %}
-    {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
-{% endif %}
 {% endfor %}

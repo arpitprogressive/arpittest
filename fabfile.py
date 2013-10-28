@@ -68,6 +68,8 @@ def deploy_staging(schema_update=False, migrate=False):
                 if migrate:
                     notify_hipchat("Running migrate", from_="Staging")
                     run(manage + ' migrate ' + settings)
+            # Rebuild index for search
+            run(manage + ' rebuild_index ' + settings)
 
             notify_hipchat("Restarting services", from_="Staging")
             sudo('bin/supervisorctl restart all')

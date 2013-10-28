@@ -32,5 +32,6 @@ setup(
         'requests_oauthlib>0.3,<0.4',
         'sphinx',
         'raven',
+        'nltk',
     ],
 )

@@ -151,13 +151,14 @@ class OccupationalStandardIndex(indexes.SearchIndex, indexes.Indexable):
     """
     text = indexes.CharField(document=True)
     code = indexes.CharField(model_attr='code')
-    sector = indexes.CharField(model_attr='sector')
-    sub_sector = indexes.CharField(model_attr='sub_sector')
+    sector = indexes.CharField(model_attr='sector', faceted=True)
+    sub_sector = indexes.CharField(model_attr='sub_sector', faceted=True)
     knowledge = indexes.CharField(model_attr='knowledge')
     skills = indexes.CharField(model_attr='skills')
     description = indexes.CharField(model_attr='description')
     scope = indexes.CharField(model_attr='scope')
     performace_criteria = indexes.CharField(model_attr='performace_criteria')
+    model_type = indexes.CharField(faceted=True)
 
     def get_model(self):
         "Return model class for current index"
@@ -169,11 +170,11 @@ class OccupationalStandardIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_sector(self, obj):
         "Fetch sector name for indexing"
-        return obj.sector.name
+        return (obj.sub_sector.sector.name).replace(' ', '_')
 
     def prepare_sub_sector(self, obj):
         "Fetch sub sector name for indexing"
-        return obj.sub_sector.name
+        return (obj.sub_sector.name).replace(' ', '_')
 
     def prepare_description(self, obj):
         "Fetch description and convert to plain text for indexing"
@@ -195,11 +196,18 @@ class OccupationalStandardIndex(indexes.SearchIndex, indexes.Indexable):
         "Fetch skills and convert to plain text for indexing"
         return common.html2text(obj.skills)
 
+    def prepare_model_type(self, obj):
+        "Fetch model"
+        return "Occupational_Standard"
+
     def prepare_text(self, obj):
         "Prepare primary document for search"
-        patrn = "{code}\n\n{description}\n\n{scope}\n\n{knowledge}\n\n{skills}"
+        patrn = "{code}\n\n{sector}\n\n{subsector}\n\n{description}\n\n" \
+                "{scope}\n\n{knowledge}\n\n{skills}"
         return patrn.format(
             code=obj.code,
+            sector=obj.sub_sector.sector.name,
+            subsector=obj.sub_sector.name,
             description=common.html2text(obj.description),
             scope=common.html2text(obj.scope),
             knowledge=common.html2text(obj.knowledge),

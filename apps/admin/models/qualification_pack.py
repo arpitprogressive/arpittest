@@ -153,9 +153,11 @@ class QualificationPackIndex(indexes.SearchIndex, indexes.Indexable):
     '''
     text = indexes.CharField(document=True)
     code = indexes.CharField(model_attr='code')
-    sector = indexes.CharField(model_attr='sector')
-    sub_sector = indexes.CharField(model_attr='sub_sector')
-    occupation = indexes.CharField(model_attr='occupation')
+    sector = indexes.CharField(model_attr='sector', faceted=True, indexed=False)
+    sub_sector = indexes.CharField(model_attr='sub_sector', faceted=True,
+            indexed=False)
+    occupation = indexes.CharField(model_attr='occupation', faceted=True,
+            indexed=False)
     job_role = indexes.CharField(model_attr='job_role')
     alias = indexes.CharField(model_attr='alias')
     role_description = indexes.CharField(model_attr='role_description')
@@ -163,6 +165,7 @@ class QualificationPackIndex(indexes.SearchIndex, indexes.Indexable):
     experience = indexes.CharField(model_attr='experience')
     os_compulsory = indexes.CharField(model_attr='os_compulsory')
     os_optional = indexes.CharField(model_attr='os_optional')
+    model_type = indexes.CharField(faceted=True)
 
     def get_model(self):
         "Return model class for current index"
@@ -174,15 +177,19 @@ class QualificationPackIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_sector(self, obj):
         "Fetch sector name for indexing"
-        return obj.sector.name
+        return (obj.sub_sector.sector.name).replace(' ', '_')
 
     def prepare_sub_sector(self, obj):
         "Fetch sub sector name for indexing"
-        return obj.sub_sector.name
+        return (obj.sub_sector.name).replace(' ', '_')
 
     def prepare_os_compulsory(self, obj):
         "Fetch os_compulsory name for indexing"
         return "\n".join([f.title for f in obj.os_compulsory.all()])
+
+    def prepare_occupation(self, obj):
+        "Fetch occupation name for indexing"
+        return (obj.occupation.name).replace(' ', '_')
 
     def prepare_os_optional(self, obj):
         "Fetch os_optional name for indexing"
@@ -190,12 +197,18 @@ class QualificationPackIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_text(self, obj):
         "Prepare primary document for search"
-        pattern = ("{code}\n\n{occupation}\n\n{job_role}\n\n{role_description}"
-                "\n\n{alias}")
+        pattern = ("{code}\n\n{sector}\n\n{subsector}\n\n{occupation}\n\n"
+                   "{job_role}\n\n{role_description}\n\n{alias}")
         return pattern.format(
             code=obj.code,
-            occupation=obj.occupation,
+            subsector=obj.sector.name,
+            sector=obj.sub_sector.sector.name,
+            occupation=obj.occupation.name,
             job_role=obj.job_role,
             role_description=obj.role_description,
             alias=obj.alias,
         )
+
+    def prepare_model_type(self, obj):
+        "Fetch model"
+        return "Qualification_Pack"

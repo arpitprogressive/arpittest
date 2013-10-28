@@ -26,6 +26,7 @@ class DjangoCMSPageIndex(indexes.SearchIndex, indexes.Indexable):
     login_required = indexes.BooleanField(model_attr='login_required')
     title = indexes.CharField()
     site_id = indexes.IntegerField(model_attr='site_id')
+    model_type = indexes.CharField(faceted=True)
 
     def get_model(self):
         "Return model class for current index"
@@ -42,11 +43,12 @@ class DjangoCMSPageIndex(indexes.SearchIndex, indexes.Indexable):
         "Prepare primary document for search"
         placeholders = obj.placeholders.all()
         plugins = CMSPlugin.objects.filter(placeholder__in=placeholders)
-        text = ''
+        title, = Title.objects.values('title').filter(page_id=obj.pk)
+        text = title['title'] + '\n\n'
         for plugin in plugins:
             instance, _ = plugin.get_plugin_instance()
             if hasattr(instance, 'search_fields'):
-                text += ''.join(getattr(instance, field)
+                text += ' '.join(getattr(instance, field)
                                     for field in instance.search_fields)
         return html2text(text)
 
@@ -57,6 +59,10 @@ class DjangoCMSPageIndex(indexes.SearchIndex, indexes.Indexable):
             return title['title']
         except:
             return ""
+
+    def prepare_model_type(self, obj):
+        "Fetch model"
+        return "Page"
 
     def should_update(self, obj):
         "Checks if record 'obj' be indexed or not"

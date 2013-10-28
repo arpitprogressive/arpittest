@@ -8,12 +8,11 @@
     :license: see LICENSE for more details.
 """
 
-import html2text as h2t
+import nltk
 
 
 def html2text(html):
     """
     Convert HTML to Text
     """
-    h = h2t.HTML2Text()
-    return h.handle(html)
+    return nltk.clean_html(html.encode('utf-8'))

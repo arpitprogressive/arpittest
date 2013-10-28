@@ -544,6 +544,7 @@ div.terms div {
 	background: linear-gradient(to right,  rgba(247,247,247,1) 0%,rgba(255,255,255,1) 99%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 	margin: 5px 0 10px 0;
+	font-size: 12px;
 	border:1px solid #e5e5e5;
 	border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -2302,7 +2303,7 @@ h1.black{
 	color: #373435;
 	text-shadow: black 0 0 0.03em;
 }
-.article p{
+.article{
   font-size:15px;
   color:#333333;
   line-height:24px;

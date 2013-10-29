@@ -9,4 +9,5 @@ install:
 script:
   # FIXME: Test all
   - python manage.py test admin --settings=pursuite.settings.testing
+  - python manage.py test analytics --settings=pursuite.settings.testing
   - flake8 .

@@ -157,6 +157,7 @@ INSTALLED_APPS = (
     'sekizai',
     'haystack',
     'cmsindex',
+    'analytics',
     'cms.plugins.file',
     'cms.plugins.flash',
     'cms.plugins.link',

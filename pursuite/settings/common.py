@@ -241,6 +241,9 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+# CMS Permission
+CMS_PERMISSION = True
+
 # Email Settings
 EMAIL_USE_TLS = True
 EMAIL_HOST = ''

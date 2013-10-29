@@ -124,6 +124,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -182,6 +183,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'raven.contrib.django.raven_compat',
     'south',
+    'pagination',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

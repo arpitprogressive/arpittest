@@ -39,11 +39,13 @@
   <div id="contentAndSidebars">
     <div class="container article">
       <!--breadcrumb starts here-->
+      {% block breadcrumb %}
       <div class="row-fluid">
         <ul class="breadcrumb">
           {% show_breadcrumb %}
         </ul>
       </div>
+      {% endblock %}
       <!-- breadcrumb ends here -->
       {% block article %}
         {% placeholder content %}

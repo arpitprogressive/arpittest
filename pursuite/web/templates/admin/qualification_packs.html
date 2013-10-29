@@ -1,0 +1,25 @@
+{% extends "article.html" %}
+{% load pagination_tags %}
+
+{% block title %}
+  Qualification Packs
+{% endblock %}
+
+{% block heading %}
+  Qualification Packs
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+<ul>
+{% autopaginate qualification_packs %}
+{% for qp in qualification_packs %}
+  <li>
+    <a href="{% url 'qualification_pack' code=qp.code %}">Qualification Pack - {{ qp.code }}</a>
+  </li>
+{% endfor %}
+</ul>
+<div class="pull-right">{% paginate %}</div>
+{% endblock %}

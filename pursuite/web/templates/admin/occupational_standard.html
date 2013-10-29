@@ -1,0 +1,68 @@
+{% extends "article.html" %}
+
+{% block title %}
+  Occupational Standard - {{ occupational_standard.code }}
+{% endblock %}
+
+{% block heading %}
+  Occupational Standard - {{ occupational_standard.code }}
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+<table class="table-borderd">
+  <caption>Occupational Standard - {{ occupational_standard.code }}</caption>
+  <tbody>
+    <tr>
+      <td>Code</td>
+      <td>{{ occupational_standard.code }}</td>
+    </tr>
+    <tr>
+      <td>Version</td>
+      <td>{{ occupational_standard.version }}</td>
+    </tr>
+    <tr>
+      <td>Industry Sub-Sector</td>
+      <td>{{ occupational_standard.sub_sector }}</td>
+    </tr>
+    <tr>
+      <td>Title</td>
+      <td>{{ occupational_standard.title }}</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>{{ occupational_standard.description }}</td>
+    </tr>
+    <tr>
+      <td>Scope</td>
+      <td>{{ occupational_standard.scope|safe }}</td>
+    </tr>
+    <tr>
+      <td>Performance Criteria</td>
+      <td>{{ occupational_standard.performace_criteria|safe }}</td>
+    </tr>
+    <tr>
+      <td>Knowledge</td>
+      <td>{{ occupational_standard.knowledge|safe }}</td>
+    </tr>
+    <tr>
+      <td>Skills</td>
+      <td>{{ occupational_standard.skills|safe }}</td>
+    </tr>
+    <tr>
+      <td>Attachment</td>
+      <td><a href="{{ occupational_standard.attachment.url }}">{{ occupational_standard.attachment.name }}</a></td>
+    </tr>
+    <tr>
+      <td>Last Review On</td>
+      <td>{{ occupational_standard.last_reviewed_on }}</td>
+    </tr>
+    <tr>
+      <td>Next Review On</td>
+      <td>{{ occupational_standard.next_reviewed_on }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

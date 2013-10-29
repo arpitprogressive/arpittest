@@ -10,8 +10,8 @@
 
 
 from django.test import TestCase
-from admin.models import Sector, SubSector, Occupation, Institution
-from analytics.models import State, City, SupplyBase
+from admin.models import Sector, SubSector, Occupation, Institution, Company
+from analytics.models import State, City, SupplyBase, DemandData
 
 
 class TestModels(TestCase):
@@ -61,6 +61,23 @@ class TestModels(TestCase):
         )
         supplybase.save()
         self.assert_(supplybase.pk)
+
+        company = Company(
+            name='Openlabs',
+            url='http://openlabs.co.in',
+        )
+        company.save()
+        self.assert_(company.pk)
+
+        demanddata = DemandData(
+            year=2008,
+            city=city_newdelhi,
+            occupation=occupation,
+            company=company,
+            demand=100,
+        )
+        demanddata.save()
+        self.assert_(demanddata.pk)
 
     def test_create(self):
         self.create_defaults()

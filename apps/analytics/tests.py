@@ -25,8 +25,7 @@ class TestModels(TestCase):
         self.assert_(state_delhi)
         self.assert_(state_delhi.pk)
 
-        city_newdelhi = City(name='New Delhi', state=state_delhi,
-                it_intensive=True)
+        city_newdelhi = City(name='New Delhi', state=state_delhi)
         city_newdelhi.save()
         self.assert_(city_newdelhi.pk)
 

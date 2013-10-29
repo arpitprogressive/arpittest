@@ -96,12 +96,15 @@
 <div id="row1-Region">l
   <div class="WrapperWidth">
     <div class="row-fluid home-search">
-      <div class="span8 offset2 well well-small">
-          <form action="/search" method="GET">
-            <input type="text" name="q" placeholder="Search trainings, jobs here..">
-            <button class="btn btn-theme" type="submit"><i class="icon-search"></i></button>
-        </form>        
+      <div class="span7 offset1 well well-small">
+        <form action="/search" method="GET">
+          <input type="text" name="q" placeholder="Search trainings, jobs here..">
+          <button class="btn btn-theme" type="submit"><i class="icon-search"></i></button>
+        </form>
       </div>
+      <a class="offset1 well btn btn-theme" type="submit" style="padding:13px 20px; margin-top:5px;" href="{% page_url 'check-your-competency' %}">
+        <i class="icon-file-text"></i> Check your Competency
+      </a>
     </div>
   </div>
   <!--row1_full_span-->

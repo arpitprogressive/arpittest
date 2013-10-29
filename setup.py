@@ -33,5 +33,6 @@ setup(
         'sphinx',
         'raven',
         'nltk',
+        'django-pagination',
     ],
 )

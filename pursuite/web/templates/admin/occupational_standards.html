@@ -1,0 +1,25 @@
+{% extends "article.html" %}
+{% load pagination_tags %}
+
+{% block title %}
+  Occupational Standards
+{% endblock %}
+
+{% block heading %}
+  Occupational Standards
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+<ul>
+{% autopaginate occupational_standards %}
+{% for os in occupational_standards %}
+  <li>
+    <a href="{% url 'occupational_standard' code=os.code %}">Occupational Standard - {{ os.code }}</a>
+  </li>
+{% endfor %}
+</ul>
+<div class="pull-right">{% paginate %}</div>
+{% endblock %}

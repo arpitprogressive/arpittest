@@ -48,6 +48,9 @@ class State(models.Model):
     name = models.CharField(max_length=50, default=None, unique=True)
     region = models.CharField(max_length=12, choices=REGION_CHOICES)
 
+    class Meta:
+        unique_together = ('name', 'region',)
+
     def __unicode__(self):
         """
         Returns object display name
@@ -59,9 +62,12 @@ class City(models.Model):
     """
     Cities
     """
-    name = models.CharField(max_length=50, default=None, unique=True)
+    name = models.CharField(max_length=50, default=None)
     state = models.ForeignKey('State')
-    it_intensive = models.BooleanField(verbose_name='IT Intensive')
+
+    class Meta:
+        unique_together = ('name', 'state',)
+        verbose_name_plural = 'Cities'
 
     def __unicode__(self):
         """
@@ -85,6 +91,7 @@ class SupplyBase(models.Model):
     class Meta:
         unique_together = ('year', 'city', 'occupation', 'institution',
                 'degree',)
+        verbose_name_plural = 'SupplyBase'
 
     def __unicode__(self):
         """

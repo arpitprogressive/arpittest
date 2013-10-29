@@ -12,10 +12,11 @@
 from django.db import models
 import django.contrib.admin
 
-from admin.models import Occupation, Institution
+from admin.models import Occupation, Institution, Company
 
 
-__all__ = ['DEGREE_CHOICES', 'REGION_CHOICES', 'State', 'City', 'SupplyBase']
+__all__ = ['DEGREE_CHOICES', 'REGION_CHOICES', 'State', 'City', 'SupplyBase',
+        'DemandData']
 
 
 DEGREE_CHOICES = (
@@ -100,6 +101,28 @@ class SupplyBase(models.Model):
         return "%d,%s,%s" % (self.year, self.city, self.occupation,)
 
 
+class DemandData(models.Model):
+    """
+    Demand data
+    """
+    year = models.IntegerField()
+    city = models.ForeignKey('City')
+    occupation = models.ForeignKey(Occupation)
+    company = models.ForeignKey(Company)
+    demand = models.IntegerField()
+
+    class Meta:
+        unique_together = ('year', 'city', 'occupation', 'company',)
+        verbose_name_plural = 'DemandBase'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d,%s,%s" % (self.year, self.city, self.occupation,)
+
+
 django.contrib.admin.site.register(State)
 django.contrib.admin.site.register(City)
 django.contrib.admin.site.register(SupplyBase)
+django.contrib.admin.site.register(DemandData)

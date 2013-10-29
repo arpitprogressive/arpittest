@@ -1,0 +1,100 @@
+{% extends "article.html" %}
+{% block article %}
+  <div class="row-fluid" id="wfmis">
+    <div class="span3">
+      <div class="heading">
+        Sectors <i class="icon-forward"></i>
+      </div>
+      <div class="column" id="wfmis_sectors">
+        <a class="box" id="it-ites" data-sector="IT-ITeS">
+          IT-ITeS
+        </a>
+      </div>
+    </div>
+    <div class="span3">
+      <div class="heading">
+        Sub-Sectors <i class="icon-forward"></i>
+      </div>
+      <div class="column" id="wfmis_sub_sectors">
+      </div>
+    </div>
+    <div class="span3">
+      <div class="heading">
+        Occupations <i class="icon-forward"></i>
+      </div>
+      <div class="column" id="wfmis_occupations">
+      </div>
+    </div>
+    <div class="span3">
+      <div class="heading">
+        Job Roles <i class="icon-forward"></i>
+      </div>
+      <div class="column" id="wfmis_job_roles">
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    $(function(){
+      $.getJSON('{% url "wfmis_json" %}', function(data){
+        large_json = data;
+        link_sectors();
+      });
+
+      function link_sectors(){
+        $("#it-ites").click(function (){
+          $(this).addClass('active').siblings().removeClass('active');
+          $("#wfmis_sub_sectors").html("");
+          $("#wfmis_occupations").html("");
+          $("#wfmis_job_roles").html("");
+
+          // Update Sub Sector
+          for(x in large_json['sub-sectors']){
+            obj = large_json['sub-sectors'][x];
+            if(obj["sector"] == $(this).data("sector")){
+              $("#wfmis_sub_sectors").append("<a class='box' data-code='" + obj['code'] + "'>" + obj['name'] + "</a>");
+            }
+          }
+          link_subsector();
+        });
+      }
+
+      function link_subsector(){
+        $("#wfmis_sub_sectors a").click(function (){
+          $(this).addClass('active').siblings().removeClass('active');
+          $("#wfmis_occupations").html("");
+          $("#wfmis_job_roles").html("");
+
+          // Update Occupations
+          for(x in large_json['occupations']){
+            obj = large_json['occupations'][x];
+            if(obj["sub-sector"] == $(this).data("code")){
+              $("#wfmis_occupations").append("<a class='box' data-code='" + obj['code'] + "'>" + obj['name'] + "</a>");
+            }
+          }
+          link_occupations();
+        });
+      }
+
+      function link_occupations(){
+        $("#wfmis_occupations a").click(function (){
+          $(this).addClass('active').siblings().removeClass('active');
+          $("#wfmis_job_roles").html("");
+
+          // Update job roles
+          for(x in large_json['job-roles']){
+            obj = large_json['job-roles'][x];
+            if(obj["occupation"] == $(this).data("code")){
+              $("#wfmis_job_roles").append("<a class='box' href='" + obj['url'] + "'>" + obj['name'] + "</a>");
+            }
+          }
+          if($("#wfmis_job_roles a").length == 0){
+            $("#wfmis_job_roles").append("<a class='box'>No Jobs Roles</a>");
+          }
+        });
+      }
+    });
+  </script>
+{% endblock %}

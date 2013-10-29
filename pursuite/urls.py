@@ -31,35 +31,38 @@ urlpatterns = patterns(
         results_per_page=10,
         ), name='haystack_search'),
     url(
-        r'occupational-standards/$',
+        r'^occupational-standards/$',
         'admin.views.occupational_standard.view_occupational_standards',
         name="occupational_standards"
     ),
     url(
-        r'occupational-standard/(?P<code>[A-z]{3}/[NO]\d{4})/$',
+        r'^occupational-standard/(?P<code>[A-z]{3}/[NO]\d{4})/$',
         'admin.views.occupational_standard.view_occupational_standard',
         name="occupational_standard"
     ),
     url(
-        r'occupational-standard/(?P<code>[A-z]{3}/[NO]\d{4})/'
+        r'^occupational-standard/(?P<code>[A-z]{3}/[NO]\d{4})/'
             '(?P<version>\d+\.\d+)/$',
         'admin.views.occupational_standard.view_occupational_standard',
         name="occupational_standard"
     ),
     url(
-        r'qualification-packs/$',
+        r'^qualification-packs/$',
         'admin.views.qualification_pack.view_qualification_packs',
         name="qualification_packs"
     ),
     url(
-        r'qualification-pack/(?P<code>[A-z]{3}/Q\d{4})/$',
+        r'^qualification-pack/(?P<code>[A-z]{3}/Q\d{4})/$',
         'admin.views.qualification_pack.view_qualification_pack',
         name="qualification_pack"
     ),
     url(
-        r'qualification-pack/(?P<code>[A-z]{3}/Q\d{4})/(?P<version>\d+\.\d+)/$',
-        'admin.views.qualification_pack.view_qualification_pack',
+        r'^qualification-pack/(?P<code>[A-z]{3}/Q\d{4})/(?P<version>\d+\.\d+)/\
+            $', 'admin.views.qualification_pack.view_qualification_pack',
         name="qualification_pack"
+    ),
+    url(
+        r'^wfmis-json/$', 'admin.views.common.wfmis_json', name="wfmis_json"
     ),
     url(r'^', include('cms.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

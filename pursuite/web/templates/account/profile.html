@@ -12,5 +12,28 @@
 {% endblock %}
 
 {% block article %}
-<h1>Welcome to Profile page</h1>
+  {% if request.GET.edit %}
+    <form method="POST" action="{% url 'profile' %}">
+      {% csrf_token %}
+      {% if form.errors %}
+        <label class="text-error">There are some errors in form. Please correct!</label>
+      {% endif %}
+      {{ form }}
+      </br>
+      <input class="btn btn-theme" type="submit" value="Save Changes"/>
+    </form>
+  {% else %}
+    {% for field in form %}
+      {{ field.label }}: {{ field.value }}
+      </br>
+    {% endfor %}
+    <a class="btn btn-theme" href="{% url 'profile' %}?edit=True">Edit</a>
+  {% endif %}
+{% endblock %}
+
+{% block script %}
+<script>
+  $(document).ready(function() {
+  });
+</script>
 {% endblock %}

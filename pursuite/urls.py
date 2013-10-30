@@ -24,7 +24,7 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^analytics/', include('analytics.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^account/profile/', 'account.views.profile'),
+    url(r'^account/profile/$', 'account.views.profile', name="profile"),
     url(r'^account/', include('allauth.urls')),
     url(r'^search/$', FacetedSearchView(
         form_class=FacetedSearchForm,

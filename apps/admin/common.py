@@ -15,4 +15,4 @@ def html2text(html):
     """
     Convert HTML to Text
     """
-    return nltk.clean_html(html.encode('utf-8'))
+    return nltk.clean_html(html)

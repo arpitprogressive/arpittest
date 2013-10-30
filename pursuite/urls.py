@@ -23,6 +23,7 @@ urlpatterns = patterns(
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^account/profile/', 'account.views.profile'),
     url(r'^account/', include('allauth.urls')),
     url(r'^search/$', FacetedSearchView(
         form_class=FacetedSearchForm,

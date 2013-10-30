@@ -1,0 +1,34 @@
+{% extends "article.html" %}
+
+{% block title %}
+  Confirm Email
+{% endblock %}
+
+{% block heading %}
+  Confirm Your Email Address
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+{% if confirmation %}
+<p>Please confirm that <a href="mailto:{{ confirmation.email_address.email }}">{{ confirmation.email_address.email }}</a> is your e-mail address.</p>
+<form method="POST" id="email-confirm" action="{% url 'account_confirm_email' confirmation.key %}" >
+  {% csrf_token %}
+  <div class="form-actions">
+      <input class="btn btn-primary" type="submit" value="Confirm" />
+  </div>
+</form>
+{% else %}
+<p>{This e-mail confirmation link expired or is invalid. Please <a href="{% url 'account_email' %}">issue a new e-mail confirmation request</a>.</p>
+{% endif %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+$(document).ready(function () {
+  $("#email-confirm").submit();
+});
+</script>
+{% endblock %}

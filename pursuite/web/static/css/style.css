@@ -2545,3 +2545,22 @@ h1.ls-s2{
     margin-bottom:10px;
     border: solid 2px #f8a900;
 }
+
+#wfmis .box{
+    background: #eee;
+    padding: 5px 10px;
+    display: block;
+    cursor: pointer;
+}
+#wfmis .heading{
+    font-weight: bold;
+    padding: 10px;
+}
+#wfmis .column{
+    max-height: 400px;
+    overflow-y: auto;
+}
+#wfmis .active{
+    background: #666;
+    color: #fff;
+}

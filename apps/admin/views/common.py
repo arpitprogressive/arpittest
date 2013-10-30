@@ -22,7 +22,7 @@ def wfmis_json(request):
     response = {}
     sub_sectors = SubSector.objects.all()
     occupations = Occupation.objects.all()
-    qualification_packs = QualificationPack.objects.all()
+    qualification_packs = QualificationPack.objects.filter(is_draft=False).all()
     response["sub-sectors"] = [
         {
             'name': sub_sector.name,

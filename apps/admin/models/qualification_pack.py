@@ -197,7 +197,7 @@ class QualificationPackIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_text(self, obj):
         "Prepare primary document for search"
-        pattern = ("{code}\n\n{sector}\n\n{subsector}\n\n{occupation}\n\n"
+        pattern = (u"{code}\n\n{sector}\n\n{subsector}\n\n{occupation}\n\n"
                    "{job_role}\n\n{role_description}\n\n{alias}")
         return pattern.format(
             code=obj.code,

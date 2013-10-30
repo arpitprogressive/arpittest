@@ -202,7 +202,7 @@ class OccupationalStandardIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_text(self, obj):
         "Prepare primary document for search"
-        patrn = "{code}\n\n{sector}\n\n{subsector}\n\n{description}\n\n" \
+        patrn = u"{code}\n\n{sector}\n\n{subsector}\n\n{description}\n\n" \
                 "{scope}\n\n{knowledge}\n\n{skills}"
         return patrn.format(
             code=obj.code,

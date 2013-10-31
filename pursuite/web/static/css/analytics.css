@@ -19,17 +19,17 @@ svg {
   opacity: 1 !important;
 }
 
-#map{
+.analytics-map {
   width: 600px;
-  height: 600px;
   float: left;
 }
-#stats{
-  width: 500px;
-  height: 600px;
+.analytics-chart {
+  width: 550px;
   float: right;
 }
 
 .clear{
   clear: both;
 }
+
+.ana

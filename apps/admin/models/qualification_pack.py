@@ -5,10 +5,12 @@
     :copyright: (c) 2013 by Openlabs Technologies & Consulting (P) Limited
     :license: see LICENSE for more details.
 """
+from django import forms
 from django.db import models
 from django.contrib import admin
 from django.contrib import messages
 from haystack import indexes
+from django.core.exceptions import ValidationError
 
 from .validators import validate_qp_code, validate_version
 
@@ -88,6 +90,40 @@ class QualificationPack(models.Model):
         return self.occupation.sub_sector
 
 
+class QualificationPackForm(forms.ModelForm):
+    "Verify Qualification Pack"
+
+    class Meta:
+        """
+            Meta data for this form
+        """
+        model = QualificationPack
+
+    def clean(self):
+        """
+            Verify Qualification data
+        """
+        super(QualificationPackForm, self).clean()
+        os_compulsory = self.cleaned_data.get('os_compulsory', [])
+        os_optional = self.cleaned_data.get('os_optional', [])
+
+        if os_compulsory and os_compulsory.all().filter(is_draft=True):
+            raise ValidationError(
+                'Some of Compulsory Occupational Standards are in draft.'
+            )
+
+        if os_optional and os_optional.all().filter(is_draft=True):
+            raise ValidationError(
+                'Some of Optional Occupational Standards are in draft.'
+            )
+        if set(os_compulsory) & set(os_optional):
+            raise ValidationError(
+                'Some Occupational Standards are common in compulsory and \
+                optional Occupational Standards'
+            )
+        return self.cleaned_data
+
+
 class QualificationPackAdmin(admin.ModelAdmin):
     '''
         Oqualification Pack for Admin
@@ -103,6 +139,7 @@ class QualificationPackAdmin(admin.ModelAdmin):
     list_per_page = 20
     search_fields = ['code', 'title', 'description']
     save_as = True
+    form = QualificationPackForm
 
     def bump_new_version(modeladmin, request, queryset):
         '''

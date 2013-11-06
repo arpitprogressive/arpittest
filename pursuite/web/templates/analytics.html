@@ -4,77 +4,21 @@
 {% endblock %}
 
 {% block heading %}
- Analytics - Demand/Supply ({{ analytics_year }})
+ Analytics - Demand/Supply
 {% endblock %}
 {% block article %}
-  <div id="demand-map"></div>
-  <div id="supply-map"></div>
-  <div id="stats">
-    <h3></h3>
-    <p>Click on states to view details.</p>
-  </div>
-  <div class="clear"></div>
-  <script type="text/javascript" src="{{ STATIC_URL }}/js/d3.min.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}/js/d3.geo.min.js"></script>
-  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}/css/analytics.css"/>
-  <script type="text/javascript">
-    function render_map(map_type) {
-      function initialize() {
-        proj.scale(7000);
-        proj.translate([-1310, 750]);
-      }
 
-      var width = 600;
-      var height = 600;
-      var proj = d3.geo.mercator();
-      var path = d3.geo.path().projection(proj);
-      var trans = proj.translate();
-      var scale = proj.scale();
+<div style="float: left; margin-right: 60px">
+  {% for year in analytics_demand_years %}
+    <a href='/analytics/demand/{{year}}'>Demand in {{ year }}</a><br />
+  {% endfor %}
+</div>
 
-      var map = d3.select("#" + map_type + "-map").append("svg:svg")
-          .attr("width", width)
-          .attr("height", height)
-          .call(initialize);
-      var stats = d3.select("#stats");
-      var india = map.append("svg:g")
-          .attr("id", "india");
+<div>
+  {% for year in analytics_supply_years %}
+    <a href='/analytics/demand/{{year}}'>Supply in {{ year }}</a><br />
+  {% endfor %}
+</div>
 
-      d3.json("{{ STATIC_URL }}/states.json", function (json) {
-        india.selectAll("path")
-            .data(json.features)
-            .enter().append("path")
-            .attr("d", path)
-            .attr("class", "state")
-            .on("click", function(d,i){
-              d3.selectAll("path").classed("selected", false);
-              d3.select(this).classed("selected", true);
-              stats.select("h3").text(d.id);
-              stats.select("p").text("Head Count :" + d.wealth);
-            })
-            .on("mouseover", function(d,i){
-              d3.select(this).classed("hover", true);
-            })
-            .on("mouseout", function(d,i){
-              d3.select(this).classed("hover", false);
-            });
-      });
-      setTimeout(function() {
-        d3.json("/analytics/data/states/2013", function(json) {
-          data = json[map_type + '_data'];
-          india.selectAll("path").style("opacity", quantize);
-        });
-      }, 100);
-    }
-
-    function quantize(d, i) {
-      d['wealth'] = data[d.id];
-      console.log(data)
-      return Math.floor(d.wealth/10)/10;
-    }
-    
-    $(document).ready(function() {
-      render_map('demand');
-      render_map('supply');
-    });
-  </script>
+<div style="clear: both"></div>
 {% endblock %}

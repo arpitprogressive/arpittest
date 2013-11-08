@@ -28,8 +28,23 @@ class QualificationPack(models.Model):
         app_label = 'admin'
         unique_together = ('code', 'version')
 
+    LEVEL_CHOICES = (
+        (10, 'Entry Level 1'),
+        (20, 'Entry Level 2'),
+        (30, 'Middle Level 1'),
+        (40, 'Middle Level 2'),
+        (50, 'Middle Level 3'),
+        (60, 'Middle Level 4'),
+        (70, 'Middle Level 5'),
+        (80, 'Leadership Level 1'),
+        (90, 'Leadership Level 2'),
+        (100, 'Leadership Level 3'),
+        (110, 'Leadership Level 4'),
+        (120, 'Leadership Level 5'),
+    )
+
     code = models.CharField(
-        max_length=9, default=None, validators=[validate_qp_code],
+        max_length=9, validators=[validate_qp_code], blank=True,
         db_index=True,
     )
     version = models.CharField(
@@ -38,6 +53,12 @@ class QualificationPack(models.Model):
     )
     is_draft = models.BooleanField(default=True, verbose_name="Draft")
     occupation = models.ForeignKey('Occupation', default=None, db_index=True)
+
+    level = models.IntegerField(default=10, choices=LEVEL_CHOICES)
+    tracks = models.ManyToManyField('Track', blank=True, null=True)
+    next_jobs = models.ManyToManyField(
+        'QualificationPack', blank=True, null=True,
+    )
 
     job_role = models.CharField(max_length=50, default=None, db_index=True)
     alias = models.TextField(default=None)
@@ -106,6 +127,8 @@ class QualificationPackForm(forms.ModelForm):
         super(QualificationPackForm, self).clean()
         os_compulsory = self.cleaned_data.get('os_compulsory', [])
         os_optional = self.cleaned_data.get('os_optional', [])
+        next_jobs = self.cleaned_data.get('next_job', [])
+        level = self.cleaned_data.get('level')
 
         if os_compulsory and os_compulsory.all().filter(is_draft=True):
             raise ValidationError(
@@ -121,6 +144,11 @@ class QualificationPackForm(forms.ModelForm):
                 'Some Occupational Standards are common in compulsory and \
                 optional Occupational Standards'
             )
+        if next_jobs and next_jobs.filter(level__lt=level):
+            # Check all next_jobs levels are not below current
+            raise ValidationError(
+                'Some Job roles in Next Job are of low level.'
+            )
         return self.cleaned_data
 
 
@@ -130,7 +158,7 @@ class QualificationPackAdmin(admin.ModelAdmin):
     '''
     exclude = ('is_draft',)
     list_display = (
-        '__unicode__', 'occupation', 'drafted_on',
+        '__unicode__', 'occupation', 'level', 'drafted_on',
         'last_reviewed_on', 'next_review_on', 'is_draft',
     )
     list_filter = (
@@ -178,7 +206,7 @@ class QualificationPackAdmin(admin.ModelAdmin):
         '''
         if obj and not obj.is_draft:
             return obj._meta.get_all_field_names()
-        return self.readonly_fields
+        return self.readonly_fields + ('code',) if obj else ()
 
 
 admin.site.register(QualificationPack, QualificationPackAdmin)

@@ -10,13 +10,13 @@
 
 <div style="float: left; margin-right: 60px">
   {% for year in analytics_demand_years %}
-    <a href='/analytics/demand/{{year}}'>Demand in {{ year }}</a><br />
+    <a href='{% url "demand" year %}'>Demand in {{ year }}</a><br />
   {% endfor %}
 </div>
 
 <div>
   {% for year in analytics_supply_years %}
-    <a href='/analytics/demand/{{year}}'>Supply in {{ year }}</a><br />
+    <a href='{% url "supply" year %}'>Supply in {{ year }}</a><br />
   {% endfor %}
 </div>
 

@@ -139,7 +139,7 @@ class OccupationalStandardAdmin(admin.ModelAdmin):
         '''
         if obj and not obj.is_draft:
             return obj._meta.get_all_field_names()
-        return self.readonly_fields
+        return self.readonly_fields + ('code',) if obj else ()
 
 
 admin.site.register(OccupationalStandard, OccupationalStandardAdmin)

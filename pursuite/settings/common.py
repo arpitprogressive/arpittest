@@ -195,6 +195,8 @@ CMS_TEMPLATES = (
     ('home.html', 'Home'),
     ('contact.html', 'Contact'),
     ('article.html', 'Article'),
+    ('stakeholders.html', 'Stakeholders'),
+    ('stakeholders-inner.html', 'Stakeholders Inner'),
     ('inner-article.html', 'Inner Article'),
     ('inner-article-with-box.html', 'Inner Article With Box'),
     ('common_blocks.html', 'Common Blocks'),

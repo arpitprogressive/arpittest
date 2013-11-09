@@ -18,7 +18,10 @@ def get_description(page):
     '''
         Returns brief description of cms page
     '''
-    placeholder = page.placeholders.filter(slot='content').get()
+    placeholders = page.placeholders.filter(slot='content')
+    if not placeholders:
+        return ""
+    placeholder, = placeholders
     plugins = placeholder.get_plugins().filter(plugin_type='TextPlugin')
     desc = ''.join([html2text(plugin.text.body) for plugin in plugins])
     desc = desc[:100] + ('...' if len(desc) > 100 else '')

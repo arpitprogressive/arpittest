@@ -1,0 +1,16 @@
+{% extends "article.html" %}
+{% load cms_tags menu_tags fix_menu_tags %}
+{% block article %}
+  <div class="row-fluid">
+    <!-- ContentArea Starts here -->
+    <div class="article">
+      <div class="row-fluid">
+        <!-- content box -->
+        <div class="row-fluid">
+          {% fix_show_sub_menu 1 None 1 "menu/news-read-more.html" %}
+        </div>
+      </div>
+    </div>
+    <!-- ContentArea Ends here -->
+  </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% load menu_tags filters %}
+{% for child in children %}
+  <div>
+    <h4>{{ child.get_menu_title }}</h4>
+    <p>
+      {{ child.page|get_description }}
+    </p>
+    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="btn-theme2">Read More</a> &nbsp;
+    <span class="muted pull-right" style="font-size:0.6em; margin-top:5px;">{{ child.page.publication_date }}</span>
+    <hr/>
+  </div>
+  {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+{% endfor %}

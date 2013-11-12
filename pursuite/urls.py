@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import patterns, url, include
 from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
 from haystack.views import FacetedSearchView
 from haystack.forms import FacetedSearchForm
 from haystack.query import SearchQuerySet
@@ -66,6 +67,14 @@ urlpatterns = patterns(
     ),
     url(
         r'^wfmis-json/$', 'admin.views.common.wfmis_json', name="wfmis_json"
+    ),
+    url(
+        r'^article/occupational-standards/$',
+        RedirectView.as_view(url='/occupational-standards/'),
+    ),
+    url(
+        r'^employability-assessments/qualification-packs/$',
+        RedirectView.as_view(url='/qualification-packs/'),
     ),
     url(r'^', include('cms.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

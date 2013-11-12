@@ -165,7 +165,7 @@ class QualificationPackAdmin(admin.ModelAdmin):
         'code', 'occupation', 'is_draft',
     )
     list_per_page = 20
-    search_fields = ['code', 'title', 'description']
+    search_fields = ['code', 'job_role', 'role_description']
     save_as = True
     form = QualificationPackForm
 

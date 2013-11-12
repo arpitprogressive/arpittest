@@ -10,6 +10,7 @@ from django.db import models
 from django.contrib import admin
 from django.contrib import messages
 from haystack import indexes
+from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
 from .validators import validate_qp_code, validate_version
@@ -48,8 +49,8 @@ class QualificationPack(models.Model):
         db_index=True,
     )
     version = models.CharField(
-        max_length=8, default=None, validators=[validate_version],
-        db_index=True,
+        max_length=8, validators=[validate_version], db_index=True,
+        blank=True,
     )
     is_draft = models.BooleanField(default=True, verbose_name="Draft")
     occupation = models.ForeignKey('Occupation', default=None, db_index=True)
@@ -61,26 +62,26 @@ class QualificationPack(models.Model):
     )
 
     job_role = models.CharField(max_length=50, default=None, db_index=True)
-    alias = models.TextField(default=None)
-    role_description = models.TextField(default=None)
-    nveqf_level = models.CharField(max_length=5, default=None)
+    alias = models.TextField(blank=True)
+    role_description = models.TextField(blank=True)
+    nveqf_level = models.CharField(max_length=5, blank=True)
     min_educational_qualification = models.CharField(
-        max_length=50, default=None,
+        max_length=50, blank=True,
     )
     max_educational_qualification = models.CharField(
-        max_length=50, default=None,
+        max_length=50, blank=True,
     )
-    training = models.TextField()
-    experience = models.TextField(default=None)
+    training = models.TextField(blank=True)
+    experience = models.TextField(blank=True)
     os_compulsory = models.ManyToManyField(
         'OccupationalStandard', related_name='os_compulsory',
-        verbose_name='Occupational Standard (Compulsory)',
+        verbose_name='Occupational Standard (Compulsory)', blank=True,
     )
     os_optional = models.ManyToManyField(
         'OccupationalStandard', related_name='os_optional',
         verbose_name='Occupational Standard (Optional)', null=True, blank=True,
     )
-    attachment = models.FileField(upload_to='qp_attachments')
+    attachment = models.FileField(upload_to='qp_attachments', blank=True)
 
     drafted_on = models.DateTimeField(auto_now_add=True)
     last_reviewed_on = models.DateTimeField(auto_now=True)  # Write date
@@ -91,10 +92,12 @@ class QualificationPack(models.Model):
             Returns object display name. This comprises code and version.
             For example: SSC/Q2601-V0.1
         '''
-        return "%s-V%s%s (%s)" % (
-            self.code, self.version, "draft" if self.is_draft else "",
-            self.job_role,
-        )
+        if self.code:
+            return "%s-V%s%s (%s)" % (
+                self.code, self.version, "draft" if self.is_draft else "",
+                self.job_role,
+            )
+        return "%s%s" % ("(draft) " if self.is_draft else "", self.job_role)
 
     @property
     def sector(self):
@@ -109,6 +112,15 @@ class QualificationPack(models.Model):
         Returns sub-sector corresponding to qualification pack
         """
         return self.occupation.sub_sector
+
+    def get_absolute_url(self):
+        '''
+            get absolute url
+        '''
+        if self.level < 30:
+            # for Entry level qp
+            return reverse('qualification_pack', args=(self.code,))
+        return reverse('qualification_pack', args=(self.id,))
 
 
 class QualificationPackForm(forms.ModelForm):

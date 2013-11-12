@@ -83,7 +83,9 @@
     </tr>
     <tr>
       <td>Attachment</td>
-      <td><a href="{{ qualification_pack.attachment.url }}">{{ qualification_pack.attachment.name }}</a></td>
+      {% if qualification_pack.attachment %}
+        <td><a href="{{ qualification_pack.attachment.url }}">{{ qualification_pack.attachment.name }}</a></td>
+      {% endif %}
     </tr>
     <tr>
       <td>Last Review On</td>

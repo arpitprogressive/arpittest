@@ -13,3 +13,4 @@ from occupational_standard import *
 from qualification_pack import *
 from institution import *
 from company import *
+from job import *

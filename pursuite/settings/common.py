@@ -203,6 +203,7 @@ CMS_TEMPLATES = (
     ('common_blocks.html', 'Common Blocks'),
     ('wfmis.html', 'WFMIS'),
 )
+CMS_REDIRECTS = True
 
 CMS_PLACEHOLDER_CONF = {
     'training-providers-footer-ad': {

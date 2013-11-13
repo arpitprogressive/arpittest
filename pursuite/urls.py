@@ -56,6 +56,11 @@ urlpatterns = patterns(
         name="qualification_packs"
     ),
     url(
+        r'^qualification-pack/(?P<id>\d+)/$',
+        'admin.views.qualification_pack.view_qualification_pack_id',
+        name="qualification_pack"
+    ),
+    url(
         r'^qualification-pack/(?P<code>[A-z]{3}/Q\d{4})/$',
         'admin.views.qualification_pack.view_qualification_pack',
         name="qualification_pack"

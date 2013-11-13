@@ -30,7 +30,7 @@ def view_qualification_packs(request):
 
 def view_qualification_pack(request, code, version=None):
     """
-    Render Qualfication Pack
+    Render Qualfication Pack from QP Code
 
     :param request: request object
     :param code: qualification pack code
@@ -47,3 +47,21 @@ def view_qualification_pack(request, code, version=None):
             context_instance=RequestContext(request),
         )
     raise Http404
+
+
+def view_qualification_pack_id(request, id):
+    """
+    Render Qualfication Pack from QP ID
+
+    :param request: request object
+    :param id: id
+    """
+    qualification_pack = QualificationPack.objects.filter(id=id)
+    if not qualification_pack:
+        raise Http404
+
+    return render_to_response(
+        'admin/qualification_pack_id.html',
+        {'qualification_pack': qualification_pack.get()},
+        context_instance=RequestContext(request),
+    )

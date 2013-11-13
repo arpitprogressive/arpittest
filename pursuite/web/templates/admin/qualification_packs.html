@@ -17,7 +17,7 @@
 {% autopaginate qualification_packs %}
 {% for qp in qualification_packs %}
   <li>
-    <a href="{% url 'qualification_pack' code=qp.code %}">Qualification Pack - {{ qp.code }}</a>
+    <a href="{{ qp.get_absolute_url }}">Qualification Pack - {{ qp.code }}</a>
   </li>
 {% endfor %}
 </ul>

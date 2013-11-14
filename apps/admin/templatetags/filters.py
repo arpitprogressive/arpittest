@@ -30,3 +30,24 @@ def get_description(page):
         desc = ''
     desc = desc[:100] + ('...' if len(desc) > 100 else '')
     return desc
+
+
+@register.filter
+def split(value, key):
+    """
+        Returns the value turned into a list.
+    """
+    return value.split(key)
+
+
+@register.filter
+def get_value(dict, key):
+    """
+        Returns the value from dict
+    """
+    if not dict:
+        return None
+    for k, v in dict:
+        if k == key:
+            return v
+    return None

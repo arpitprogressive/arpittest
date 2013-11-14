@@ -17,7 +17,7 @@
 {% autopaginate occupational_standards %}
 {% for os in occupational_standards %}
   <li>
-    <a href="{% url 'occupational_standard' code=os.code %}">Occupational Standard - {{ os.code }}</a>
+    <a href="{{ os.get_absolute_url }}">Occupational Standard - {{ os.code }}</a>
   </li>
 {% endfor %}
 </ul>

@@ -50,7 +50,7 @@
         {% endif %}
         <div class="control-group">
           <!-- Username -->
-          <label class="control-label"  for="login">Username or email-address 
+          <label class="control-label"  for="login">Email address
             <span class="form-required" title="This field is required.">*</span>
           </label>
           <div class="controls">
@@ -75,7 +75,7 @@
         <div class="control-group">
           <!-- Button -->
           <div class="controls">
-            <button class="btn">Log in</button>
+            <button class="btn btn-theme">Log in</button>
           </div>
         </div>
         <div class="center">
@@ -86,4 +86,11 @@
   </div>
 </div>
 {% endwith %}
+{% endblock %}
+{% block script %}
+  <script type="text/javascript">
+    $(function(){
+      $("#id_login").attr("placeholder", "E-mail");
+    });
+  </script>
 {% endblock %}

@@ -254,11 +254,11 @@ class QualificationPackIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_sector(self, obj):
         "Fetch sector name for indexing"
-        return (obj.sub_sector.sector.name).replace(' ', '_')
+        return (obj.sub_sector.sector.name).replace(' ', '_').replace('&', '_')
 
     def prepare_sub_sector(self, obj):
         "Fetch sub sector name for indexing"
-        return (obj.sub_sector.name).replace(' ', '_')
+        return (obj.sub_sector.name).replace(' ', '_').replace('&', '_')
 
     def prepare_os_compulsory(self, obj):
         "Fetch os_compulsory name for indexing"
@@ -266,7 +266,7 @@ class QualificationPackIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_occupation(self, obj):
         "Fetch occupation name for indexing"
-        return (obj.occupation.name).replace(' ', '_')
+        return (obj.occupation.name).replace(' ', '_').replace('&', '_')
 
     def prepare_os_optional(self, obj):
         "Fetch os_optional name for indexing"

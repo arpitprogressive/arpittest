@@ -9,6 +9,7 @@ from tinymce.models import HTMLField
 from django.db import models
 from django.contrib import admin
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from haystack import indexes
 
@@ -72,6 +73,12 @@ class OccupationalStandard(models.Model):
         Returns sector corresponding to occupational standard.
         """
         return self.sub_sector.sector
+
+    def get_absolute_url(self):
+        '''
+            get absolute url
+        '''
+        return reverse('occupational_standard', args=(self.code,))
 
     def clean(self):
         '''
@@ -170,11 +177,11 @@ class OccupationalStandardIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_sector(self, obj):
         "Fetch sector name for indexing"
-        return (obj.sub_sector.sector.name).replace(' ', '_')
+        return (obj.sub_sector.sector.name).replace(' ', '_').replace('&', '_')
 
     def prepare_sub_sector(self, obj):
         "Fetch sub sector name for indexing"
-        return (obj.sub_sector.name).replace(' ', '_')
+        return (obj.sub_sector.name).replace(' ', '_').replace('&', '_')
 
     def prepare_description(self, obj):
         "Fetch description and convert to plain text for indexing"

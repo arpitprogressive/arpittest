@@ -1,4 +1,5 @@
 {% extends "article.html" %}
+{% load filters %}
 {% block title %}
   Search {% if query %}"{{query}}"{% endif %}
 {% endblock %}
@@ -9,22 +10,39 @@
 {% block article %}
 <div class="row-fluid">
   <div class="span3">
-    {% for key, value in facets.fields.items %}
-      {% if value %}
+    {% for key in "model_type,sector,sub_sector,occupation"|split:"," %}
+      {% if facets.fields.items|get_value:key %}
         <div class="accordion" id="filter-by-{{key}}">
           <div class="accordion-group">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#filter-by-{{key}}" href="#collapse-{{key}}">
-                {{ key }}
+                {% if key == 'model_type' %}
+                  result type
+                {% elif key == 'sub_sector' %}
+                  Sub-sector
+                {% else %}
+                  {{ key }}
+                {% endif %}
               </a>
             </div>
             <div id="collapse-{{key}}" class="accordion-body collapse in">
               <div class="accordion-inner">
                 <form>
-                  {% for s in value|slice:":5" %}
+                  {% for s in facets.fields.items|get_value:key|slice:":5" %}
                     <label class="checkbox facet-select">
                       <input type="checkbox" class="facet-checkbox">
-                      <a href="#" facet="{{key}}:{{ s.0|urlencode }}">{{ s.0 }}</a> ({{ s.1 }})
+                      <a href="#" facet="{{key}}:{{ s.0|urlencode }}">
+                        {# Sorry for all this mess, we are helpless #}
+                        {% if s.0 == 'it_service' %}
+                          IT Service
+                        {% elif s.0 == 'ites' %}
+                          ITeS
+                        {% elif s.0 == 'engineering_and_r_d' %}
+                          Engineering and R&D
+                        {% else %}
+                          {{ s.0 }}
+                        {% endif %}
+                      </a> ({{ s.1 }})
                     </label>
                   {% endfor %}
                 </form>
@@ -90,7 +108,7 @@
     <script type="text/javascript">
 
     function clean_name(str) {
-      return str.split(/[,\-_ \n]+/).join(' ');
+      return str.split(/[,_ \n]+/).join(' ');
     }
 
     function clean_name2(str) {
@@ -146,8 +164,10 @@
 
     $(document).ready(function() {
       $('a.accordion-toggle').each(function(index) {
-        var x = clean_name($(this).text());
-        $(this).css('text-transform', 'capitalize');
+        var x = clean_name($(this).text().trim());
+        if (x != "Sub-sector"){
+          $(this).css('text-transform', 'capitalize');
+        }
         $(this).text(x);
       });
 

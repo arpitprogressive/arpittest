@@ -33,8 +33,8 @@
                       <input type="checkbox" class="facet-checkbox">
                       <a href="#" facet="{{key}}:{{ s.0|urlencode }}">
                         {# Sorry for all this mess, we are helpless #}
-                        {% if s.0 == 'it_service' %}
-                          IT Service
+                        {% if s.0 == 'it_services' %}
+                          IT Services
                         {% elif s.0 == 'ites' %}
                           ITeS
                         {% elif s.0 == 'engineering_and_r_d' %}
@@ -182,8 +182,11 @@
           $(checkbox).attr('checked', false);
           $(link).attr('href', facets_add(facet));
         }
-        $(link).text(clean_name2($(link).text()));
-        $(link).css('text-transform', 'capitalize');
+        var x = clean_name2($(link).text().trim());
+        $(link).text(x);
+        if (x != "Engineering and R&D"){
+          $(this).css('text-transform', 'capitalize');
+        }
         $(checkbox).change(function() {
           window.location.href = $(link).attr('href');
         });

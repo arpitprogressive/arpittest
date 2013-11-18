@@ -1,4 +1,5 @@
-{% load menu_tags filters %}
+{% load menu_tags filters pagination_tags %}
+{% autopaginate children 10 %}
 {% for child in children %}
   <div>
     <h4>{{ child.get_menu_title }}</h4>
@@ -9,5 +10,5 @@
     <span class="muted pull-right" style="font-size:0.6em; margin-top:5px;">{{ child.page.publication_date }}</span>
     <hr/>
   </div>
-  {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
 {% endfor %}
+<div class="pull-right">{% paginate %}</div>

@@ -13,13 +13,32 @@
 {% endblock %}
 
 {% block article %}
-<ul>
-{% autopaginate qualification_packs %}
-{% for qp in qualification_packs %}
-  <li>
-    <a href="{{ qp.get_absolute_url }}">Qualification Pack - {{ qp.code }}</a>
-  </li>
-{% endfor %}
-</ul>
+<table>
+  <thead>
+    <th>Sub-sector</th>
+    <th>Job Role</th>
+    <th>Download</th>
+    <th></th>
+  </thead>
+  <tbody>
+    {% autopaginate qualification_packs %}
+    {% for qp in qualification_packs %}
+      <tr>
+        <td>{{ qp.occupation.sub_sector }}</td>
+        <td>{{ qp.job_role }}</td>
+        <td>
+          {% if qp.attachment %}
+            <a href="{{ qp.attachment.url }}"><i class="icon-download-alt"></i> Download (.pdf)</a>
+          {% else %}
+            No Download Link
+          {% endif %}
+        </td>
+        <td>
+          <a href="{{ qp.get_absolute_url }}" class="btn btn-theme">Read More</a>
+        </td>
+      <tr>
+    {% endfor %}
+  </tbody>
+</table>
 <div class="pull-right">{% paginate %}</div>
 {% endblock %}

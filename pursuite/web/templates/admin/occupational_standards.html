@@ -13,13 +13,32 @@
 {% endblock %}
 
 {% block article %}
-<ul>
-{% autopaginate occupational_standards %}
-{% for os in occupational_standards %}
-  <li>
-    <a href="{{ os.get_absolute_url }}">Occupational Standard - {{ os.code }}</a>
-  </li>
-{% endfor %}
-</ul>
+<table>
+  <thead>
+    <th>Sub-sector</th>
+    <th>Title</th>
+    <th>Download</th>
+    <th></th>
+  </thead>
+  <tbody>
+    {% autopaginate occupational_standards %}
+    {% for os in occupational_standards %}
+      <tr>
+        <td>{{ os.sub_sector }}</td>
+        <td>{{ os.title }}</td>
+        <td>
+          {% if os.attachment %}
+            <a href="{{ os.attachment.url }}"><i class="icon-download-alt"></i> Download (.pdf)</a>
+          {% else %}
+            No Download Link
+          {% endif %}
+        </td>
+        <td>
+          <a href="{{ os.get_absolute_url }}" class="btn btn-theme">Read More</a>
+        </td>
+      <tr>
+    {% endfor %}
+  </tbody>
+</table>
 <div class="pull-right">{% paginate %}</div>
 {% endblock %}

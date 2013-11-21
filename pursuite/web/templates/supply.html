@@ -93,7 +93,7 @@
   }
 
   function render_chart(year, state_id, container) {
-    $.getJSON('../data/supply/' + year + '/' + state_id, function(data) {
+    $.getJSON('/analytics/data/supply/' + year + '/' + state_id, function(data) {
       data = data['data'];
       supply_data = data['data'];
       supply_name = data['name'];

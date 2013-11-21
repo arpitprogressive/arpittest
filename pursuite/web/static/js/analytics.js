@@ -38,7 +38,7 @@ function render_map(year, map_type, static_url) {
         });
   });
   setTimeout(function() {
-    d3.json("../data/" + map_type + "/" + year, function(json) {
+    d3.json("/analytics/data/" + map_type + "/" + year, function(json) {
       data = json[map_type + '_data'];
       states_map = json['states'];
       india.selectAll("path").style("opacity", quantize);

@@ -1,0 +1,223 @@
+# -*- coding: utf-8 -*-
+"""
+    account.models
+
+    :copyright: (c) 2013 by Openlabs Technologies & Consulting (P) Limited
+    :license: see LICENSE for more details.
+"""
+from django.db import models
+from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+from django.contrib import admin
+
+__all__ = [
+    'UserProfile', 'StudentProfile', 'IndustryProfile', 'TrainingProfile',
+    'GovernmentProfile', 'IndustryProfileAdmin', 'TrainingProfileAdmin',
+    'GovernmentProfileAdmin', 'StudentProfileAdmin',
+]
+
+
+class UserProfile(models.Model):
+    """
+    User Profile
+    """
+    ROLE_CHOICES = {
+        ('S', 'Student / Job Seekers'),
+        ('T', 'Training Providers'),
+        ('I', 'Industry'),
+        ('G', 'Government'),
+    }
+    user = models.OneToOneField(User)
+    role = models.CharField(choices=ROLE_CHOICES, max_length=5)
+
+    def get_profile_model_form(self):
+        """
+        Return tuple of profile and profile form model based on role.
+        """
+        from account.forms import TrainingProfileForm, StudentProfileForm, \
+            GovernmentProfileForm, IndustryProfileForm
+        if self.role == "S":
+            return (StudentProfile, StudentProfileForm)
+        elif self.role == "T":
+            return (TrainingProfile, TrainingProfileForm)
+        elif self.role == "I":
+            return (IndustryProfile, IndustryProfileForm)
+        elif self.role == "G":
+            return (GovernmentProfile, GovernmentProfileForm)
+
+    def __unicode__(self):
+        """
+        Return object display name
+        """
+        return "%s - %s" % (self.get_role_display(), self.pk)
+
+
+class StudentProfile(models.Model):
+    """
+    Student Profile
+    """
+    WORK_STATUS_CHOICES = {
+        ('S', 'Studying'),
+        ('E', 'Employed'),
+        ('U', 'Unemployed'),
+    }
+    GENDER_CHOICES = {
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    }
+    EXPERIENCE_CHOICES = {
+        ('F', 'Fresher'),
+        ('1', '1'),
+        ('2', '2'),
+        ('5+', '5+'),
+        ('15+', '15+'),
+        ('25+', '25+'),
+    }
+    user_profile = models.OneToOneField(UserProfile)
+    name = models.CharField(max_length=20)
+    dob = models.DateField(null=True)
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=2)
+    address_line1 = models.TextField()
+    address_line2 = models.TextField()
+    postal_code = models.CharField(max_length=20)
+    mobile_phone = models.CharField(max_length=12)
+    telephone = models.CharField(max_length=12)
+    educational_background = models.CharField(max_length=100)
+    experience = models.CharField(max_length=10, choices=EXPERIENCE_CHOICES)
+    key_skills = models.TextField(validators=[
+        RegexValidator(
+            r'^[a-zA-Z0-9_]+$',
+            message='Key Skills should be Alphanumeric.',
+            code='invalid_key_skills',
+        )
+    ])
+    work_status = models.CharField(choices=WORK_STATUS_CHOICES, max_length=5)
+    industry_belongs_to = models.CharField(max_length=50, blank=True)
+    functional_area = models.CharField(max_length=50, blank=True)
+    current_company = models.CharField(max_length=50, blank=True)
+
+    def __unicode__(self):
+        """
+        Return object display name
+        """
+        return self.name
+
+
+class StudentProfileAdmin(admin.ModelAdmin):
+    '''
+    Industry profile view for admin
+    '''
+    list_display = ('__unicode__', 'gender', 'experience', 'work_status')
+
+
+admin.site.register(StudentProfile, StudentProfileAdmin)
+
+
+class IndustryProfile(models.Model):
+    """
+    Industry Profile
+    """
+    INDUSTRY_CHOICES = {
+        ('IT', 'IT-ITes'),
+        ('O', 'Other'),
+    }
+    user_profile = models.OneToOneField(UserProfile)
+    name = models.CharField(max_length=100)
+    est_year = models.IntegerField(null=True)
+    industry_type = models.CharField(max_length=10, choices=INDUSTRY_CHOICES)
+    sub_sector = models.CharField(max_length=20)
+    contact_person = models.CharField(max_length=20)
+    email = models.EmailField()
+    mobile_phone = models.CharField(max_length=12)
+    is_approved = models.BooleanField()
+    # TODO: Add company model fields
+
+    def __unicode__(self):
+        """
+        Return object display name
+        """
+        return self.name
+
+
+class IndustryProfileAdmin(admin.ModelAdmin):
+    '''
+    Industry profile view for admin
+    '''
+    list_display = (
+        '__unicode__', 'contact_person', 'email', 'is_approved',
+    )
+
+
+admin.site.register(IndustryProfile, IndustryProfileAdmin)
+
+
+class TrainingProfile(models.Model):
+    """
+    Training Profile
+    """
+    user_profile = models.OneToOneField(UserProfile)
+    name = models.CharField(max_length=100)
+    est_year = models.IntegerField(null=True)
+    area_of_specialization = models.CharField(max_length=100)
+    contact_person = models.CharField(max_length=20)
+    email = models.EmailField()
+    mobile_phone = models.CharField(max_length=12)
+    is_approved = models.BooleanField()
+    # TODO: Add company model fields
+
+    def __unicode__(self):
+        """
+        Return object display name
+        """
+        return self.name
+
+
+class TrainingProfileAdmin(admin.ModelAdmin):
+    '''
+    Industry profile view for admin
+    '''
+    list_display = (
+        '__unicode__', 'area_of_specialization', 'contact_person', 'email',
+        'is_approved',
+    )
+
+
+admin.site.register(TrainingProfile, TrainingProfileAdmin)
+
+
+class GovernmentProfile(models.Model):
+    """
+    Government Profile
+    """
+    DEPARTMENT_TYPES = {
+        ('S', 'State'),
+        ('C', 'Central'),
+    }
+    user_profile = models.OneToOneField(UserProfile)
+    department = models.CharField(max_length=100)
+    department_type = models.CharField(max_length=5, choices=DEPARTMENT_TYPES)
+    region = models.CharField(max_length=100)
+    contact_person = models.CharField(max_length=20)
+    email = models.EmailField()
+    mobile_phone = models.CharField(max_length=12)
+    is_approved = models.BooleanField()
+
+    def __unicode__(self):
+        """
+        Return object display name
+        """
+        return self.department
+
+
+class GovernmentProfileAdmin(admin.ModelAdmin):
+    '''
+    Government profile view for admin
+    '''
+    list_display = (
+        '__unicode__', 'department_type',
+        'contact_person', 'email', 'is_approved',
+    )
+
+
+admin.site.register(GovernmentProfile, GovernmentProfileAdmin)

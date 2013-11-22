@@ -23,7 +23,7 @@ class Job(models.Model):
 
     job_title = models.CharField(max_length=50, blank=True, db_index=True)
     is_internship = models.BooleanField(verbose_name="Internship")
-    job_roles = models.ForeignKey(
+    job_role = models.ForeignKey(
         'QualificationPack', default=None, db_index=True,
     )
     company = models.ForeignKey('Company', default=None, db_index=True)

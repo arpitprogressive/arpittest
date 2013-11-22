@@ -13,3 +13,4 @@ from test_qualification_pack import *
 from test_institution import *
 from test_company import *
 from test_occupation import *
+from test_job import *

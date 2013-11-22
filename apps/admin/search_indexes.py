@@ -14,3 +14,4 @@
 
 from admin.models import OccupationalStandardIndex
 from admin.models import QualificationPackIndex
+from admin.models import JobIndex

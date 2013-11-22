@@ -72,7 +72,10 @@
           <div class="media">
             <div class="media-body">
                 <a href="{{ result.object.get_absolute_url }}"><h4 class="media-heading">{% firstof result.object.title result.object %}</h4></a> 
-                <p>{{result.verbose_name}} - {{result.object}}</p>
+                <p>
+                    {{result.verbose_name}} - {{result.object}}
+                    {% if  result.object.job_role.job_role %} ({{result.object.job_role.job_role}}) {% endif %}
+                </p>
             </div>
           </div>
           <hr />

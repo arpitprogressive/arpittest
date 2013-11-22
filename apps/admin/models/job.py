@@ -7,8 +7,9 @@
 """
 from django.db import models
 from django.contrib import admin
+from haystack import indexes
 
-__all__ = ['Job']
+__all__ = ['Job', 'JobIndex']
 
 
 class Job(models.Model):
@@ -46,3 +47,49 @@ class JobAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Job, JobAdmin)
+
+
+class JobIndex(indexes.SearchIndex, indexes.Indexable):
+    """
+    Job Index for Haystack
+    """
+    text = indexes.CharField(document=True)
+    job_title = indexes.CharField(model_attr='job_title')
+    company = indexes.CharField(model_attr='company')
+    is_internship = indexes.CharField()
+    job_role = indexes.CharField()
+
+    def get_model(self):
+        "Return model class for current index"
+        return Job
+
+    def index_queryset(self, using=None):
+        "Used when the entire index for model is updated."
+        return self.get_model().objects.all()
+
+    def prepare_model_type(self, obj):
+        "Fetch model type"
+        return "Job"
+
+    def prepare_is_internship(self, obj):
+        "Fetch internship"
+        return str(obj.is_internship)
+
+    def prepare_company(self, obj):
+        "Fetch company"
+        return obj.company.name
+
+    def prepare_job_role(self, obj):
+        "Fetch job role"
+        return obj.job_role.job_role
+
+    def prepare_text(self, obj):
+        "Prepare primary document for search"
+        pattern = "{title}\n{internship}\n{company}\n{roles}\n{description}"
+        return pattern.format(
+            title=obj.job_title,
+            internship='Internship' if obj.is_internship else '',
+            company=obj.company.name,
+            roles=obj.job_role.job_role,
+            description=obj.job_description,
+        )

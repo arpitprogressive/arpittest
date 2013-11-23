@@ -32,4 +32,16 @@ svg {
   clear: both;
 }
 
-.ana
+#contribution-revenue-nasscom {
+  width: 550px;
+  float: left;
+}
+
+#contribution-revenue-company-type {
+  width: 550px;
+}
+
+#hiring-cumulative, #headcount-cumulative {
+  width: 800px;
+  text-align: center;
+}

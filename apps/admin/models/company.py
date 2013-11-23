@@ -69,6 +69,7 @@ class CompanyAdmin(admin.ModelAdmin):
     '''
     list_display = (
         '__unicode__', 'nasscom_membership_number', 'training_provider',
+        'company_type'
     )
 
 

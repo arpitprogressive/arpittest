@@ -110,6 +110,7 @@ class DemandData(models.Model):
     occupation = models.ForeignKey(Occupation)
     company = models.ForeignKey(Company)
     demand = models.IntegerField()
+    headcount = models.IntegerField()
 
     class Meta:
         unique_together = ('year', 'city', 'occupation', 'company',)
@@ -122,7 +123,27 @@ class DemandData(models.Model):
         return "%d,%s,%s" % (self.year, self.city, self.occupation,)
 
 
+class CompanyYearData(models.Model):
+    """
+    Revenue, Headcount data for companies annually
+    """
+    year = models.IntegerField()
+    company = models.ForeignKey(Company)
+    revenue = models.IntegerField()
+
+    class Meta:
+        unique_together = ('year', 'company', )
+        verbose_name_plural = 'Company Annual Data'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d,%s" % (self.year, self.company, )
+
+
 django.contrib.admin.site.register(State)
 django.contrib.admin.site.register(City)
 django.contrib.admin.site.register(SupplyBase)
 django.contrib.admin.site.register(DemandData)
+django.contrib.admin.site.register(CompanyYearData)

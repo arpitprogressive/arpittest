@@ -11,10 +11,12 @@ import json
 from django.template import Context
 from django.http import HttpResponse
 from django.db import connection
+from django.db.models import Sum, Count
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
-from analytics.models import State, City, DemandData, SupplyBase
+from analytics.models import State, City, DemandData, SupplyBase, \
+        CompanyYearData
 from admin.models import SubSector
 
 
@@ -387,3 +389,128 @@ def _supply_occupation(year, city_id, subsector_id):
         'data': data,
     }
     return json_data
+
+
+# Analytics 1
+
+def revenue_company(request, year):
+    "Return JSON string with revenue for nasscom and non-nasscom companies"
+    queryset = CompanyYearData.objects.filter(year=year)
+    nasscom_members = queryset.exclude(
+        company__nasscom_membership_number__exact='N/A'
+    ).aggregate(count=Count('revenue'), revenue=Sum('revenue'))
+
+    non_nasscom_members = queryset.filter(
+        company__nasscom_membership_number__exact='N/A'
+    ).aggregate(count=Count('revenue'), revenue=Sum('revenue'))
+
+    total = nasscom_members['revenue'] + non_nasscom_members['revenue']
+    percent = lambda x: (x * 100.0) / total
+
+    return HttpResponse(json.dumps({
+        'nasscom_members_num': nasscom_members['count'],
+        'nasscom_members_revenue': percent(nasscom_members['revenue']),
+        'non_nasscom_members_num': non_nasscom_members['count'],
+        'non_nasscom_members_revenue': percent(non_nasscom_members['revenue']),
+    }), content_type='text/json')
+
+
+def revenue_company_type(request, year):
+    "Return JSON string with revenue grouped by company type"
+    result = CompanyYearData.objects.filter(
+        year=year,
+    ).values('company__company_type') \
+        .annotate(revenue=Sum('revenue'))
+
+    return_result = []
+    total = CompanyYearData.objects.filter(year=year). \
+            aggregate(sum=Sum('revenue'))['sum']
+    percent = lambda x: (x * 100.0) / total
+
+    for item in result:
+        return_result.append((item['company__company_type'],
+            percent(item['revenue']), ))
+
+    return HttpResponse(json.dumps(return_result), content_type='text/json')
+
+
+def _demanddata_contribution(year, field, threshold_company_collect):
+    "Return cumulative sum by grouping field"
+    points = [4, 10, 20, 50]
+    cumulative_sums = []
+    companies = []
+    field_cumulative = 0
+    resultset = DemandData.objects.filter(year=year) \
+            .values('company', 'company__name') \
+            .annotate(field=Sum(field)).order_by('-%s' % field)
+    field_total = DemandData.objects.filter(year=year). \
+            aggregate(total=Sum(field))['total']
+    count = resultset.count()
+    for index, result in enumerate(resultset, 1):
+        field_cumulative += result['field']
+        percent = (field_cumulative * 100.0) / field_total
+        if index == points[0] or index == count:
+            cumulative_sums.append(
+                (index, percent)
+            )
+            points = points[1:]
+        if percent >= threshold_company_collect:
+            companies.append(result['company__name'])
+    return {
+        'cumulative_sums': cumulative_sums,
+        'threshold': threshold_company_collect,
+        'companies': companies
+    }
+
+
+def headcount_contribution(request, year):
+    "Return cumulative headcount contribution top companies"
+    return HttpResponse(json.dumps(
+        _demanddata_contribution(year, 'headcount', 80)
+    ))
+
+
+def hiring_contribution(request, year):
+    "Return cumulative headcount contribution top companies"
+    return HttpResponse(json.dumps(
+        _demanddata_contribution(year, 'demand', 80)
+    ))
+
+
+def hiring_subsector_trend(request):
+    "Return hiring for year by sub sector"
+    resultset = DemandData.objects.values(
+        'year',
+        'occupation__sub_sector',
+        'occupation__sub_sector__name'
+    ).annotate(hiring=Sum('demand')).order_by('year')
+    data = {}
+
+    for result in resultset:
+        year = result['year']
+        sub_sector = result['occupation__sub_sector__name']
+        hiring = result['hiring']
+
+        if sub_sector not in data:
+            data[sub_sector] = []
+        data[sub_sector].append((year, hiring,))
+
+    trend_data = []
+    for sub_sector, points in data.items():
+        trend_data.append({
+            'name': sub_sector,
+            'data': points
+        })
+    print trend_data
+
+    return HttpResponse(json.dumps(trend_data))
+
+
+def analytics1(request, year):
+    "Analytics 1 page"
+    year = int(year)
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/analytics1.html', c,
+            context_instance=RequestContext(request))

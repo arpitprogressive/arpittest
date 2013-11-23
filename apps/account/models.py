@@ -7,7 +7,6 @@
 """
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
 from django.contrib import admin
 
 __all__ = [
@@ -68,15 +67,15 @@ class StudentProfile(models.Model):
     }
     EXPERIENCE_CHOICES = {
         ('F', 'Fresher'),
-        ('1', '1'),
-        ('2', '2'),
-        ('5+', '5+'),
-        ('15+', '15+'),
-        ('25+', '25+'),
+        ('1', '1 year'),
+        ('2', '2 years'),
+        ('5+', '5+ years'),
+        ('15+', '15+ years'),
+        ('25+', '25+ years'),
     }
     user_profile = models.OneToOneField(UserProfile)
     name = models.CharField(max_length=20)
-    dob = models.DateField(null=True)
+    dob = models.DateField(null=True, verbose_name="Date of Birth")
     gender = models.CharField(choices=GENDER_CHOICES, max_length=2)
     address_line1 = models.TextField()
     address_line2 = models.TextField()
@@ -85,13 +84,9 @@ class StudentProfile(models.Model):
     telephone = models.CharField(max_length=12)
     educational_background = models.CharField(max_length=100)
     experience = models.CharField(max_length=10, choices=EXPERIENCE_CHOICES)
-    key_skills = models.TextField(validators=[
-        RegexValidator(
-            r'^[a-zA-Z0-9_]+$',
-            message='Key Skills should be Alphanumeric.',
-            code='invalid_key_skills',
-        )
-    ])
+    key_skills = models.ManyToManyField(
+        'admin.OccupationalStandard'
+    )
     work_status = models.CharField(choices=WORK_STATUS_CHOICES, max_length=5)
     industry_belongs_to = models.CharField(max_length=50, blank=True)
     functional_area = models.CharField(max_length=50, blank=True)
@@ -124,7 +119,9 @@ class IndustryProfile(models.Model):
     }
     user_profile = models.OneToOneField(UserProfile)
     name = models.CharField(max_length=100)
-    est_year = models.IntegerField(null=True)
+    est_year = models.IntegerField(
+        null=True, verbose_name="Establishment Year (YYYY)"
+    )
     industry_type = models.CharField(max_length=10, choices=INDUSTRY_CHOICES)
     sub_sector = models.CharField(max_length=20)
     contact_person = models.CharField(max_length=20)
@@ -158,7 +155,9 @@ class TrainingProfile(models.Model):
     """
     user_profile = models.OneToOneField(UserProfile)
     name = models.CharField(max_length=100)
-    est_year = models.IntegerField(null=True)
+    est_year = models.IntegerField(
+        null=True, verbose_name="Establishment Year (YYYY)"
+    )
     area_of_specialization = models.CharField(max_length=100)
     contact_person = models.CharField(max_length=20)
     email = models.EmailField()

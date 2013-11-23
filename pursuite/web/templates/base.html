@@ -43,6 +43,8 @@
     {% block styles %} {% endblock %}
     <link href="{{ STATIC_URL }}font/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}chosen/chosen.min.css">
     <style type="text/css">
       body{
       font-family: PlayRegular, Helvetica, arial, sans-serif;
@@ -480,8 +482,6 @@
                           <h2 class="element-invisible">Secondary menu</h2>
                           <ul id="secondary-menu-links" class="links inline clearfix">
                             {% if user.is_authenticated %}
-                              <!-- This should be fixed as soon as profile is linked to front end. replace this with display_name() -->
-                              Welcome {{ user.first_name }}
                               <li class="menu-356 first"><a href="{% url 'profile' %}">Profile</a></li>
                               <li class="menu-357 last"><a href="{% url 'account_logout' %}">Log out</a></li>
                             {% else %}

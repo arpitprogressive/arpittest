@@ -1,39 +1,110 @@
 {% extends "article.html" %}
+{% load filters %}
 
 {% block title %}
   Profile
 {% endblock %}
 
 {% block heading %}
-  Profile
+  Profile - {{ user.userprofile.get_role_display }}
 {% endblock %}
 
 {% block breadcrumb %}
 {% endblock %}
 
 {% block article %}
-  {% if request.GET.edit %}
-    <form method="POST" action="{% url 'profile' %}">
+  {% if request.GET.edit or edit %}
+    <form method="POST" id="edit_profile">
       {% csrf_token %}
       {% if form.errors %}
         <label class="text-error">There are some errors in form. Please correct!</label>
       {% endif %}
-      {{ form }}
-      </br>
-      <input class="btn btn-theme" type="submit" value="Save Changes"/>
+      <table style="width: 800px; margin:auto;">
+        {% for field in form %}
+          <tr>
+            <td>{{ field.label }}</td>
+            <td>
+              {{ field }}
+              {{ field.errors }}
+            </td>
+          </tr>
+        {% endfor %}
+        <tr>
+          <td></td>
+          <td>
+            <input class="btn btn-theme" type="submit" value="Save Changes"/>
+          </td>
+        </tr>
+      </table>
     </form>
   {% else %}
-    {% for field in form %}
-      {{ field.label }}: {{ field.value }}
-      </br>
-    {% endfor %}
-    <a class="btn btn-theme" href="{% url 'profile' %}?edit=True">Edit</a>
+    <table style="width: 800px; margin:auto;">
+      <tr><td colspan='2'><a class="btn btn-theme pull-right" href="{% url 'profile' %}?edit=True">Edit</a></td></tr>
+      {% for field in form %}
+        <tr>
+          <td>{{ field.label }}</td>
+          <td>
+            {{ field|get_text|safe }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
   {% endif %}
 {% endblock %}
 
 {% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}chosen/chosen.jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/template" id="sub_sectors">
+  <select id='id_sub_sector_fk'>
+    <option value="">-------</option>
+    <option value="IT Services">IT Services</option>
+    <option value="Software Products">Software Products</option>
+    <option value="Engineering and R&D">Engineering and R&D</option>
+    <option value="Business Process Management">Business Process Management</option>
+  </select>
+</script>
 <script>
-  $(document).ready(function() {
+  $(function() {
+    $( "input[name='dob']" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: 'yy-mm-dd'
+    });
+    $("#edit_profile select").chosen();
+
+    {% if user.userprofile.role == 'I' %}
+      // For Industry
+      $("#id_sub_sector").parent().append($("#sub_sectors").html());
+      $("#id_sub_sector_fk").change(function(){
+        $("#id_sub_sector").val($(this).val());
+      });
+
+      function magic_process(){
+        $("#id_sub_sector").parent().parent().show();
+        switch($("#id_industry_type").val())
+        {
+          case 'O':
+            $("#id_sub_sector_fk").hide();
+            $("#id_sub_sector").show();
+            break;
+          case 'IT':
+            $("#id_sub_sector").hide();
+            $("#id_sub_sector_fk").show();
+            $("#id_sub_sector").val($("#id_sub_sector_fk").val());
+            break;
+          default:
+            $("#id_sub_sector").val("");
+            $("#id_sub_sector").parent().parent().hide();
+        }
+      }
+
+      $("#id_industry_type").change(function(){
+        magic_process();
+      });
+      magic_process();
+    {% endif %}
   });
 </script>
 {% endblock %}

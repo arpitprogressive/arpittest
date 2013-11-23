@@ -42,7 +42,7 @@
       <div class="or-circle">or</div>
       <div class="dotted-line"></div>
     </div>
-    <form class="form-horizontal span5" action="{% url 'account_login' %}" method="POST">
+    <form class="form-horizontal span5" method="POST">
       {% csrf_token %}
       <fieldset>
         {% if form.errors %}

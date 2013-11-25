@@ -17,6 +17,21 @@ from .validators import validate_qp_code, validate_version
 
 __all__ = ['QualificationPack', 'QualificationPackIndex']
 
+LEVEL_CHOICES = (
+    (10, 'Entry Level 1'),
+    (20, 'Entry Level 2'),
+    (30, 'Middle Level 1'),
+    (40, 'Middle Level 2'),
+    (50, 'Middle Level 3'),
+    (60, 'Middle Level 4'),
+    (70, 'Middle Level 5'),
+    (80, 'Leadership Level 1'),
+    (90, 'Leadership Level 2'),
+    (100, 'Leadership Level 3'),
+    (110, 'Leadership Level 4'),
+    (120, 'Leadership Level 5'),
+)
+
 
 class QualificationPack(models.Model):
     '''
@@ -28,21 +43,6 @@ class QualificationPack(models.Model):
         '''
         app_label = 'admin'
         unique_together = ('code', 'version')
-
-    LEVEL_CHOICES = (
-        (10, 'Entry Level 1'),
-        (20, 'Entry Level 2'),
-        (30, 'Middle Level 1'),
-        (40, 'Middle Level 2'),
-        (50, 'Middle Level 3'),
-        (60, 'Middle Level 4'),
-        (70, 'Middle Level 5'),
-        (80, 'Leadership Level 1'),
-        (90, 'Leadership Level 2'),
-        (100, 'Leadership Level 3'),
-        (110, 'Leadership Level 4'),
-        (120, 'Leadership Level 5'),
-    )
 
     code = models.CharField(
         max_length=9, validators=[validate_qp_code], blank=True,
@@ -56,6 +56,15 @@ class QualificationPack(models.Model):
     occupation = models.ForeignKey('Occupation', default=None, db_index=True)
 
     level = models.IntegerField(default=10, choices=LEVEL_CHOICES)
+
+    @classmethod
+    def get_major_level(cls, value):
+        if value >= 80:
+            return 'll'
+        elif value >= 30 and value < 80:
+            return 'ml'
+        return 'el'
+
     tracks = models.ManyToManyField('Track', blank=True, null=True)
     next_jobs = models.ManyToManyField(
         'QualificationPack', blank=True, null=True,

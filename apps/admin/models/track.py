@@ -25,6 +25,17 @@ class Track(models.Model):
         max_length=50, default=None, unique=True, db_index=True,
     )
 
+    @property
+    def qualification_packs(self):
+        """
+        Return the qualification packs in the same track
+        """
+        from admin.models.qualification_pack import QualificationPack
+        return QualificationPack.objects.filter(
+            tracks__id__exact=self.id,
+            is_draft=False,
+        ).all()
+
     def __unicode__(self):
         '''
             Returns object display name

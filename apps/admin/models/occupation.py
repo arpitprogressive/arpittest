@@ -24,6 +24,8 @@ class Occupation(models.Model):
     name = models.CharField(
         max_length=50, default=None, unique=True, db_index=True,
     )
+    tracks = models.ManyToManyField('Track', blank=True, null=True)
+    slug = models.SlugField(unique=True)
     sub_sector = models.ForeignKey('SubSector', db_index=True)
 
     def __unicode__(self):
@@ -39,12 +41,23 @@ class Occupation(models.Model):
         """
         return self.sub_sector.sector
 
+    @property
+    def qps(self):
+        """
+        Returns a list of objects of the jobs in this occupation
+        """
+        from admin.models.qualification_pack import QualificationPack
+        return QualificationPack.objects.filter(
+            occupation=self, is_draft=False
+        )
+
 
 class OccupationAdmin(admin.ModelAdmin):
     '''
         Occupation for admin
     '''
-    list_display = ('name', 'sub_sector')
+    list_display = ('name', 'sub_sector', 'slug')
+    prepopulated_fields = {"slug": ("name",)}
 
 
 admin.site.register(Occupation, OccupationAdmin)

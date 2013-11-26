@@ -8,33 +8,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404
-from django.db.models import Count
 from admin.models.qualification_pack import QualificationPack
-
-
-def view_qualification_packs(request):
-    """
-    Renders all the qualification packs.
-
-    :param request: request object
-    """
-    filter = {'is_draft': False}
-    if request.GET.get('occupation'):
-        filter['occupation__id__exact'] = request.GET.get('occupation')
-    if request.GET.get('sub_sector'):
-        filter['occupation__sub_sector__id__exact'] = \
-            request.GET.get('sub_sector')
-    if request.GET.get('occupation'):
-        filter['occupation__id__exact'] = request.GET.get('occupation')
-
-    qualification_packs = QualificationPack.objects.filter(**filter).annotate(
-        Count('code')
-    )
-    return render_to_response(
-        'admin/qualification_packs.html',
-        {'qualification_packs': qualification_packs},
-        context_instance=RequestContext(request)
-    )
 
 
 def view_qualification_pack(request, code, version=None):

@@ -193,6 +193,8 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 CMS_TEMPLATES = (
     ('home.html', 'Home'),
+    ('admin/qualification_packs.html', 'List Qualification Packs'),
+    ('admin/occupational_standards.html', 'List Occupational Standards'),
     ('contact.html', 'Contact'),
     ('article.html', 'Article'),
     ('news.html', 'News'),

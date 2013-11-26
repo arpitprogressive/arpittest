@@ -8,24 +8,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404
-from django.db.models import Count
 from admin.models.occupational_standard import OccupationalStandard
-
-
-def view_occupational_standards(request):
-    """
-    Renders all the occupational standards.
-
-    :param request: request object
-    """
-    occupational_standards = OccupationalStandard.objects.filter(
-        is_draft=False
-    ).annotate(Count('code'))
-    return render_to_response(
-        'admin/occupational_standards.html',
-        {'occupational_standards': occupational_standards},
-        context_instance=RequestContext(request)
-    )
 
 
 def view_occupational_standard(request, code, version=None):

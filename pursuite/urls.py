@@ -33,11 +33,6 @@ urlpatterns = patterns(
         results_per_page=10,
         ), name='haystack_search'),
     url(
-        r'^occupational-standards/$',
-        'admin.views.occupational_standard.view_occupational_standards',
-        name="occupational_standards"
-    ),
-    url(
         r'^occupational-standard/(?P<code>[A-z]{3}/[NO]\d{4})/$',
         'admin.views.occupational_standard.view_occupational_standard',
         name="occupational_standard"
@@ -52,11 +47,6 @@ urlpatterns = patterns(
             '(?P<version>\d+\.\d+)/$',
         'admin.views.occupational_standard.view_occupational_standard',
         name="occupational_standard"
-    ),
-    url(
-        r'^qualification-packs/$',
-        'admin.views.qualification_pack.view_qualification_packs',
-        name="qualification_packs"
     ),
     url(
         r'^qualification-pack/(?P<id>\d+)/$',

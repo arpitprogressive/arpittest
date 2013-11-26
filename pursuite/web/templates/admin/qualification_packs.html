@@ -1,59 +1,6 @@
 {% extends "article.html" %}
-{% load pagination_tags %}
-
-{% block title %}
-  List of Qualification Packs
-{% endblock %}
-
-{% block heading %}
-  List of Qualification Packs
-{% endblock %}
-
-{% block breadcrumb %}
-<div class="row-fluid">
-  <ul class="breadcrumb">
-    <li><a href="/">Home</a> » </li>
-    <li>List of Qualification Packs</li>
-  </ul>
-</div>
-{% endblock %}
+{% load admin_tags %}
 
 {% block article %}
-{% if request.GET.occupation and qualification_packs %}
-  <h4>Occupation: {{ qualification_packs.0.occupation }}</h4>
-{% elif request.GET.sub_sector and qualification_packs %}
-  <h4>Sub-sector: {{ qualification_packs.0.occupation.sub_sector }}</h4>
-{% endif %}
-<table>
-  <thead>
-    {% if not request.GET.sub_sector and not request.GET.occupation %}
-      <th>Sub-sector</th>
-    {% endif %}
-    <th>Job Role</th>
-    <th>Download</th>
-    <th></th>
-  </thead>
-  <tbody>
-    {% autopaginate qualification_packs %}
-    {% for qp in qualification_packs %}
-      <tr>
-        {% if not request.GET.sub_sector and not request.GET.occupation %}
-          <td>{{ qp.occupation.sub_sector }}</td>
-        {% endif %}
-        <td>{{ qp.job_role }}</td>
-        <td>
-          {% if qp.attachment %}
-            <a href="{{ qp.attachment.url }}"><i class="icon-download-alt"></i> Download (.pdf)</a>
-          {% else %}
-            No Download Link
-          {% endif %}
-        </td>
-        <td>
-          <a href="{{ qp.get_absolute_url }}" class="btn btn-theme">Read More</a>
-        </td>
-      <tr>
-    {% endfor %}
-  </tbody>
-</table>
-<div class="pull-right">{% paginate %}</div>
+  {% list_qp %}
 {% endblock %}

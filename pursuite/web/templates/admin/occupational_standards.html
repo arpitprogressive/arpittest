@@ -1,50 +1,6 @@
 {% extends "article.html" %}
-{% load pagination_tags %}
-
-{% block title %}
-  List of Occupational Standards
-{% endblock %}
-
-{% block heading %}
-  List of Occupational Standards
-{% endblock %}
-
-{% block breadcrumb %}
-<div class="row-fluid">
-  <ul class="breadcrumb">
-    <li><a href="/">Home</a> » </li>
-    <li>List of Occupational Standards</li>
-  </ul>
-</div>
-{% endblock %}
+{% load admin_tags %}
 
 {% block article %}
-<table>
-  <thead>
-    <th>Sub-sector</th>
-    <th>Title</th>
-    <th>Download</th>
-    <th></th>
-  </thead>
-  <tbody>
-    {% autopaginate occupational_standards %}
-    {% for os in occupational_standards %}
-      <tr>
-        <td>{{ os.sub_sector }}</td>
-        <td>{{ os.title }}</td>
-        <td>
-          {% if os.attachment %}
-            <a href="{{ os.attachment.url }}"><i class="icon-download-alt"></i> Download (.pdf)</a>
-          {% else %}
-            No Download Link
-          {% endif %}
-        </td>
-        <td>
-          <a href="{{ os.get_absolute_url }}" class="btn btn-theme">Read More</a>
-        </td>
-      <tr>
-    {% endfor %}
-  </tbody>
-</table>
-<div class="pull-right">{% paginate %}</div>
+  {% list_os %}
 {% endblock %}

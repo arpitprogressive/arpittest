@@ -29,6 +29,12 @@ class Company(models.Model):
         ('LTP', 'LTP'),
         ('ATP', 'ATP'),
     }
+    COMPANY_TYPE_CHOICES = {
+        ('N/A', 'Not Avaiable'),
+        ('ISP', 'Internet Service Provider'),
+        ('MNC', 'Multi-national Companies'),
+        ('GIC', 'Global in-house Companies'),
+    }
     name = models.CharField(
         max_length=100, default=None, unique=True, db_index=True,
     )
@@ -45,6 +51,9 @@ class Company(models.Model):
     )
     training_provider = models.CharField(
         max_length=3, choices=TRAINING_PROVIDER_CHOICES, default='NO',
+    )
+    company_type = models.CharField(
+        max_length=3, choices=COMPANY_TYPE_CHOICES, default='N/A'
     )
 
     def __unicode__(self):

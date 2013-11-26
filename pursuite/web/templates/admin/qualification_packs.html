@@ -19,9 +19,16 @@
 {% endblock %}
 
 {% block article %}
+{% if request.GET.occupation and qualification_packs %}
+  <h4>Occupation: {{ qualification_packs.0.occupation }}</h4>
+{% elif request.GET.sub_sector and qualification_packs %}
+  <h4>Sub-sector: {{ qualification_packs.0.occupation.sub_sector }}</h4>
+{% endif %}
 <table>
   <thead>
-    <th>Sub-sector</th>
+    {% if not request.GET.sub_sector and not request.GET.occupation %}
+      <th>Sub-sector</th>
+    {% endif %}
     <th>Job Role</th>
     <th>Download</th>
     <th></th>
@@ -30,7 +37,9 @@
     {% autopaginate qualification_packs %}
     {% for qp in qualification_packs %}
       <tr>
-        <td>{{ qp.occupation.sub_sector }}</td>
+        {% if not request.GET.sub_sector and not request.GET.occupation %}
+          <td>{{ qp.occupation.sub_sector }}</td>
+        {% endif %}
         <td>{{ qp.job_role }}</td>
         <td>
           {% if qp.attachment %}

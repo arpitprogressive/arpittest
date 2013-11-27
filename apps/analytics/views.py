@@ -616,3 +616,66 @@ def gender_diversity(request, year):
     })
     return render_to_response('analytics/gender-diversity.html', c,
             context_instance=RequestContext(request))
+
+
+# Analytics 5
+
+def supply_split_stream_trend(request):
+    """
+    Return json data for supply split by stream
+    """
+    years = sorted([
+        k['year'] for k in SupplyBase.objects.values('year').distinct()
+    ])
+
+    sectors_queryset = SupplyBase.objects.values(
+        'occupation__sub_sector__sector__name'
+    ).distinct().order_by('occupation__sub_sector__sector__name')
+    sectors = sorted([
+        k['occupation__sub_sector__sector__name'] for k in sectors_queryset
+    ])
+    sectors_set = set(sectors)
+
+    data = {}
+    for sector in sectors:
+        data[sector] = []
+
+    for year in years:
+        resultset = SupplyBase.objects.filter(year=year).values(
+            'occupation__sub_sector__sector',
+            'occupation__sub_sector__sector__name',
+        ).annotate(supply=Sum('supply')) \
+                .order_by('occupation__sub_sector__sector')
+
+        seen_sectors = set()
+        for result in resultset:
+            sector = result['occupation__sub_sector__sector__name']
+            seen_sectors.add(sector)
+            data[sector].append(result['supply'])
+
+        unseen_sectors = sectors_set - seen_sectors
+        for sector in unseen_sectors:
+            data[sector].append(None)
+
+    prepared_data = []
+    for sector, values in data.items():
+        prepared_data.append({
+            'name': sector,
+            'data': values,
+        })
+
+    return HttpResponse(json.dumps({
+        'data': prepared_data,
+        'categories': years
+    }), content_type='text/json')
+
+
+def supply_5(request, year):
+    """
+    Supply analytics 5
+    """
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/supply-5.html', c,
+            context_instance=RequestContext(request))

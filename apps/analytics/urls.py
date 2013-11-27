@@ -21,4 +21,22 @@ urlpatterns = patterns('analytics.views',
         name="supply_by_state"),
     url(r'^data/supply/(?P<year>\d{4})/(?P<state_id>\d+)/$', 'supply_in_state',
         name='supply_in_state'),
+
+    ########  Analytics #1 ########
+
+    #revenue
+    url(r'^data/revenue-company/(?P<year>\d{4})', 'revenue_company',
+        name='revenue_company'),
+    url(r'^data/revenue-company-type/(?P<year>\d{4})', 'revenue_company_type',
+        name='revenue_company_type'),
+
+    # headcount and hiring
+    url(r'^data/headcount-contribution/(?P<year>\d{4})',
+        'headcount_contribution', name='headcount_contribution'),
+    url(r'^data/hiring-contribution/(?P<year>\d{4})',
+        'hiring_contribution', name='hiring_contribution'),
+    url(r'^data/hiring-subsector-trend',
+        'hiring_subsector_trend', name='hiring_subsector_trend'),
+
+    url(r'^analytics-1/(?P<year>\d{4})', 'analytics1', name='analytics1'),
 )

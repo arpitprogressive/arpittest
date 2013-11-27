@@ -75,6 +75,7 @@ class TestModels(TestCase):
             occupation=occupation,
             company=company,
             demand=100,
+            headcount=20,
         )
         demanddata.save()
         self.assert_(demanddata.pk)

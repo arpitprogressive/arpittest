@@ -205,6 +205,26 @@ class DiversityRatioSubsector(models.Model):
         """
         return "%d, %s" % (self.year, self.subsector, )
 
+
+class GenderDiversity(models.Model):
+    """
+    Gender diversity as per course
+    """
+    year = models.IntegerField()
+    category = models.CharField(max_length=60)
+    male = models.IntegerField()
+
+    class Meta:
+        unique_together = ('year', 'category', )
+        verbose_name_plural = 'Gender Diversity'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d,%s" % (self.year, self.category, )
+
+
 django.contrib.admin.site.register(State)
 django.contrib.admin.site.register(City)
 django.contrib.admin.site.register(SupplyBase)
@@ -212,3 +232,4 @@ django.contrib.admin.site.register(DemandData)
 django.contrib.admin.site.register(CompanyYearData)
 django.contrib.admin.site.register(DiversityRatioLevel)
 django.contrib.admin.site.register(DiversityRatioSubsector)
+django.contrib.admin.site.register(GenderDiversity)

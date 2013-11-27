@@ -22,6 +22,8 @@ urlpatterns = patterns('analytics.views',
     url(r'^data/supply/(?P<year>\d{4})/(?P<state_id>\d+)/$', 'supply_in_state',
         name='supply_in_state'),
 
+    ######################## Demand Analytics ########################
+
     ########  Analytics #1 ########
 
     #revenue
@@ -47,4 +49,12 @@ urlpatterns = patterns('analytics.views',
         name='diversity_ratio_level'),
     url(r'^diversity-ratio/(?P<year>\d{4})', 'diversity_ratio',
         name='diversity_ratio'),
+
+    ######################## Supply Analytics ########################
+
+    ########  Analytics #3 ########
+    url(r'^data/gender-diversity/(?P<year>\d{4})',
+        'gender_diversity_data', name='gender_diversity_data'),
+    url(r'^gender-diversity/(?P<year>\d{4})',
+        'gender_diversity', name='gender_diversity'),
 )

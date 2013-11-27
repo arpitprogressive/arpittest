@@ -35,5 +35,7 @@ setup(
         'nltk',
         'jinja2',
         'django-pagination',
+        'django-storages',
+        'boto',
     ],
 )

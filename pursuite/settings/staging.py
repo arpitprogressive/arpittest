@@ -64,3 +64,11 @@ RAVEN_CONFIG = {
     'dsn': 'http://e542381309e640bebb79ae26123e52e5:' + \
             '85869376ce9143a699ed05d07b552059@sentry.openlabs.co.in/22',
 }
+
+# Add amazon s3 as a storage mechanism
+INSTALLED_APPS += ('storages',)
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = "AKIAIBGU6ZPMYAHTFOWQ"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "pursuite"
+AWS_QUERYSTRING_AUTH = False

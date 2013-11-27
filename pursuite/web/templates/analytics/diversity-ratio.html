@@ -1,0 +1,165 @@
+{% extends "article.html" %}
+{% block title %}
+  Analytics
+{% endblock %}
+
+{% block heading %}
+ Analytics - Diversity Ratio ({{ analytics_year }})
+{% endblock %}
+{% block article %}
+  <div id="diversity-ratio-level" style="width: 450px; float: left;"></div>
+  <div id="diversity-ratio-subsector" style="width: 450px; float: right;"></div>  
+  <div class=".clear"></div>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}/css/analytics.css"/>
+  <script type="text/javascript">
+  function render_diversity_ratio_level(year)
+  {
+    var container = "diversity-ratio-level";
+    $.getJSON('/analytics/data/diversity-ratio-level/' + year, function(data) {
+      options = {
+        chart: {
+          type: 'column',
+          renderTo: container
+        },
+        title: {
+          text: 'Diversity across levels'
+        },
+        xAxis: {
+          categories: data.categories,
+        },
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: '% of employees'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+            return '<b>'+ this.x +'</b><br/>'+
+                this.series.name +': '+ this.y +'<br/>'+
+                'Total: '+ this.point.stackTotal;
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: [{
+          name: 'Male',
+          data: data.male
+        }, {
+          name: 'Female',
+          data: data.female
+        }]
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });
+  }
+
+ function render_diversity_ratio_subsector(year)
+  {
+    var container = "diversity-ratio-subsector";
+    $.getJSON('/analytics/data/diversity-ratio-subsector/' + year, function(data) {
+      options = {
+        chart: {
+          type: 'column',
+          renderTo: container
+        },
+        title: {
+          text: 'Diversity across subsector'
+        },
+        xAxis: {
+          categories: data.categories
+        },
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: '% of employees'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+            return '<b>'+ this.x +'</b><br/>'+
+                this.series.name +': '+ this.y +'<br/>'+
+                'Total: '+ this.point.stackTotal;
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: [{
+          name: 'Male',
+          data: data.male
+        }, {
+          name: 'Female',
+          data: data.female
+        }]
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });
+  }
+
+$(function() {
+  render_diversity_ratio_level({{ analytics_year }});
+  render_diversity_ratio_subsector({{ analytics_year }});
+});
+</script>
+{% endblock %}

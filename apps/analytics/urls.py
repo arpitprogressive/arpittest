@@ -39,4 +39,12 @@ urlpatterns = patterns('analytics.views',
         'hiring_subsector_trend', name='hiring_subsector_trend'),
 
     url(r'^analytics-1/(?P<year>\d{4})', 'analytics1', name='analytics1'),
+
+    ########  Analytics #5 ########
+    url(r'^data/diversity-ratio-subsector/(?P<year>\d{4})',
+        'diversity_ratio_subsector', name='diversity_ratio_subsector'),
+    url(r'^data/diversity-ratio-level/(?P<year>\d{4})', 'diversity_ratio_level',
+        name='diversity_ratio_level'),
+    url(r'^diversity-ratio/(?P<year>\d{4})', 'diversity_ratio',
+        name='diversity_ratio'),
 )

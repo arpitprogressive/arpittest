@@ -16,7 +16,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 
 from analytics.models import State, City, DemandData, SupplyBase, \
-        CompanyYearData
+        CompanyYearData, DiversityRatioLevel, DiversityRatioSubsector
 from admin.models import SubSector
 
 
@@ -501,7 +501,6 @@ def hiring_subsector_trend(request):
             'name': sub_sector,
             'data': points
         })
-    print trend_data
 
     return HttpResponse(json.dumps(trend_data))
 
@@ -513,4 +512,64 @@ def analytics1(request, year):
         'analytics_year': year
     })
     return render_to_response('analytics/analytics1.html', c,
+            context_instance=RequestContext(request))
+
+
+# Analytics 5
+
+def diversity_ratio_level(request, year):
+    "Diversity ratio by level JSON data"
+    year = int(year)
+    male = []
+    female = []
+    resultset = DiversityRatioLevel.objects.filter(year=year)
+    for result in resultset:
+        male.extend([
+            result.male_entry,
+            result.male_middle,
+            result.male_leadership,
+        ])
+        female.extend([
+            result.female_entry,
+            result.female_middle,
+            result.female_leadership,
+        ])
+
+    return HttpResponse(json.dumps({
+        'male': male,
+        'female': female,
+        'categories': [
+            'Entry Level (0-2) years',
+            'Middle Level (2-10) years',
+            'Leadership Level (>10) years',
+        ]
+    }), content_type='text/json')
+
+
+def diversity_ratio_subsector(request, year):
+    "Diversity ratio by roles JSON data"
+    year = int(year)
+    male = []
+    female = []
+    categories = []
+    resultset = DiversityRatioSubsector.objects.filter(year=year)
+    for result in resultset:
+        male.append([result.subsector.name, result.male])
+        female.append([result.subsector.name, result.female])
+        categories.append(result.subsector.name)
+
+    return HttpResponse(json.dumps({
+        'male': male,
+        'female': female,
+        'categories': categories
+    }), content_type='text/json')
+
+
+def diversity_ratio(request, year):
+    "Diversity ratio page"
+    year = int(year)
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/diversity-ratio.html', c,
             context_instance=RequestContext(request))

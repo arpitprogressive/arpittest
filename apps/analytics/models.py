@@ -12,7 +12,7 @@
 from django.db import models
 import django.contrib.admin
 
-from admin.models import Occupation, Institution, Company
+from admin.models import Occupation, Institution, Company, SubSector
 
 
 __all__ = ['DEGREE_CHOICES', 'REGION_CHOICES', 'State', 'City', 'SupplyBase',
@@ -142,8 +142,73 @@ class CompanyYearData(models.Model):
         return "%d,%s" % (self.year, self.company, )
 
 
+class DiversityRatioLevel(models.Model):
+    """
+    Diversity ratio for levels
+    """
+    year = models.IntegerField(unique=True)
+    male_leadership = models.IntegerField(
+        verbose_name='Percent Male in Leadership roles'
+    )
+    male_entry = models.IntegerField(
+        verbose_name='Percent Male in Entry Level roles'
+    )
+    male_middle = models.IntegerField(
+        verbose_name='Percent Male in Middle Level roles'
+    )
+
+    @property
+    def female_leadership(self):
+        "Percent Females in leadership level roles"
+        return 100 - self.male_leadership
+
+    @property
+    def female_entry(self):
+        "Percent Females in entry level roles"
+        return 100 - self.male_entry
+
+    @property
+    def female_middle(self):
+        "Percent Females in middle level roles"
+        return 100 - self.male_middle
+
+    class Meta:
+        verbose_name_plural = 'Diversity Ratio for Experience Levels'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d" % (self.year, )
+
+
+class DiversityRatioSubsector(models.Model):
+    """
+    Diversity ratio for subsector
+    """
+    year = models.IntegerField()
+    subsector = models.ForeignKey(SubSector, verbose_name='Sub-sector')
+    male = models.IntegerField(verbose_name='Percent males in subsector')
+
+    @property
+    def female(self):
+        "Percent Females in subsector"
+        return 100 - self.male
+
+    class Meta:
+        unique_together = ('year', 'subsector', )
+        verbose_name_plural = 'Diversity Ratio for Subsector'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d, %s" % (self.year, self.subsector, )
+
 django.contrib.admin.site.register(State)
 django.contrib.admin.site.register(City)
 django.contrib.admin.site.register(SupplyBase)
 django.contrib.admin.site.register(DemandData)
 django.contrib.admin.site.register(CompanyYearData)
+django.contrib.admin.site.register(DiversityRatioLevel)
+django.contrib.admin.site.register(DiversityRatioSubsector)

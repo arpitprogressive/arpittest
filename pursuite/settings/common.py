@@ -196,6 +196,8 @@ CMS_TEMPLATES = (
     ('admin/qualification_packs.html', 'List Qualification Packs'),
     ('admin/occupational_standards.html', 'List Occupational Standards'),
     ('contact.html', 'Contact'),
+    ('supply.html', 'Analytics Supply'),
+    ('demand.html', 'Analytics Demand'),
     ('article.html', 'Article'),
     ('news.html', 'News'),
     ('stakeholders.html', 'Stakeholders'),

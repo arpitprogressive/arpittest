@@ -10,6 +10,9 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
+
+from account.models import UserProfile
 
 
 @login_required
@@ -17,7 +20,8 @@ def profile(request):
     """
     Renders profile page.
     """
-    Profile, ProfileForm = request.user.userprofile.get_profile_model_form()
+    userprofile = get_object_or_404(UserProfile, user=request.user.id)
+    Profile, ProfileForm = userprofile.get_profile_model_form()
 
     profile, created = \
         Profile.objects.get_or_create(user_profile=request.user.userprofile)

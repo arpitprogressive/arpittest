@@ -16,7 +16,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 
 from analytics.models import State, City, DemandData, SupplyBase, \
-        CompanyYearData, DiversityRatioLevel, DiversityRatioSubsector
+        CompanyYearData, DiversityRatioLevel, DiversityRatioSubsector, \
+        GenderDiversity
 from admin.models import SubSector
 
 
@@ -572,4 +573,46 @@ def diversity_ratio(request, year):
         'analytics_year': year
     })
     return render_to_response('analytics/diversity-ratio.html', c,
+            context_instance=RequestContext(request))
+
+
+###### Supply Analytics #######
+
+# Analytics 3
+
+
+def gender_diversity_data(request, year):
+    """
+    Return json data for gender diversity
+    """
+    resultset = GenderDiversity.objects.filter(
+        year=year
+    )
+    male = []
+    female = []
+    categories = []
+
+    for result in resultset:
+        categories.append(result.category)
+        male.append((result.category, result.male, ))
+        female.append((result.category, 100 - result.male, ))
+
+    return HttpResponse(json.dumps({
+        'series': [
+            {'name': 'Male', 'data': male},
+            {'name': 'Female', 'data': female}
+        ],
+        'categories': categories,
+        'year': year,
+    }), content_type='text/json')
+
+
+def gender_diversity(request, year):
+    """
+    Gender diversity page
+    """
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/gender-diversity.html', c,
             context_instance=RequestContext(request))

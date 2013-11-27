@@ -10,6 +10,8 @@
 from django.core.exceptions import ObjectDoesNotExist
 from admin.common import html2text
 from django import template
+from django.forms.fields import TypedChoiceField
+from django.forms.models import ModelMultipleChoiceField
 
 register = template.Library()
 
@@ -51,3 +53,20 @@ def get_value(dict, key):
         if k == key:
             return v
     return None
+
+
+@register.filter()
+def get_text(field):
+    """
+        Return display value of field
+    """
+    if type(field.field) is TypedChoiceField:
+        for key, value in field.field.choices:
+            if key == field.value():
+                return value
+    if type(field.field) is ModelMultipleChoiceField:
+        out = ""
+        for item in field.field.queryset.filter(id__in=field.value()).all():
+            out += "<a href='%s'>%s</a><br>" % (item.get_absolute_url(), item)
+        return out
+    return field.value()

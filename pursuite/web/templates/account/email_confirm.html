@@ -17,7 +17,7 @@
 <form method="POST" id="email-confirm" action="{% url 'account_confirm_email' confirmation.key %}" >
   {% csrf_token %}
   <div class="form-actions">
-      <input class="btn btn-primary" type="submit" value="Confirm" />
+      <input class="btn btn-theme" type="submit" value="Confirm" />
   </div>
 </form>
 {% else %}

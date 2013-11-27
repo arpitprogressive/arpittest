@@ -90,7 +90,6 @@ class OccupationalStandard(models.Model):
             raise ValidationError(
                 'There is already a version in draft for %s' % self.code
             )
-        # Check sector and Subsector
 
 
 class OccupationalStandardAdmin(admin.ModelAdmin):
@@ -138,14 +137,12 @@ class OccupationalStandardAdmin(admin.ModelAdmin):
             )
 
     bump_new_version.short_description = "Bump new version"
-    actions = [bump_new_version]
+    #actions = [bump_new_version]  # Enable bumping new version feature
 
     def get_readonly_fields(self, request, obj=None):
         '''
             Returns readonly fields of this admin view
         '''
-        if obj and not obj.is_draft:
-            return obj._meta.get_all_field_names()
         return self.readonly_fields + ('code',) if obj else ()
 
 

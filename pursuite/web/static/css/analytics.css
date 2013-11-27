@@ -45,3 +45,11 @@ svg {
   width: 800px;
   text-align: center;
 }
+
+.left-float {
+  float: left;
+}
+
+.right-float {
+  float: right;
+}

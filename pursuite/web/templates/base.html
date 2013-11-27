@@ -482,7 +482,9 @@
                           <h2 class="element-invisible">Secondary menu</h2>
                           <ul id="secondary-menu-links" class="links inline clearfix">
                             {% if user.is_authenticated %}
-                              <li class="menu-356 first"><a href="{% url 'profile' %}">Profile</a></li>
+                              {% if user.userprofile %}
+                                <li class="menu-356 first"><a href="{% url 'profile' %}">Profile</a></li>
+                              {% endif %}
                               <li class="menu-357 last"><a href="{% url 'account_logout' %}">Log out</a></li>
                             {% else %}
                               <li class="menu-356 first"><a href="{% url 'account_login' %}">Log in</a></li>

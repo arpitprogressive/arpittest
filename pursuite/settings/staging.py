@@ -72,3 +72,11 @@ AWS_ACCESS_KEY_ID = "AKIAIBGU6ZPMYAHTFOWQ"
 AWS_SECRET_ACCESS_KEY = "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"
 AWS_STORAGE_BUCKET_NAME = "pursuite"
 AWS_QUERYSTRING_AUTH = False
+
+# Setup caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}

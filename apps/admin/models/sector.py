@@ -54,6 +54,7 @@ class SubSector(models.Model):
 
     sector = models.ForeignKey('Sector')
     name = models.CharField(max_length=50, default=None, db_index=True)
+    mobility_map = models.FileField(upload_to='mobility_maps', null=True)
 
     def __unicode__(self):
         '''

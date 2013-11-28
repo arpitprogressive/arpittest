@@ -14,10 +14,10 @@ ALLOWED_HOSTS = ['pursuite.openlabs.us']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pursuite_staging',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
+        'NAME': 'pursuite',
+        'USER': 'mysqluser',
+        'PASSWORD': 'mysqlpassword',
+        'HOST': 'pursuite.c6ga5pe5mdoq.ap-southeast-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }

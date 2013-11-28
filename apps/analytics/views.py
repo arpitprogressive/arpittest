@@ -506,13 +506,13 @@ def hiring_subsector_trend(request):
     return HttpResponse(json.dumps(trend_data))
 
 
-def analytics1(request, year):
+def demand_1(request, year):
     "Analytics 1 page"
     year = int(year)
     c = Context({
         'analytics_year': year
     })
-    return render_to_response('analytics/analytics1.html', c,
+    return render_to_response('analytics/demand-1.html', c,
             context_instance=RequestContext(request))
 
 
@@ -566,13 +566,13 @@ def diversity_ratio_subsector(request, year):
     }), content_type='text/json')
 
 
-def diversity_ratio(request, year):
+def demand_5(request, year):
     "Diversity ratio page"
     year = int(year)
     c = Context({
         'analytics_year': year
     })
-    return render_to_response('analytics/diversity-ratio.html', c,
+    return render_to_response('analytics/demand-5.html', c,
             context_instance=RequestContext(request))
 
 
@@ -607,14 +607,14 @@ def gender_diversity_data(request, year):
     }), content_type='text/json')
 
 
-def gender_diversity(request, year):
+def supply_3(request, year):
     """
     Gender diversity page
     """
     c = Context({
         'analytics_year': year
     })
-    return render_to_response('analytics/gender-diversity.html', c,
+    return render_to_response('analytics/supply-3.html', c,
             context_instance=RequestContext(request))
 
 

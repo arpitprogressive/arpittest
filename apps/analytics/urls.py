@@ -40,23 +40,21 @@ urlpatterns = patterns('analytics.views',
     url(r'^data/hiring-subsector-trend',
         'hiring_subsector_trend', name='hiring_subsector_trend'),
 
-    url(r'^analytics-1/(?P<year>\d{4})', 'analytics1', name='analytics1'),
+    url(r'^demand-1/(?P<year>\d{4})', 'demand_1', name='demand_1'),
 
     ########  Analytics #5 ########
     url(r'^data/diversity-ratio-subsector/(?P<year>\d{4})',
         'diversity_ratio_subsector', name='diversity_ratio_subsector'),
     url(r'^data/diversity-ratio-level/(?P<year>\d{4})', 'diversity_ratio_level',
         name='diversity_ratio_level'),
-    url(r'^diversity-ratio/(?P<year>\d{4})', 'diversity_ratio',
-        name='diversity_ratio'),
+    url(r'^demand-5/(?P<year>\d{4})', 'demand_5', name='demand_5'),
 
     ######################## Supply Analytics ########################
 
     ########  Analytics #3 ########
     url(r'^data/gender-diversity/(?P<year>\d{4})',
         'gender_diversity_data', name='gender_diversity_data'),
-    url(r'^gender-diversity/(?P<year>\d{4})',
-        'gender_diversity', name='gender_diversity'),
+    url(r'^supply-3/(?P<year>\d{4})', 'supply_3', name='supply_3'),
 
     ########  Analytics #5 ########
     url(r'^data/supply-split-stream-trend',

@@ -57,4 +57,9 @@ urlpatterns = patterns('analytics.views',
         'gender_diversity_data', name='gender_diversity_data'),
     url(r'^gender-diversity/(?P<year>\d{4})',
         'gender_diversity', name='gender_diversity'),
+
+    ########  Analytics #5 ########
+    url(r'^data/supply-split-stream-trend',
+        'supply_split_stream_trend', name='supply_split_stream_trend'),
+    url(r'^supply-5/(?P<year>\d{4})', 'supply_5', name='supply_5'),
 )

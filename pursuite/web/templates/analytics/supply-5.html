@@ -1,0 +1,156 @@
+{% extends "article.html" %}
+{% block title %}
+  Analytics
+{% endblock %}
+{% block breadcrumb %} {% endblock %}
+{% block heading %}
+ Analytics - Relationship between number of student supply and diversity ratio ({{ analytics_year }})
+{% endblock %}
+{% block article %}
+  <div id="supply-stream-split" style="width: 800px; height: 300px;"></div>
+  <div id="stream-diversity" style="width: 800px; height: 300px;"></div>
+  <div class=".clear"></div>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/analytics.css"/>
+  <script type="text/javascript">
+  function render_gender_diversity(year)
+  {
+    $.getJSON('/analytics/data/gender-diversity/' + year, function(data) {
+      var container = "stream-diversity";
+      options = {
+        chart: {
+          type: 'column',
+          renderTo: container
+        },
+        title: {
+          text: 'Gender Diversity in Supply in Streams'
+        },
+        xAxis: {
+          categories: data.categories
+        },
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: '%'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+            return '<b>'+ this.x +'</b><br/>'+
+                this.series.name +': '+ this.y +'<br/>'+
+                'Total: '+ this.point.stackTotal;
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: data.series
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });
+  }
+
+  function render_supply_split_stream()
+  {
+    $.getJSON('/analytics/data/supply-split-stream-trend', function(data) {
+      var container = "supply-stream-split";
+      options = {
+        chart: {
+          type: 'column',
+          renderTo: container
+        },
+        title: {
+          text: 'Supply split by streams'
+        },
+        xAxis: {
+          categories: data.categories,
+          title: {
+            text: 'Years'
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Supply'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+            return '<b>'+ this.x +'</b><br/>'+
+                this.series.name +': '+ this.y +'<br/>'+
+                'Total: '+ this.point.stackTotal;
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: data.data
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });
+  }
+
+
+$(function() {
+  render_supply_split_stream();
+  render_gender_diversity({{analytics_year}});
+});
+</script>
+{% endblock %}

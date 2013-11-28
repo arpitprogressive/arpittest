@@ -1,0 +1,156 @@
+{% extends "article.html" %}
+{% load analytics_tags %}
+
+{% block title %}
+  Analytics - Where are supply side institutions located?
+{% endblock %}
+
+{% block breadcrumb %} {% endblock %}
+
+{% block heading %}
+ Analytics - Demand <span id="analytics-year"></span>
+{% endblock %}
+
+{% block styles %}
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/analytics.css"/>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/d3.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/d3.geo.min.js"></script>
+{% endblock %}
+
+{% block article %}
+  <div id="india-map" class='analytics-map'></div>
+  <div id="chart-container" class='analytics-chart'>
+    <h2 id="info-state-name">Click on a state to view info!</h2>
+    <div id="info-state-data"></div>
+  </div>
+  <div class="clear"></div>
+  <div class="margin-top: 20px">
+    <h2 class="text-align: center">Top states in India with the highest number of universities</h2>
+    <div id="top-ten-university"></div>
+  </div>
+  <script type="text/javascript">
+    var map_json_returned_data = null;
+
+    function render_map() {
+      function initialize() {
+        proj.scale(7000);
+        proj.translate([-1310, 750]);
+      }
+
+      var width = 600;
+      var height = 600;
+      var proj = d3.geo.mercator();
+      var path = d3.geo.path().projection(proj);
+      var trans = proj.translate();
+      var scale = proj.scale();
+
+      var map = d3.select("#india-map").append("svg:svg")
+            .attr("width", width)
+            .attr("height", height)
+          .call(initialize);
+      var stats = d3.select("#stats");
+      var india = map.append("svg:g")
+          .attr("id", "india");
+
+      d3.json("{{ STATIC_URL }}/states.json", function (json) {
+        india.selectAll("path")
+            .data(json.features)
+            .enter().append("path")
+            .attr("d", path)
+            .attr("class", "state")
+            .on("click", function(d, i){
+              $('#info-state-name').text(d.id);
+              statedata_raw = map_json_returned_data['states_data'][d.id];
+              if (statedata_raw) {
+                var output = "<table border='0' style='width: 450px'>";
+                output += "<td><b>Total</b></td><td>" + statedata_raw[0] + "</td></tr>";
+                for (var i = 1; i < statedata_raw.length; i++) {
+                  var key = statedata_raw[i][0];
+                  var value = statedata_raw[i][1];
+                  var university_type = map_json_returned_data['university_type'][key];
+                  output += "<tr><td><b>" + university_type + "</b></td><td>" + value + "</td></tr>";
+                }
+              } else {
+                var output = "Data not available!";
+              }
+              $('#info-state-data').hide();
+              $('#info-state-data').html(output);
+              $('#info-state-data').fadeIn();
+            })
+            .on("mouseover", function(d, i){
+              d3.select(this).style("opacity", 0.5);
+            })
+            .on("mouseout", function(d, i){
+              d3.select(this).style("opacity", 1);
+            });
+      });
+      setTimeout(function() {
+        d3.json("/analytics/data/university-in-states", function(json) {
+          map_json_returned_data = json;
+          data = json['states_data'];
+          india.selectAll("path").style("fill", quantize);
+          render_table();
+        });
+      }, 100);
+    }
+
+    function quantize(d, i) {
+        var index = map_json_returned_data['top_states'].indexOf(d.id);
+        if (index < 0) {
+            return "#cccccc";
+        } else if (index < 5 && index >= 0) {
+            return "#003300";
+        } else if (index >= 5 && index < 10) {
+            return "#00ff00";
+        }
+        return "#ff0000";
+    }
+
+    function render_table() {
+      var top_ten_states = map_json_returned_data['top_states'];
+      var output = "<table>";
+      var university_types = map_json_returned_data['university_type'];
+      var university_type_array = []
+
+      output += "<tr><th>State</th>";
+      for (key in university_types) {
+        university_type_array.push(key);
+        output += "<th>" + map_json_returned_data['university_type'][key] + "</th>";
+      }
+      output += "<th>Total</th></tr>";
+
+      for (var index in top_ten_states) {
+        var state = top_ten_states[index];
+        statedata_raw = map_json_returned_data['states_data'][state];
+        output += "<tr>";
+        output += "<td>" + state + "</td>";
+
+        var data_processed = {};
+        for (var i = 1; i < statedata_raw.length; i++) {
+          var key = statedata_raw[i][0];
+          var value = statedata_raw[i][1];
+          data_processed[key] = value;
+        }
+
+        for (var i in university_type_array) {
+          var value = data_processed[university_type_array[i]];
+          if (value == undefined) {
+            value = '-';
+          }
+          output += "<td>" + value + "</td>";
+        }
+        output += "<td>" + statedata_raw[0] + "</td>";
+        output += "</tr>";
+      }
+      output += "</table>";
+      $('#top-ten-university').html(output);
+    }
+
+    $(function() {
+        render_map();
+    })
+  </script>
+{% endblock %}

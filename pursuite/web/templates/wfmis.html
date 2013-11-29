@@ -1,5 +1,9 @@
 {% extends "article.html" %}
+{% load cms_tags %}
 {% block article %}
+  <div class="row-fluid">
+    {% placeholder content %}
+  </div>
   <div class="row-fluid" id="wfmis">
     <div class="span3">
       <div class="heading">

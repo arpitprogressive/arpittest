@@ -69,7 +69,7 @@ class QualificationPack(models.Model):
         'QualificationPack', blank=True, null=True,
     )
 
-    job_role = models.CharField(max_length=50, default=None, db_index=True)
+    job_role = models.CharField(max_length=100, default=None, db_index=True)
     alias = models.TextField(blank=True)
     role_description = models.TextField(blank=True)
     nveqf_level = models.CharField(max_length=5, blank=True)

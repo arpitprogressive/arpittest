@@ -17,7 +17,7 @@ from django.shortcuts import render_to_response
 
 from analytics.models import State, City, DemandData, SupplyBase, \
         CompanyYearData, DiversityRatioLevel, DiversityRatioSubsector, \
-        GenderDiversity
+        GenderDiversity, ITSpend, REGION_CHOICES
 from admin.models import SubSector, Institution
 
 
@@ -515,8 +515,72 @@ def demand_1(request, year):
     return render_to_response('analytics/demand-1.html', c,
             context_instance=RequestContext(request))
 
+# Analytics 4
+
+
+def demand_supply_region(request, year):
+    year = int(year)
+    demand_data = []
+    supply_data = []
+
+    for region_key, region_value in REGION_CHOICES:
+        demand = DemandData.objects.filter(
+            year=year,
+            city__state__region=region_key
+        ).aggregate(demand=Sum('demand'))
+        demand = demand['demand'] if demand else None
+        demand_data.append([region_value, demand])
+
+        supply = SupplyBase.objects.filter(
+            year=year,
+            city__state__region=region_key
+        ).aggregate(supply=Sum('supply'))
+        supply = supply['supply'] if supply else None
+        supply_data.append([region_value, supply])
+
+    return HttpResponse(json.dumps({
+        'demand': demand_data,
+        'supply': supply_data,
+    }), content_type='text/json')
+
+
+def it_spend(request, year):
+    """
+    Return JSON data for IT spend by world and indian revenue for
+    each subsector
+    """
+    year = int(year)
+    resultset = ITSpend.objects.filter(year=year)
+    world_spend = []
+    india_revenue = []
+
+    for result in resultset:
+        world_spend.append({
+            'name': result.sub_sector.name,
+            'data': [result.world_spend]
+        })
+        india_revenue.append({
+            'name': result.sub_sector.name,
+            'data': [result.india_revenue]
+        })
+
+    return HttpResponse(json.dumps({
+        'world_spend': world_spend,
+        'india_revenue': india_revenue,
+    }), content_type='text/json')
+
+
+def demand_4(request, year):
+    "Analytics 4 page"
+    year = int(year)
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/demand-4.html', c,
+            context_instance=RequestContext(request))
 
 # Analytics 5
+
 
 def diversity_ratio_level(request, year):
     "Diversity ratio by level JSON data"

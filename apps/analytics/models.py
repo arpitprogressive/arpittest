@@ -225,6 +225,25 @@ class GenderDiversity(models.Model):
         return "%d,%s" % (self.year, self.category, )
 
 
+class ITSpend(models.Model):
+    """
+    IT Spend data
+    """
+    year = models.IntegerField()
+    sub_sector = models.ForeignKey(SubSector, verbose_name='Sub-sector')
+    world_spend = models.IntegerField(verbose_name='World IT Spend')
+    india_revenue = models.IntegerField(verbose_name='Indian IT Revenue')
+
+    class Meta:
+        unique_together = ('year', 'sub_sector', )
+        verbose_name_plural = 'IT Spend'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d,%s" % (self.year, self.sub_sector, )
+
 django.contrib.admin.site.register(State)
 django.contrib.admin.site.register(City)
 django.contrib.admin.site.register(SupplyBase)
@@ -233,3 +252,4 @@ django.contrib.admin.site.register(CompanyYearData)
 django.contrib.admin.site.register(DiversityRatioLevel)
 django.contrib.admin.site.register(DiversityRatioSubsector)
 django.contrib.admin.site.register(GenderDiversity)
+django.contrib.admin.site.register(ITSpend)

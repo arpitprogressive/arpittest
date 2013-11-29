@@ -18,7 +18,7 @@ from django.shortcuts import render_to_response
 from analytics.models import State, City, DemandData, SupplyBase, \
         CompanyYearData, DiversityRatioLevel, DiversityRatioSubsector, \
         GenderDiversity
-from admin.models import SubSector
+from admin.models import SubSector, Institution
 
 
 def home(request):
@@ -578,8 +578,55 @@ def demand_5(request, year):
 
 ###### Supply Analytics #######
 
-# Analytics 3
+# Analytics 1
 
+def university_in_states(request):
+    "List number of universities in each state"
+    result = Institution.objects.filter(
+                is_university=True,
+            ).values(
+                'city__state__name'
+            ).annotate(
+                total=Count('id')
+            ).order_by('-total').all()
+    top_states = [k['city__state__name'] for k in result]
+
+    states_data = {}
+    for univ_type_key, univ_type in Institution.UNIVERSITY_CHOICES:
+        results = Institution.objects.filter(
+                    is_university=True,
+                    university_type=univ_type_key
+                ).values(
+                    'city__state__name'
+                ).annotate(
+                    total=Count('id')
+                )
+        if not result:
+            continue
+
+        for result in results:
+            state = result['city__state__name']
+            if state not in states_data:
+                states_data[state] = []
+                states_data[state].append(0)
+
+            states_data[state].append((univ_type_key, result['total']))
+            states_data[state][0] += result['total']
+
+    return HttpResponse(json.dumps({
+        'states_data': states_data,
+        'top_states': top_states,
+        'university_type': dict(Institution.UNIVERSITY_CHOICES),
+    }), content_type='text/json')
+
+
+def supply_1(request):
+    "Universities by state and top states"
+    return render_to_response('analytics/supply-1.html', Context({}),
+            context_instance=RequestContext(request))
+
+
+# Analytics 3
 
 def gender_diversity_data(request, year):
     """

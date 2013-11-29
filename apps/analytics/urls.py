@@ -51,6 +51,11 @@ urlpatterns = patterns('analytics.views',
 
     ######################## Supply Analytics ########################
 
+    ########  Analytics #1 ########
+    url(r'^data/university-in-states$',
+        'university_in_states', name='university_in_states'),
+    url(r'^supply-1$', 'supply_1', name='supply_1'),
+
     ########  Analytics #3 ########
     url(r'^data/gender-diversity/(?P<year>\d{4})',
         'gender_diversity_data', name='gender_diversity_data'),

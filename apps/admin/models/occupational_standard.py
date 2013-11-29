@@ -96,7 +96,6 @@ class OccupationalStandardAdmin(admin.ModelAdmin):
     '''
         Occupational Standard for admin
     '''
-    exclude = ('is_draft',)
     list_display = (
         '__unicode__', 'sector', 'sub_sector', 'drafted_on',
         'last_reviewed_on', 'next_review_on', 'is_draft',

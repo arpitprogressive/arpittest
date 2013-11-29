@@ -8,7 +8,6 @@
 from admin.models.sector import SubSector
 from admin.models.occupation import Occupation
 from admin.models.qualification_pack import QualificationPack
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.utils import simplejson
 
@@ -43,7 +42,7 @@ def wfmis_json(request):
         {
             'name': qp.job_role,
             'occupation': qp.occupation.pk,
-            'url': reverse('qualification_pack', args=[qp.code]),
+            'url': qp.get_absolute_url(),
         }
         for qp in qualification_packs
     ]

@@ -177,7 +177,6 @@ class QualificationPackAdmin(admin.ModelAdmin):
     '''
         Oqualification Pack for Admin
     '''
-    exclude = ('is_draft',)
     list_display = (
         '__unicode__', 'occupation', 'level', 'drafted_on',
         'last_reviewed_on', 'next_review_on', 'is_draft',

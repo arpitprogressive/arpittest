@@ -12,89 +12,116 @@
 {% endblock %}
 
 {% block article %}
-<table class="table-borderd">
-  <caption>Qualification Pack - {{ qualification_pack.code }}</caption>
-  <tbody>
-    <tr>
-      <td>Code</td>
-      <td>{{ qualification_pack.code }}</td>
-    </tr>
-    <tr>
-      <td>Version</td>
-      <td>{{ qualification_pack.version }}</td>
-    </tr>
-    <tr>
-      <td>Occupation</td>
-      <td>{{ qualification_pack.occupation }}</td>
-    </tr>
-    <tr>
-      <td>Job Role</td>
-      <td>{{ qualification_pack.job_role }}</td>
-    </tr>
-    <tr>
-      <td>Alias</td>
-      <td>{{ qualification_pack.alias }}</td>
-    </tr>
-    <tr>
-      <td>Role Description</td>
-      <td>{{ qualification_pack.role_description }}</td>
-    </tr>
-    <tr>
-      <td>NVEQF Level</td>
-      <td>{{ qualification_pack.nveqf_level }}</td>
-    </tr>
-    <tr>
-      <td>Min Educational Qualification</td>
-      <td>{{ qualification_pack.min_educational_qualification }}</td>
-    </tr>
-    <tr>
-      <td>Max Educational Qualification</td>
-      <td>{{ qualification_pack.max_educational_qualification }}</td>
-    </tr>
-    <tr>
-      <td>Training</td>
-      <td>{{ qualification_pack.training }}</td>
-    </tr>
-    <tr>
-      <td>Experience</td>
-      <td>{{ qualification_pack.experience }}</td>
-    </tr>
-    <tr>
-      <td>Occupational Standard (Compulsory)</td>
-      <td>
-        <ul class="unstyled">
-          {% for os in qualification_pack.os_compulsory.all %}
-            <li><a href="{% url 'occupational_standard' code=os.code version=os.version %}">{{ os }}</a></li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>Occupational Standard (Optional)</td>
-      <td>
-        <table>
-          {% for os in qualification_pack.os_optional.all %}
-          <tr>
-            <td><a href="{% url 'occupational_standard' code=os.code version=os.version %}">{{ os }}</a></td>
-          </tr>
-          {% endfor %}
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>Attachment</td>
-      {% if qualification_pack.attachment %}
-        <td><a href="{{ qualification_pack.attachment.url }}">{{ qualification_pack.attachment.name }}</a></td>
-      {% endif %}
-    </tr>
-    <tr>
-      <td>Last Review On</td>
-      <td>{{ qualification_pack.last_reviewed_on }}</td>
-    </tr>
-    <tr>
-      <td>Next Review On</td>
-      <td>{{ qualification_pack.next_reviewed_on }}</td>
-    </tr>
-  </tbody>
-</table>
+<ul id="qpTab" class="nav nav-tabs">
+  <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+  <li><a href="#mobility_map" data-toggle="tab">Mobility Map</a></li>
+  <li><a href="#career_guide" data-toggle="tab">Career guide</a></li>
+  <li><a href="#training_provider" data-toggle="tab">Training provider</a></li>
+  <li><a href="#job" data-toggle="tab">Job</a></li>
+  <li><a href="#internship" data-toggle="tab">Internship</a></li>
+</ul>
+<div id="qpTabContent" class="tab-content">
+  <div class="tab-pane active" id="details">
+    <table class="table-borderd">
+      <caption>Qualification Pack - {{ qualification_pack.code }}</caption>
+      <tbody>
+        <tr>
+          <td>Code</td>
+          <td>{{ qualification_pack.code }}</td>
+        </tr>
+        <tr>
+          <td>Version</td>
+          <td>{{ qualification_pack.version }}</td>
+        </tr>
+        <tr>
+          <td>Occupation</td>
+          <td>{{ qualification_pack.occupation }}</td>
+        </tr>
+        <tr>
+          <td>Job Role</td>
+          <td>{{ qualification_pack.job_role }}</td>
+        </tr>
+        <tr>
+          <td>Alias</td>
+          <td>{{ qualification_pack.alias }}</td>
+        </tr>
+        <tr>
+          <td>Role Description</td>
+          <td>{{ qualification_pack.role_description }}</td>
+        </tr>
+        <tr>
+          <td>NVEQF Level</td>
+          <td>{{ qualification_pack.nveqf_level }}</td>
+        </tr>
+        <tr>
+          <td>Min Educational Qualification</td>
+          <td>{{ qualification_pack.min_educational_qualification }}</td>
+        </tr>
+        <tr>
+          <td>Max Educational Qualification</td>
+          <td>{{ qualification_pack.max_educational_qualification }}</td>
+        </tr>
+        <tr>
+          <td>Training</td>
+          <td>{{ qualification_pack.training }}</td>
+        </tr>
+        <tr>
+          <td>Experience</td>
+          <td>{{ qualification_pack.experience }}</td>
+        </tr>
+        <tr>
+          <td>Occupational Standard (Compulsory)</td>
+          <td>
+            <ul class="unstyled">
+              {% for os in qualification_pack.os_compulsory.all %}
+                <li><a href="{% url 'occupational_standard' code=os.code version=os.version %}">{{ os }}</a></li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Occupational Standard (Optional)</td>
+          <td>
+            <table>
+              {% for os in qualification_pack.os_optional.all %}
+              <tr>
+                <td><a href="{% url 'occupational_standard' code=os.code version=os.version %}">{{ os }}</a></td>
+              </tr>
+              {% endfor %}
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>Attachment</td>
+          {% if qualification_pack.attachment %}
+            <td><a href="{{ qualification_pack.attachment.url }}">{{ qualification_pack.attachment.name }}</a></td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td>Last Review On</td>
+          <td>{{ qualification_pack.last_reviewed_on }}</td>
+        </tr>
+        <tr>
+          <td>Next Review On</td>
+          <td>{{ qualification_pack.next_reviewed_on }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="mobility_map">
+    Content will be written soon.
+  </div>
+  <div class="tab-pane" id="career_guide">
+    Content will be written soon.
+  </div>
+  <div class="tab-pane" id="training_provider">
+    Content will be written soon.
+  </div>
+  <div class="tab-pane" id="job">
+    Content will be written soon.
+  </div>
+  <div class="tab-pane" id="internship">
+    Content will be written soon.
+  </div>
+</div>
 {% endblock %}

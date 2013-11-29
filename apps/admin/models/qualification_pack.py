@@ -42,7 +42,6 @@ class QualificationPack(models.Model):
             Meta properties for this model
         '''
         app_label = 'admin'
-        unique_together = ('code', 'version')
 
     code = models.CharField(
         max_length=9, validators=[validate_qp_code], blank=True,

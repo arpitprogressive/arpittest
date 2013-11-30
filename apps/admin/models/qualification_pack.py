@@ -131,6 +131,24 @@ class QualificationPack(models.Model):
             return reverse('qualification_pack', args=(self.code,))
         return reverse('qualification_pack', args=(self.id,))
 
+    def get_adjacent_track_count(self, tracks, level_track_map, current_track):
+        '''
+        Return the count of adjacent tracks to the QP
+        which share tracks.
+
+        In addition remove the item from the matching track
+        '''
+        count = 1
+        qp_tracks = self.tracks.all()
+        for track in tracks.keys()[tracks.keys().index(current_track) + 1:]:
+            if track in qp_tracks:
+                count += 1
+                if self in level_track_map[track]:
+                    level_track_map[track].remove(self)
+            else:
+                break
+        return count
+
 
 class QualificationPackForm(forms.ModelForm):
     "Verify Qualification Pack"

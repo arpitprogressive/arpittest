@@ -46,7 +46,7 @@ def view_career_map(request, slug):
     level_data = defaultdict(dict)
 
     # A set of tracks in this career map
-    tracks = OrderedDict()
+    tracks = {}
 
     # A pretty large set of colors to choose from
     colors = [
@@ -83,7 +83,9 @@ def view_career_map(request, slug):
         'total_levels': len(level_data.keys()),
         'level_counter': level_counter,
 
-        'tracks': tracks,
+        'tracks': OrderedDict(
+            sorted(tracks.items(), key=lambda item: item[0].id)
+        ),
         'total_tracks': len(tracks.keys()) or 1,    # Avoid 0 tracks
 
         'level_names': {
@@ -100,7 +102,11 @@ def view_career_map(request, slug):
     env = Environment(
         loader=FileSystemLoader(directory),
         autoescape=True,
-        extensions=['jinja2.ext.autoescape'],
+        extensions=[
+            'jinja2.ext.autoescape',
+            'jinja2.ext.loopcontrols',
+            'jinja2.ext.with_',
+        ],
     )
 
     template = env.get_template('career_map.svg')

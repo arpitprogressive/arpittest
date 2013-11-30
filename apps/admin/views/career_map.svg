@@ -134,23 +134,42 @@
     {% endfor %}
   </g>
   <!-- END: Draw the Arrow/Legend on the right for the different levels -->
-  {% macro render_qp(qp, x, y, width, height, class_="") %}
+  {% macro render_qp(qp, x, y, width, height, class_="", split=True) %}
   <rect class="track {{ class_ }}" x="{{ x }}"
     {% if BUBBLE %}rx="20" ry="20"{% endif %}
     y="{{ y }}" width="{{ width }}" height="{{ height }}"/>
-  {{ render_qp_name(qp, x, y, x + (width/2)) }} 
+  {{ render_qp_name(qp, x, y, x + (width/2), split) }} 
   {% endmacro %}
 
   <!-- Draw each row of job roles at each levels -->
   {% for level, track_map in level_data|dictsort %}
+  <!-- Level: {{ level }} -->
+  <!-- {{track_map|pprint }} -->
   <g transform="translate(0, {{ ROW_HEIGHT * loop.revindex }})"> 
-      {% for track, qps in track_map.iteritems() %}
-<!-- {{ track|pprint }}-->
+      {% for track in tracks %}
+        {% set qps = track_map[track] %}
+        <!-- track: {{ track }} -->
         {% set n = qps|length %}
-        {% for qp in qps %}
-          {%  set offset = TRACK_WIDTH * loop.index0 / n %}
-          {{ render_qp(qp, (TRACK_WIDTH * tracks.keys().index(track)) + offset, 10, TRACK_WIDTH / n, BUBBLE_HEIGHT, class_="track-" + track.id|string) }}
-        {% endfor %}
+        {% set x = TRACK_WIDTH * tracks.keys().index(track) %}
+        {% if n > 1 %}
+            {# Multiple QPs in a single track #}
+            {% for qp in qps %}
+              {%  set offset = TRACK_WIDTH * loop.index0 / n %}
+              {{ render_qp(qp, x + offset, 10, TRACK_WIDTH / n, BUBBLE_HEIGHT, class_="track-" + track.id|string) }}
+            {% endfor %}
+        {% elif n == 1 %}
+            {# check if the track spreads across multiple levels #}
+            {% set qp = qps|first %}
+
+            {% set cols = qp.get_adjacent_track_count(tracks, track_map, track) %}
+
+            {% if cols > 1 %}
+            {{ render_qp(qp, x, 10, TRACK_WIDTH * cols, BUBBLE_HEIGHT, class_="rect-heading", split=False) }}
+            {% else %}
+            {{ render_qp(qp, x, 10, TRACK_WIDTH, BUBBLE_HEIGHT, class_="track-" + track.id|string) }}
+            {% endif %}
+
+        {% endif %}
       {% endfor %}
   </g>
   {% endfor %}

@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 
-from account.models import UserProfile
+from account.models import UserProfile, StudentProfile
 
 
 @login_required
@@ -36,5 +36,28 @@ def profile(request):
 
     return render_to_response(
         'account/profile.html', {'form': form},
+        context_instance=RequestContext(request)
+    )
+
+
+@login_required
+def check_competency(request):
+    """
+    Render the competency (BS) of the person
+    """
+    user_profile = get_object_or_404(UserProfile, user=request.user.id)
+
+    student_profile = matching_jobs = None
+
+    if user_profile.role == 'S':
+        student_profile = StudentProfile.objects.get(user_profile=user_profile)
+        matching_jobs = student_profile.find_matching_jobs()
+
+    return render_to_response(
+        'account/competency.html', {
+            'user_profile': user_profile,
+            'student_profile': student_profile,
+            'matching_jobs': matching_jobs,
+        },
         context_instance=RequestContext(request)
     )

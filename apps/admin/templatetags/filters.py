@@ -70,3 +70,8 @@ def get_text(field):
             out += "<a href='%s'>%s</a><br>" % (item.get_absolute_url(), item)
         return out
     return field.value()
+
+
+@register.filter()
+def mult(value, value2):
+    return value * value2

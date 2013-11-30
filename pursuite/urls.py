@@ -25,6 +25,8 @@ urlpatterns = patterns(
     url(r'^analytics/', include('analytics.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^account/profile/$', 'account.views.profile', name="profile"),
+    url(r'^account/competency/$', 'account.views.check_competency',
+        name="check_competency"),
     url(r'^account/', include('allauth.urls')),
     url(r'^search/$', FacetedSearchView(
         form_class=FacetedSearchForm,

@@ -92,6 +92,43 @@ class StudentProfile(models.Model):
     functional_area = models.CharField(max_length=50, blank=True)
     current_company = models.CharField(max_length=50, blank=True)
 
+    def find_matching_jobs(self):
+        """
+        Returns jobs matching the key_skills of the person
+        """
+        from admin.models.qualification_pack import QualificationPack
+
+        matching_jobs = []
+        user_key_skills = set(self.key_skills.all())
+        for qp in QualificationPack.objects.filter(level__lt=30):
+            qp_skills_compulsory = set(qp.os_compulsory.all())
+            qp_skills_optional = set(qp.os_optional.all())
+
+            # no of matching skills with 1.5 times weight
+            match_index = len(qp_skills_compulsory & user_key_skills) * 1.5
+
+            # add no of optional skills which match with 1
+            match_index += len(qp_skills_optional & user_key_skills) * 1.0
+
+            # Penalise for the skills you have but the job does not need
+            match_index -= len(user_key_skills - qp_skills_compulsory) * .2
+            match_index -= len(user_key_skills - qp_skills_optional) * .1
+
+            matching_jobs.append({
+                'qp': qp,
+                'match_index': match_index,
+                'matching_skills': len(qp_skills_compulsory & user_key_skills),
+                'skill_gap': (qp_skills_compulsory - user_key_skills),
+                'optional_skill_gap': (
+                    qp_skills_optional - user_key_skills
+                )
+            })
+
+        return sorted(
+            matching_jobs, key=lambda job: job['match_index'],
+            reverse=True
+        )
+
     def __unicode__(self):
         """
         Return object display name

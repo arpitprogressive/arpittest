@@ -134,28 +134,24 @@
     {% endfor %}
   </g>
   <!-- END: Draw the Arrow/Legend on the right for the different levels -->
+  {% macro render_qp(qp, x, y, width, height, class_="") %}
+  <rect class="track {{ class_ }}" x="{{ x }}"
+    {% if BUBBLE %}rx="20" ry="20"{% endif %}
+    y="{{ y }}" width="{{ width }}" height="{{ height }}"/>
+  {{ render_qp_name(qp, x, y, x + (width/2)) }} 
+  {% endmacro %}
 
   <!-- Draw each row of job roles at each levels -->
-  {% for level, qps in level_data|dictsort %}
+  {% for level, track_map in level_data|dictsort %}
   <g transform="translate(0, {{ ROW_HEIGHT * loop.revindex }})"> 
-    {% if qps|length == 1 %}
-      <rect x="0" 
-        {% if BUBBLE %}rx="20" ry="20"{% endif %}
-        y="10" width="{{ TRACKS_AREA_WIDTH }}" height="{{ BUBBLE_HEIGHT }}" class="rect-heading"/>
-      {{ render_qp_name(qps|first,  SVG_WIDTH  / 2, ROW_HEIGHT / 4, SVG_WIDTH  / 2, False) }}
-    {% else %}
-      {% for qp in qps %}
-        {% for track in tracks %}
-          {% if track in qp.tracks.all() %}
-          <rect class="track track-{{ track.id }}" 
-            {% if BUBBLE %}rx="20" ry="20"{% endif %}
-            x="{{ TRACK_WIDTH * loop.index0 }}" 
-            y="10" width="{{ TRACK_WIDTH }}" height="{{ BUBBLE_HEIGHT }}"/>
-          {{ render_qp_name(qp, (TRACK_WIDTH * loop.index0) / 2,  ROW_HEIGHT / 5, (TRACK_WIDTH * loop.index0) + (TRACK_WIDTH / 2)) }}
-          {% endif %}
+      {% for track, qps in track_map.iteritems() %}
+<!-- {{ track|pprint }}-->
+        {% set n = qps|length %}
+        {% for qp in qps %}
+          {%  set offset = TRACK_WIDTH * loop.index0 / n %}
+          {{ render_qp(qp, (TRACK_WIDTH * tracks.keys().index(track)) + offset, 10, TRACK_WIDTH / n, BUBBLE_HEIGHT, class_="track-" + track.id|string) }}
         {% endfor %}
       {% endfor %}
-    {% endif %}
   </g>
   {% endfor %}
   <!-- END Draw each row of job roles at each levels -->

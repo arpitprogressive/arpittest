@@ -43,7 +43,7 @@ def view_career_map(request, slug):
     """
     occupation = get_object_or_404(Occupation, slug=slug)
 
-    level_data = defaultdict(set)
+    level_data = defaultdict(dict)
 
     # A set of tracks in this career map
     tracks = OrderedDict()
@@ -68,7 +68,7 @@ def view_career_map(request, slug):
         tracks.setdefault(track, colors.pop())
 
         for qp in track.qualification_packs:
-            level_data[qp.level].add(qp)
+            level_data[qp.level].setdefault(track, set()).add(qp)
 
     level_counter = Counter()
     for level in level_data.keys():

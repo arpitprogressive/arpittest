@@ -22,7 +22,7 @@ class Track(models.Model):
         app_label = 'admin'
 
     name = models.CharField(
-        max_length=50, default=None, unique=True, db_index=True,
+        max_length=100, default=None, unique=True, db_index=True,
     )
 
     @property

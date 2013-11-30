@@ -108,11 +108,22 @@
       </tbody>
     </table>
   </div>
-  <div class="tab-pane" id="mobility_map">
-    Content will be written soon.
+  <div class="tab-pane" id="mobility_map" style="text-align:center">
+    {% if qualification_pack.occupation.sub_sector.mobility_map %}
+      <img src="{{ qualification_pack.occupation.sub_sector.mobility_map.url }}" style="max-width:100%" />
+    {% else %}
+      No information available.
+    {% endif %}
   </div>
   <div class="tab-pane" id="career_guide">
-    Content will be written soon.
+    {% if qualification_pack.occupation.sub_sector.mobility_map %}
+      <a class="btn" target="_blank" href="{{ qualification_pack.occupation.sub_sector.career_guide.url }}">
+        <i class="icon-download-alt"></i>
+        Download Career Guide
+      </a>
+    {% else %}
+      No information available.
+    {% endif %}
   </div>
   <div class="tab-pane" id="training_provider">
     Content will be written soon.

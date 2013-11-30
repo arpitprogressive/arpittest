@@ -3,3 +3,4 @@
 *.pyc
 local_settings.py
 local_manage.py
+pursuite/web/media/

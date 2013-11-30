@@ -37,5 +37,6 @@ setup(
         'django-pagination',
         'django-storages',
         'boto',
+        'django-s3-folder-storage',
     ],
 )

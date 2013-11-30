@@ -66,12 +66,18 @@ RAVEN_CONFIG = {
 }
 
 # Add amazon s3 as a storage mechanism
-INSTALLED_APPS += ('storages',)
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+INSTALLED_APPS += ('storages', 's3_folder_storage',)
+DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
+DEFAULT_S3_PATH = "media"
+#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = "AKIAIBGU6ZPMYAHTFOWQ"
 AWS_SECRET_ACCESS_KEY = "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"
 AWS_STORAGE_BUCKET_NAME = "pursuite"
 AWS_QUERYSTRING_AUTH = False
+
+MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
+MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 # Setup caching
 CACHES = {

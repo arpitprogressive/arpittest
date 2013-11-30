@@ -17,8 +17,8 @@
   <li><a href="#mobility_map" data-toggle="tab">Mobility Map</a></li>
   <li><a href="#career_guide" data-toggle="tab">Career guide</a></li>
   <li><a href="#training_provider" data-toggle="tab">Training provider</a></li>
-  <li><a href="#job" data-toggle="tab">Job</a></li>
-  <li><a href="#internship" data-toggle="tab">Internship</a></li>
+  <li><a href="#job" data-toggle="tab">Job ({{ jobs|length }})</a></li>
+  <li><a href="#internship" data-toggle="tab">Internship ({{ interns|length }})</a></li>
 </ul>
 <div id="qpTabContent" class="tab-content">
   <div class="tab-pane active" id="details">
@@ -129,10 +129,26 @@
     Content will be written soon.
   </div>
   <div class="tab-pane" id="job">
-    Content will be written soon.
+    {% if jobs %}
+      <ul>
+        {% for job in jobs %}
+          <li><a href="{{ job.get_absolute_url }}">{{ job.job_title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      No job available for now.
+    {% endif %}
   </div>
   <div class="tab-pane" id="internship">
-    Content will be written soon.
+    {% if interns %}
+      <ul>
+        {% for intern in interns %}
+          <li><a href="{{ intern.get_absolute_url }}">{{ intern.job_title }} - {{ intern.company }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      No internship available for now.
+    {% endif %}
   </div>
 </div>
 {% endblock %}

@@ -34,7 +34,7 @@ width: 254px;
 /* google fonts */
 /* Body background scheme goes here -----------*/
 body{
-background: url('{{ STATIC_URL }}images/stripe_default.png') repeat;
+background: url('../images/stripe_default.png') repeat;
 }
 body{
 font-size: 12px;
@@ -204,7 +204,7 @@ margin-top: -3px;
 margin-left: 5px;
 vertical-align: middle;
 outline: none;
-background: url('{{ STATIC_URL }}images/nasscom/decrease.png') no-repeat scroll 0 0 transparent;
+background: url('../images/nasscom/decrease.png') no-repeat scroll 0 0 transparent;
 text-indent: -9999px;
 display: block;
 width: 20px;
@@ -213,7 +213,7 @@ float:right;
 }
 .defaultFont {
 margin-top: -2px;
-background: url('{{ STATIC_URL }}images/nasscom/reset-button.jpg') no-repeat scroll 0 0 transparent;
+background: url('../images/nasscom/reset-button.jpg') no-repeat scroll 0 0 transparent;
 text-indent: -9999px;
 outline: none;
 display: block;
@@ -223,7 +223,7 @@ height: 21px;
 }
 .largeFont {
 margin-top: -2px;
-background: url('{{ STATIC_URL }}images/nasscom/increase.png') no-repeat scroll 0 0 transparent;
+background: url('../images/nasscom/increase.png') no-repeat scroll 0 0 transparent;
 outline: none;
 text-indent: -9999px;
 display: block;

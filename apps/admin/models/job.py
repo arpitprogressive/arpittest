@@ -8,6 +8,10 @@
 from django.db import models
 from django.contrib import admin
 from haystack import indexes
+from django.core.urlresolvers import reverse
+from tinymce.models import HTMLField
+from account.models import IndustryProfile
+from analytics.models import State
 
 __all__ = ['Job', 'JobIndex']
 
@@ -24,17 +28,29 @@ class Job(models.Model):
 
     job_title = models.CharField(max_length=50, blank=True, db_index=True)
     is_internship = models.BooleanField(verbose_name="Internship")
-    job_role = models.ForeignKey(
-        'QualificationPack', default=None, db_index=True,
-    )
-    company = models.ForeignKey('Company', default=None, db_index=True)
-    job_description = models.TextField(blank=True)
+    job_role = models.ForeignKey('QualificationPack', db_index=True)
+    industry = models.ForeignKey(IndustryProfile, db_index=True)
+    job_description = HTMLField(blank=True)
+    location = models.ForeignKey(State, db_index=True)
+
+    @property
+    def company(self):
+        '''
+            Compny to which job belongs to.
+        '''
+        return self.industry.company
 
     def __unicode__(self):
         '''
             Returns object display name
         '''
         return "%s - %s" % (self.company, self.job_title)
+
+    def get_absolute_url(self):
+        '''
+            get absolute url
+        '''
+        return reverse('render_job', args=(self.id,))
 
 
 class JobAdmin(admin.ModelAdmin):

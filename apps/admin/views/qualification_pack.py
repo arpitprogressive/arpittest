@@ -9,6 +9,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404
 from admin.models.qualification_pack import QualificationPack
+from admin.models import Job
 
 
 def view_qualification_pack(request, code, version=None):
@@ -24,9 +25,13 @@ def view_qualification_pack(request, code, version=None):
         filter['version'] = version
     qualification_packs = QualificationPack.objects.filter(**filter)
     if qualification_packs:
+        qp = qualification_packs.latest('version')
+        jobs = Job.objects.filter(job_role=qp)
+        inters = jobs.filter(is_internship=True)
+        jobs = jobs.filter(is_internship=False)
         return render_to_response(
             'admin/qualification_pack.html',
-            {'qualification_pack': qualification_packs.latest('version')},
+            {'qualification_pack': qp, 'jobs': jobs, 'interns': inters},
             context_instance=RequestContext(request),
         )
     raise Http404

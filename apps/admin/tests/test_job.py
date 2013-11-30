@@ -11,6 +11,9 @@ from datetime import datetime
 from django.test import TestCase
 from admin.models import Job, QualificationPack, Sector, SubSector, Occupation,\
         Company, OccupationalStandard
+from django.contrib.auth.models import User
+from account.models import UserProfile, IndustryProfile
+from analytics.models import State
 
 
 class TestJob(TestCase):
@@ -21,6 +24,18 @@ class TestJob(TestCase):
         """
             Create default for test
         """
+        # Create User
+        user = User.objects.create_user(
+            'john', 'lennon@thebeatles.com', 'johnpassword'
+        )
+        userprofile = UserProfile.objects.create(
+            role='S',
+            user=user,
+        )
+
+        # Create State
+        state = State.objects.create(name='Delhi', region="Nort")
+
         # Create Sector
         sector = Sector.objects.create(name="IT-ITeS")
         self.assert_(sector.pk)
@@ -46,6 +61,19 @@ class TestJob(TestCase):
         company.full_clean()  # No exception means, accepted
         company.save()
         self.assert_(company.pk)
+
+        industry_profile = IndustryProfile.objects.create(
+            user_profile=userprofile,
+            name='test name',
+            est_year=2013,
+            industry_type="O",
+            sub_sector="IT-ITeS",
+            contact_person="Cyrus",
+            email="cyrus@ol.com",
+            mobile_phone="9874563210",
+            company=company,
+            is_approved=True,
+        )
 
         # Create an Occupational Standard
         os_ = OccupationalStandard.objects.create(
@@ -86,6 +114,8 @@ class TestJob(TestCase):
             'qp': qp,
             'occupation': occupation,
             'company': company,
+            'state': state,
+            'industry_profile': industry_profile,
         }
 
     def test_creation(self):
@@ -97,6 +127,8 @@ class TestJob(TestCase):
             job_title="Software Engineer",
             is_internship=False,
             job_role=defaults['qp'],
-            company=defaults['company']
+            job_description="test description",
+            location=defaults['state'],
+            industry=defaults['industry_profile'],
         )
         self.assert_(job.pk)

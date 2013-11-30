@@ -16,7 +16,9 @@ from admin.models import Occupation, Institution, Company, SubSector
 
 
 __all__ = ['DEGREE_CHOICES', 'REGION_CHOICES', 'State', 'City', 'SupplyBase',
-        'DemandData']
+        'DemandData', 'CompanyYearData', 'DiversityRatioLevel',
+        'DiversityRatioSubsector', 'GenderDiversity', 'ITSpend',
+        'RevenueSubsector', 'RevenueOccupation', 'RevenueTotal']
 
 
 DEGREE_CHOICES = (
@@ -244,6 +246,110 @@ class ITSpend(models.Model):
         """
         return "%d,%s" % (self.year, self.sub_sector, )
 
+
+class RevenueSubsector(models.Model):
+    """
+    Revenue per subsector
+    """
+    year = models.IntegerField()
+    sub_sector = models.ForeignKey(SubSector)
+    revenue = models.IntegerField()
+
+    class Meta:
+        unique_together = ('year', 'sub_sector', )
+        verbose_name_plural = 'Revenue by Subsector'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d,%s" % (self.year, self.sub_sector, )
+
+
+class RevenueOccupation(models.Model):
+    """
+    Revenue by occupation
+    """
+    year = models.IntegerField()
+    occupation = models.ForeignKey(Occupation)
+    revenue = models.IntegerField()
+    cagr_next_7_years = models.IntegerField(
+        verbose_name='CAGR % for next 7 years'
+    )
+
+    class Meta:
+        unique_together = ('year', 'occupation', )
+        verbose_name_plural = 'Revenue by occupation'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d,%s" % (self.year, self.occupation, )
+
+    @property
+    def revenue_after_7year(self):
+        return int(self.revenue * (1 + self.cagr_next_7_years / 100.0) ** 7)
+
+
+class RevenueTotal(models.Model):
+    """
+    Total revenue
+    """
+    year = models.IntegerField(unique=True)
+    revenue = models.IntegerField()
+    most_likely_growth = models.IntegerField(
+        verbose_name='Most likely growth percent',
+        blank=True,
+        null=True
+    )
+    optimistic_growth = models.IntegerField(
+        verbose_name='Optimisitc growth percent',
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        verbose_name_plural = 'Total Revenues'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d,%d" % (self.year, self.revenue, )
+
+    @property
+    def growth_series(self):
+        """
+        Return growth and most likely series
+        """
+        resultset = RevenueTotal.objects.filter(year__lte=self.year)
+        optimistic_series = []
+        most_likely_series = []
+        years = []
+        for result in resultset:
+            most_likely_series.append(result.revenue)
+            optimistic_series.append(result.revenue)
+            years.append(result.year)
+
+        for i in range(7):
+            optimistic_series.append(
+                int(optimistic_series[-1] *
+                        (1 + self.optimistic_growth / 100.0))
+            )
+            most_likely_series.append(
+                int(most_likely_series[-1] *
+                    (1 + self.most_likely_growth / 100.0))
+            )
+            years.append(years[-1] + 1)
+
+        return {
+            'years': years,
+            'optimistic_series': optimistic_series,
+            'most_likely_series': most_likely_series,
+        }
+
+
 django.contrib.admin.site.register(State)
 django.contrib.admin.site.register(City)
 django.contrib.admin.site.register(SupplyBase)
@@ -253,3 +359,6 @@ django.contrib.admin.site.register(DiversityRatioLevel)
 django.contrib.admin.site.register(DiversityRatioSubsector)
 django.contrib.admin.site.register(GenderDiversity)
 django.contrib.admin.site.register(ITSpend)
+django.contrib.admin.site.register(RevenueSubsector)
+django.contrib.admin.site.register(RevenueOccupation)
+django.contrib.admin.site.register(RevenueTotal)

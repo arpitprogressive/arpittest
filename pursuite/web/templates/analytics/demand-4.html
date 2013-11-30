@@ -32,6 +32,15 @@
   </div>
   <div class="clear"></div>
   <hr/>
+  <h2 style="text-align: center">Revenues by subsector</h2>
+  <div id="subsector-revenue-trend"></div>
+  <hr/>
+  <h2 style="text-align: center">Revenues by occupation</h2>
+  <div id="occupation-revenue"></div>
+  <hr/>
+  <h2 style="text-align: center">Total Revenue Growth</h2>
+  <div id="total-revenue-growth"></div>
+  <hr/>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
@@ -399,7 +408,195 @@
     })
     .fail(function() {
       $('#' + world_container).html("<h1>Data not available!</h1>");
+    });
+  }
+  
+  function render_revenue_subsector_trend()
+  {
+    var container = "subsector-revenue-trend";
+    $.getJSON('/analytics/data/revenue-subsector-trend', function(data) {
+      options = {
+        chart: {
+          type: 'column',
+          renderTo: container,
+        },
+        title: {
+          text: 'Revenue by Subsector'
+        },
+        xAxis: {
+          title: {
+            text: 'Year'
+          },
+          categories: data.years
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Revenue'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+              return '<b>'+ this.x +'</b><br/>'+
+                  this.series.name +': '+ this.y +'<br/>'+
+                  'Total: '+ this.point.stackTotal;
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: data.series
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
     });    
+  }
+
+  function render_revenue_occupation(year)
+  {
+    var container = "occupation-revenue";
+    $.getJSON('/analytics/data/revenue-occupation/' + year, function(data) {
+      options = {
+        chart: {
+          type: 'bar',
+          renderTo: container,
+        },
+        title: {
+          text: 'Share of different occupations'
+        },
+        xAxis: {
+          title: {
+            text: 'Year'
+          },
+          categories: data.occupations
+        },
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: 'Revenue %'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+              return '<b>'+ this.x +'</b><br/>'+
+                  this.series.name +': '+ this.y +'%';
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: data.series
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });    
+  }
+
+  function render_total_revenue_growth(year)
+  {
+    var container = "total-revenue-growth";
+    $.getJSON('/analytics/data/total-revenue-series/' + year, function(data) {
+      options = {
+        chart: {
+          renderTo: container,
+        },
+        title: {
+          text: 'Total Revenue (' + data.years[0] + '-' + data.years[data.years.length-1] + ')'
+        },
+        xAxis: {
+          title: {
+            text: 'Year'
+          },
+          categories: data.years
+        },
+        yAxis: {
+          title: {
+            text: 'Revenue (in USD)'
+          },
+          plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+          }]
+        },
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle',
+          borderWidth: 0
+        },
+        tooltip: {
+          formatter: function() {
+              return '<b>'+ this.x +'</b><br/>'+
+                  this.series.name +': '+ this.y;
+          }
+        },
+        series: [{
+          name: 'Optimisic Growth',
+          data: data.optimistic_series,
+        }, {
+          name: 'Most Likely Growth',
+          data: data.most_likely_series
+        }]
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });
   }
 
   $(function() {
@@ -408,6 +605,9 @@
     render_pie_demand_supply_region({{ analytics_year }});
     render_it_spend_charts({{ analytics_year }});
     render_stacked_subsector_trend();
+    render_revenue_subsector_trend();
+    render_revenue_occupation({{ analytics_year }});
+    render_total_revenue_growth({{ analytics_year }});
   });
 </script>
 {% endblock %}

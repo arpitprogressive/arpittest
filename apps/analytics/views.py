@@ -15,10 +15,8 @@ from django.db.models import Sum, Count
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
-from analytics.models import State, City, DemandData, SupplyBase, \
-        CompanyYearData, DiversityRatioLevel, DiversityRatioSubsector, \
-        GenderDiversity, ITSpend, REGION_CHOICES
 from admin.models import SubSector, Institution
+from analytics.models import *
 
 
 def home(request):
@@ -570,6 +568,66 @@ def it_spend(request, year):
     }), content_type='text/json')
 
 
+def revenue_subsector_trend(request):
+    """
+    JSON data containing revenue each year split by subsector
+    """
+    years = sorted([
+        k['year'] for k in RevenueSubsector.objects.values('year').distinct()
+    ])
+    data = {}
+    return_data = []
+
+    for year in years:
+        resultset = RevenueSubsector.objects.filter(year=year) \
+                .order_by('sub_sector')
+        for result in resultset:
+            sub_sector = result.sub_sector.name
+            if sub_sector not in data:
+                data[sub_sector] = []
+            data[sub_sector].append(result.revenue)
+
+    for key, value in data.items():
+        return_data.append({
+            'name': key,
+            'data': value,
+        })
+    return HttpResponse(json.dumps({
+        'series': return_data,
+        'years': years,
+    }), content_type='text/json')
+
+
+def revenue_occupation(request, year):
+    """
+    JSON data containing revenue by occupation in year=year and year = year + 7
+    """
+    year = int(year)
+    resultset = RevenueOccupation.objects.filter(year=year)
+    data = []
+    data7 = []  # data after 7 years
+    occupations = []
+
+    total, total7 = 0, 0
+    for result in resultset:
+        occupations.append(result.occupation.name)
+        data.append(result.revenue)
+        data7.append(result.revenue_after_7year)
+        total += result.revenue
+        total7 += result.revenue_after_7year
+
+    data = map(lambda x: (x * 100.0) / total, data)
+    data7 = map(lambda x: (x * 100.0) / total7, data7)
+
+    return HttpResponse(json.dumps({
+        'occupations': occupations,
+        'series': [
+            {'name': year, 'data': data},
+            {'name': year + 7, 'data': data7},
+        ]
+    }), content_type='text/json')
+
+
 def demand_4(request, year):
     "Analytics 4 page"
     year = int(year)
@@ -628,6 +686,16 @@ def diversity_ratio_subsector(request, year):
         'female': female,
         'categories': categories
     }), content_type='text/json')
+
+
+def total_revenue_series(request, year):
+    "Total revenue series + projected revenues"
+    year = int(year)
+    revenuetotal = RevenueTotal.objects.get(year=year)
+    return HttpResponse(
+        json.dumps(revenuetotal.growth_series),
+        content_type='text/json'
+    )
 
 
 def demand_5(request, year):

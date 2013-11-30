@@ -8,10 +8,12 @@
 from admin.models.sector import SubSector
 from admin.models.occupation import Occupation
 from admin.models.qualification_pack import QualificationPack
+from django.views.decorators.cache import cache_page
 from django.http import HttpResponse
 from django.utils import simplejson
 
 
+@cache_page(500)
 def wfmis_json(request):
     """
     Returns json for WFSMIS

@@ -30,6 +30,7 @@ LEVEL_CHOICES = (
     (100, 'Leadership Level 3'),
     (110, 'Leadership Level 4'),
     (120, 'Leadership Level 5'),
+    (130, 'Leadership Level 6'),
 )
 
 

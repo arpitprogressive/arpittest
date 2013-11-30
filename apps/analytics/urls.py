@@ -42,6 +42,14 @@ urlpatterns = patterns('analytics.views',
 
     url(r'^demand-1/(?P<year>\d{4})', 'demand_1', name='demand_1'),
 
+    ########  Analytics #4 ########
+    url(r'^data/demand-supply-region/(?P<year>\d{4})$',
+        'demand_supply_region', name='demand_supply_region'),
+    url(r'^data/it-spend/(?P<year>\d{4})$',
+        'it_spend', name='it_spend'),
+
+    url(r'^demand-4/(?P<year>\d{4})', 'demand_4', name='demand_4'),
+
     ########  Analytics #5 ########
     url(r'^data/diversity-ratio-subsector/(?P<year>\d{4})',
         'diversity_ratio_subsector', name='diversity_ratio_subsector'),

@@ -1,0 +1,413 @@
+{% extends "article.html" %}
+{% block title %}
+  Analytics
+{% endblock %}
+
+{% block heading %}
+ Analytics - Demand - Where is growth projected from? ({{ analytics_year }})
+{% endblock %}
+{% block article %}
+  <div id="contribution-revenue-nasscom"></div>
+  <div id="contribution-revenue-company-type"></div>
+  <div class="clear"></div>
+  <hr/>
+  <div id="subsector-trend"></div>
+  <div class="clear"></div>
+  <hr/>
+  <h2 style="text-align: center">Demand Supply in Regions</h2>
+  <div id="demand-supply-region">
+    <div id="demand-supply-pie-charts" class="left-float">
+      <div id="demand-region-pie"></div>
+      <div id="supply-region-pie"></div>
+    </div>
+    <div id="demand-supply-table-container">
+    </div>
+  </div>
+  <div class="clear"></div>
+  <hr/>
+  <div id="it-spend-container">
+    <h2 style="text-align: center">World IT Spend and Share of Indian IT Industry</h2>
+    <div id="world-spend-chart" class="analytics-diagram left-float" style="width: 500px"></div>
+    <div id="india-revenue-chart" class="analytics-diagram right-float" style="width: 500px"></div>
+  </div>
+  <div class="clear"></div>
+  <hr/>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}/css/analytics.css"/>
+  <script type="text/javascript">
+
+  function render_pie_revenue_membership(year)
+  {
+    var container = "contribution-revenue-nasscom";
+    $.getJSON('/analytics/data/revenue-company/' + year, function(data) {
+      options = {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          renderTo: container,
+        },
+        title: {
+          text: 'Contribution to Indian IT/IT-eS industry revenue'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              color: '#000000',
+              connectorColor: '#000000',
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+          }
+        },
+        series: [{
+          type: 'pie',
+          name: 'Revenue',
+          data: [
+            ['NASSCOM Members (' + data.nasscom_members_num + ')', data.nasscom_members_revenue],
+            ['Non NASSCOM Members (' + data.non_nasscom_members_num + ')', data.non_nasscom_members_revenue],
+          ]
+        }]
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });
+  };
+
+  function render_pie_revenue_company_type(year)
+  {
+    var container = "contribution-revenue-company-type";
+    $.getJSON('/analytics/data/revenue-company-type/' + year, function(data) {
+      options = {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          renderTo: container
+        },
+        title: {
+          text: 'Total % of companies by type'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              color: '#000000',
+              connectorColor: '#000000',
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+          }
+        },
+        series: [{
+          type: 'pie',
+          name: 'Revenue',
+          data: data
+        }]
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });
+  };
+  
+  function render_pie_demand_supply_region(year)
+  {
+    var demand_container = "demand-region-pie";
+    $.getJSON('/analytics/data/demand-supply-region/' + year, function(data) {
+      demand_options = {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          renderTo: demand_container,
+        },
+        title: {
+          text: 'Demand'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              color: '#000000',
+              connectorColor: '#000000',
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+          }
+        },
+        series: [{
+          type: 'pie',
+          name: 'Demand',
+          data: data.demand
+        }]
+      };
+      var demand_chart = new Highcharts.Chart(demand_options);
+      
+      // supply chart
+      var supply_container = "supply-region-pie";
+      supply_options = {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          renderTo: supply_container,
+        },
+        title: {
+          text: 'Supply'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              color: '#000000',
+              connectorColor: '#000000',
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+          }
+        },
+        series: [{
+          type: 'pie',
+          name: 'Supply',
+          data: data.supply
+        }]
+      };
+      var supply_chart = new Highcharts.Chart(supply_options);
+      
+      var table_output = "<table style='width: 500px; padding-left: 15px;' align='center'><tr><th>Region</th><th>Demand</th><th>Potential Supply</th></tr>";
+      for (var i in data.demand) {
+        table_output += "<tr>";
+        table_output += "<td><b>" + data.demand[i][0] + "</b></td><td>" + (data.demand[i][1] || "-") + "</td>" +
+                        "<td>" + (data.supply[i][1] || "-") + "</td>"
+        table_output += "</tr>";
+      }
+      $('#demand-supply-table-container').hide();
+      $('#demand-supply-table-container').html(table_output);
+      $('#demand-supply-table-container').fadeIn();
+      
+    })
+    .fail(function() {
+      $('#' + demand_container).html("<h1>Data not available!</h1>");
+    });
+  };
+
+  function render_stacked_subsector_trend()
+  {
+    var container = "subsector-trend";
+    $.getJSON('/analytics/data/hiring-subsector-trend/', function(data) {
+      options = {
+        chart: {
+          type: 'column',
+          renderTo: container,
+        },
+        title: {
+          text: 'Hiring by Subsector'
+        },
+        xAxis: {
+          title: {
+            text: 'Year'
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Hiring'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+              return '<b>'+ this.x +'</b><br/>'+
+                  this.series.name +': '+ this.y +'<br/>'+
+                  'Total: '+ this.point.stackTotal;
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: data
+      };
+      chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h1>Data not available!</h1>");
+    });    
+  }
+  
+  function render_it_spend_charts(year)
+  {
+    var world_container = "world-spend-chart";
+    var india_container = "india-revenue-chart";
+    $.getJSON('/analytics/data/it-spend/' + year, function(data) {
+      var world_options = {
+        chart: {
+          type: 'column',
+          renderTo: world_container,
+        },
+        title: {
+          text: 'World IT Spend'
+        },
+        xAxis: {
+          title: {
+            text: '{{analytics_year}}'
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'in USD Billions'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+              return this.series.name +': '+ this.y +'<br/>'+
+                  'Total: '+ this.point.stackTotal;
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: data.world_spend
+      };
+      var world_chart = new Highcharts.Chart(world_options);
+      
+      var india_options = {
+        chart: {
+          type: 'column',
+          renderTo: india_container,
+        },
+        title: {
+          text: 'Indian IT Revenue'
+        },
+        xAxis: {
+          title: {
+            text: '{{analytics_year}}'
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'in USD Billions'
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        legend: {
+          align: 'right',
+          x: -70,
+          verticalAlign: 'top',
+          y: 20,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+        },
+        tooltip: {
+          formatter: function() {
+              return this.series.name +': '+ this.y +'<br/>'+
+                  'Total: '+ this.point.stackTotal;
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true,
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+          }
+        },
+        series: data.india_revenue
+      };
+      var india_chart = new Highcharts.Chart(india_options);
+    })
+    .fail(function() {
+      $('#' + world_container).html("<h1>Data not available!</h1>");
+    });    
+  }
+
+  $(function() {
+    render_pie_revenue_membership({{ analytics_year }});
+    render_pie_revenue_company_type({{ analytics_year }});
+    render_pie_demand_supply_region({{ analytics_year }});
+    render_it_spend_charts({{ analytics_year }});
+    render_stacked_subsector_trend();
+  });
+</script>
+{% endblock %}

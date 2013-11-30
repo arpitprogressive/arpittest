@@ -8,7 +8,7 @@
 import os
 from collections import defaultdict, OrderedDict, Counter
 
-from jinja2 import Template, Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from admin.models.occupation import Occupation
@@ -102,7 +102,7 @@ def view_career_map(request, slug):
         autoescape=True,
         extensions=['jinja2.ext.autoescape'],
     )
-    
+
     template = env.get_template('career_map.svg')
     return HttpResponse(
         template.render(context),

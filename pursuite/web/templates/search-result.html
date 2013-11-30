@@ -4,6 +4,15 @@
   Search {% if query %}"{{query}}"{% endif %}
 {% endblock %}
 
+{% block breadcrumb %}
+  <div class="row-fluid">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> » </li>
+      <li>Search {% if query %}- {{query}}{% endif %}</li>
+    </ul>
+  </div>
+{% endblock %}
+
 {% block heading %}
  Search
 {% endblock %}

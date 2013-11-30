@@ -126,8 +126,8 @@ class QualificationPack(models.Model):
         '''
             get absolute url
         '''
-        if self.level < 30:
-            # for Entry level qp
+        if self.level < 30 and self.code:
+            # for Entry level qp with code
             return reverse('qualification_pack', args=(self.code,))
         return reverse('qualification_pack', args=(self.id,))
 

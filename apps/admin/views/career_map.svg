@@ -26,14 +26,18 @@
     {% endmacro %}
 
 
-    {% macro render_qp_name(qp, x, y, tspan_x) %}
+    {% macro render_qp_name(qp, x, y, tspan_x, split=True) %}
       {% if qp.get_absolute_url() %}<a xlink:href="{{ qp.get_absolute_url() }}">{% endif %}
       <text class="track-name"
         x="{{ x }}" 
         y="{{ y }}">
+          {% if split %}
           {% for word in qp.job_role.split(" ") %}  
           <tspan x="{{ tspan_x }}" dy="20">{{ word }}</tspan>
           {% endfor %}
+          {% else %}
+          <tspan x="{{ tspan_x }}" dy="20">{{ qp.job_role }}</tspan>
+          {% endif %}
           {% if qp|attr('code') %}
           <tspan x="{{ tspan_x }}" dy="20">({{ qp|attr('code') }})</tspan>
           {% endif %}
@@ -128,7 +132,7 @@
       <rect x="0" 
         {% if BUBBLE %}rx="20" ry="20"{% endif %}
         y="10" width="{{ TRACKS_AREA_WIDTH }}" height="{{ BUBBLE_HEIGHT }}" class="rect-heading"/>
-      {{ render_qp_name(qps|first,  SVG_WIDTH  / 2, ROW_HEIGHT / 4, SVG_WIDTH  / 2) }}
+      {{ render_qp_name(qps|first,  SVG_WIDTH  / 2, ROW_HEIGHT / 4, SVG_WIDTH  / 2, False) }}
     {% else %}
       {% for qp in qps %}
         {% for track in tracks %}

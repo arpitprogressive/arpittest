@@ -8,7 +8,7 @@
 import os
 from collections import defaultdict, OrderedDict, Counter
 
-from jinja2 import Template
+from jinja2 import Template, Environment, FileSystemLoader
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from admin.models.occupation import Occupation
@@ -59,6 +59,9 @@ def view_career_map(request, slug):
         'ForestGreen',
         'Gold',
         'Indigo',
+        'LightSeaGreen ',
+        'Maroon',
+        'Purple',
     ]
 
     for track in occupation.tracks.all():
@@ -94,8 +97,13 @@ def view_career_map(request, slug):
     context.update(_get_rendering_settings(context))
 
     directory = os.path.abspath(os.path.dirname(__file__))
-    template = Template(open(os.path.join(directory, 'career_map.svg')).read())
-
+    env = Environment(
+        loader=FileSystemLoader(directory),
+        autoescape=True,
+        extensions=['jinja2.ext.autoescape'],
+    )
+    
+    template = env.get_template('career_map.svg')
     return HttpResponse(
         template.render(context),
         content_type='image/svg+xml'

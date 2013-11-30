@@ -177,6 +177,18 @@ class QualificationPackAdmin(admin.ModelAdmin):
     '''
         Oqualification Pack for Admin
     '''
+    class Media:
+        from django.conf import settings
+        static_url = getattr(settings, 'STATIC_URL')
+        css = {
+            'all': (static_url + 'chosen/chosen.min.css',)
+        }
+        js = [
+            'https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js',
+            static_url + 'chosen/chosen.jquery.min.js',
+            static_url + 'js/admin-common.js',
+        ]
+
     list_display = (
         '__unicode__', 'occupation', 'level', 'drafted_on',
         'last_reviewed_on', 'next_review_on', 'is_draft',

@@ -45,6 +45,11 @@ urlpatterns = patterns(
         name="career_map"
     ),
     url(
+        r'^occupation/(?P<slug>.*)/$',
+        'admin.views.occupation.render',
+        name="render_occupation"
+    ),
+    url(
         r'^occupational-standard/(?P<code>[A-z]{3}/[NO]\d{4})/'
             '(?P<version>\d+\.\d+)/$',
         'admin.views.occupational_standard.view_occupational_standard',

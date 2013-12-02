@@ -1,0 +1,16 @@
+{% extends "article.html" %}
+
+{% block title %}
+  {{ occupation.name }} | Occupation
+{% endblock %}
+
+{% block heading %}
+  {{ occupation.name }}
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+  <object data="{{ occupation.career_map }}" type="image/svg+xml"></object>
+{% endblock %}

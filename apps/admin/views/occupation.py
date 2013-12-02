@@ -13,6 +13,8 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from admin.models.occupation import Occupation
 from admin.models.qualification_pack import QualificationPack
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 
 
 def _get_rendering_settings(context):
@@ -113,4 +115,17 @@ def view_career_map(request, slug):
     return HttpResponse(
         template.render(context),
         content_type='image/svg+xml'
+    )
+
+
+def render(request, slug):
+    """
+        Render occupation
+    """
+    occupation = get_object_or_404(Occupation, slug=slug)
+
+    return render_to_response(
+        'admin/occupation.html',
+        {'occupation': occupation},
+        context_instance=RequestContext(request),
     )

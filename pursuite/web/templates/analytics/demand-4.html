@@ -1,22 +1,26 @@
 {% extends "article.html" %}
 {% block title %}
-  Analytics
+ Analytics - Demand - Where is growth projected from? ({{ analytics_year }})
 {% endblock %}
 
 {% block heading %}
  Analytics - Demand - Where is growth projected from? ({{ analytics_year }})
 {% endblock %}
+{% block breadcrumb %} {% endblock %}
 {% block article %}
+<div style="width: 800px; margin: 0 auto;">
+  <h2 style="text-align: center">Revenue Contribution</h2>
   <div id="contribution-revenue-nasscom"></div>
   <div id="contribution-revenue-company-type"></div>
   <div class="clear"></div>
   <hr/>
+  <h2 style="text-align: center">Hiring by Sub-sector</h2>
   <div id="subsector-trend"></div>
   <div class="clear"></div>
   <hr/>
   <h2 style="text-align: center">Demand Supply in Regions</h2>
   <div id="demand-supply-region">
-    <div id="demand-supply-pie-charts" class="left-float">
+    <div id="demand-supply-pie-charts" class="left-float" style="width: 400px">
       <div id="demand-region-pie"></div>
       <div id="supply-region-pie"></div>
     </div>
@@ -41,6 +45,7 @@
   <h2 style="text-align: center">Total Revenue Growth</h2>
   <div id="total-revenue-growth"></div>
   <hr/>
+</div>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
@@ -88,7 +93,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   };
 
@@ -130,7 +135,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   };
   
@@ -206,7 +211,7 @@
       };
       var supply_chart = new Highcharts.Chart(supply_options);
       
-      var table_output = "<table style='width: 500px; padding-left: 15px;' align='center'><tr><th>Region</th><th>Demand</th><th>Potential Supply</th></tr>";
+      var table_output = "<table style='width: 350px; padding-left: 15px;' align='center'><tr><th>Region</th><th>Demand</th><th>Potential Supply</th></tr>";
       for (var i in data.demand) {
         table_output += "<tr>";
         table_output += "<td><b>" + data.demand[i][0] + "</b></td><td>" + (data.demand[i][1] || "-") + "</td>" +
@@ -219,7 +224,7 @@
       
     })
     .fail(function() {
-      $('#' + demand_container).html("<h1>Data not available!</h1>");
+      $('#' + demand_container).html("<h3>Data not available!</h3>");
     });
   };
 
@@ -285,7 +290,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });    
   }
   
@@ -407,7 +412,7 @@
       var india_chart = new Highcharts.Chart(india_options);
     })
     .fail(function() {
-      $('#' + world_container).html("<h1>Data not available!</h1>");
+      $('#' + world_container).html("<h3>Data not available!</h3>");
     });
   }
   
@@ -474,7 +479,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });    
   }
 
@@ -541,7 +546,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });    
   }
 
@@ -595,7 +600,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   }
 

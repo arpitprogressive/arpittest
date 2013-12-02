@@ -1,0 +1,46 @@
+{% extends "article.html" %}
+{% block title %}
+  Analytics
+{% endblock %}
+{% load analytics_tags %}
+
+{% block heading %}
+  {% demand_latest_year %}
+  Analytics - Supply {{analytics_year}}
+{% endblock %}
+{% block article %}
+<div style='text-align:center; margin-bottom:10px;' id="analytics-years">
+</div>
+<div class="clear"></div>
+
+<div>
+  {% demand_latest_year %}
+  <h2>Supply in {{ analytics_year }}</h2>
+  <a href='/analytics/supply-1'>Where are the supply side institutions located?</a><br />
+  <a href='/analytics/supply-2/{{analytics_year}}'>Where is supply coming from?</a><br />
+  <a href='/analytics/supply-3/{{analytics_year}}'>How does the diversity ratio on the supply side vary with institute category, course and region</a><br />
+  <a href='/analytics/supply-4/{{analytics_year}}'>Where does talent move to?</a><br />
+  <a href='/analytics/supply-5/{{analytics_year}}'>What is the relationship between placement numbers and diversity ratio</a><br />
+  <a href='/analytics/supply-6/{{analytics_year}}'>What is the relationship between number of student supply and diversity ratio?</a><br />
+</div>
+
+<script type="text/javascript">
+    var data_year = {% get_year 'supply' %};
+
+    function magic_process(){
+      $("#analytics-year").html("("+data_year['current']+")");
+      render_map(data_year['current'], 'supply', '{{ STATIC_URL }}');
+    }
+
+    $(document).ready(function() {
+      $.each(data_year['years'], function(index, value){
+        link = $("<a class='btn' href='/analytics/supply/" + value + "'>" + value + "</a>").appendTo("#analytics-years");
+        if (value == data_year['current']){
+          link.addClass('btn-theme');
+        }
+      });
+      magic_process();
+    });
+</script>
+
+{% endblock %}

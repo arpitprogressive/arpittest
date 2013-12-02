@@ -10,17 +10,13 @@ from django.conf.urls import url, patterns
 urlpatterns = patterns('analytics.views',
     url(r'^$', 'home', name="analytics"),
 
-    url(r'^demand/(?P<year>\d{4})/$', 'demand', name="demand"),
-    url(r'^data/demand/(?P<year>\d{4})/$', 'demand_by_state',
-        name="demand_by_state"),
-    url(r'^data/demand/(?P<year>\d{4})/(?P<state_id>\d+)/$',
-        'demand_in_state', name="demand_in_state"),
 
-    url(r'^supply/(?P<year>\d{4})/$', 'supply', name="supply"),
-    url(r'^data/supply/(?P<year>\d{4})/$', 'supply_by_state',
-        name="supply_by_state"),
-    url(r'^data/supply/(?P<year>\d{4})/(?P<state_id>\d+)/$', 'supply_in_state',
-        name='supply_in_state'),
+    url(r'^demand/(?P<year>\d{4})$', 'demand', name='demand'),
+    url(r'^supply/(?P<year>\d{4})$', 'supply', name='supply'),
+    url(r'^skillgaps/(?P<year>\d{4})$', 'skillgaps', name='skillgaps'),
+    url(r'^demand$', 'demand', name='demand'),
+    url(r'^supply$', 'supply', name='supply'),
+    url(r'^skillgaps$', 'skillgaps', name='skillgaps'),
 
     ######################## Demand Analytics ########################
 
@@ -41,6 +37,13 @@ urlpatterns = patterns('analytics.views',
         'hiring_subsector_trend', name='hiring_subsector_trend'),
 
     url(r'^demand-1/(?P<year>\d{4})', 'demand_1', name='demand_1'),
+
+    ########  Analytics #3 ########
+    url(r'^demand-3/(?P<year>\d{4})/$', 'demand_3', name="demand_3"),
+    url(r'^data/demand/(?P<year>\d{4})/$', 'demand_by_state',
+        name="demand_by_state"),
+    url(r'^data/demand/(?P<year>\d{4})/(?P<state_id>\d+)/$',
+        'demand_in_state', name="demand_in_state"),
 
     ########  Analytics #4 ########
     url(r'^data/demand-supply-region/(?P<year>\d{4})$',
@@ -69,6 +72,13 @@ urlpatterns = patterns('analytics.views',
     url(r'^data/university-in-states$',
         'university_in_states', name='university_in_states'),
     url(r'^supply-1$', 'supply_1', name='supply_1'),
+
+    ########  Analytics #2 ########
+    url(r'^supply-2/(?P<year>\d{4})/$', 'supply_2', name="supply_2"),
+    url(r'^data/supply/(?P<year>\d{4})/$', 'supply_by_state',
+        name="supply_by_state"),
+    url(r'^data/supply/(?P<year>\d{4})/(?P<state_id>\d+)/$', 'supply_in_state',
+        name='supply_in_state'),
 
     ########  Analytics #3 ########
     url(r'^data/gender-diversity/(?P<year>\d{4})',

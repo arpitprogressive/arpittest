@@ -10,15 +10,37 @@
 
 <div style="float: left; margin-right: 60px">
   {% for year in analytics_demand_years %}
-    <a href='{% url "demand" year %}'>Demand in {{ year }}</a><br />
+    <h2>Demand in {{ year }}</h2>
+    <a href='/analytics/demand-1/{{year}}'>Identification of companies that cover 80 percent of hiring –overall, within each sub-sector, category and region</a><br />
+    <a href='/analytics/demand-2/{{year}}'>Talent saturation - what is the proportion of entry level talent in the overall workforce</a><br />
+    <a href='/analytics/demand-3/{{year}}'>Where is the demand coming from>?</a><br />
+    <a href='/analytics/demand-4/{{year}}'>Where is the growth projected from?</a><br />
+    <a href='/analytics/demand-5/{{year}}'>Comparison of diversity ratios for companies, sectors, category of company, regions</a><br />
+    <a href='/analytics/demand-6/{{year}}'>What is the relationship between placement numbers and diversity ratio?</a><br />
+    <a href='/analytics/demand-7/{{year}}'>What is the relationship between talent saturation and growth rate?</a><br />
   {% endfor %}
+
 </div>
 
 <div>
   {% for year in analytics_supply_years %}
-    <a href='{% url "supply" year %}'>Supply in {{ year }}</a><br />
+    <h2>Supply in {{ year }}</h2>
+    <a href='/analytics/supply-1/{{year}}'>Where are the supply side institutions located?</a><br />
+    <a href='/analytics/supply-2/{{year}}'>Where is supply coming from?</a><br />
+    <a href='/analytics/supply-3/{{year}}'>How does the diversity ratio on the supply side vary with institute category, course and region</a><br />
+    <a href='/analytics/supply-4/{{year}}'>Where does talent move to?</a><br />
+    <a href='/analytics/supply-5/{{year}}'>What is the relationship between placement numbers and diversity ratio</a><br />
+    <a href='/analytics/supply-6/{{year}}'>What is the relationship between number of student supply and diversity ratio?</a><br />
   {% endfor %}
 </div>
 
 <div style="clear: both"></div>
+
+<div>
+  <h2>Skill Gaps in 2013</h2>
+  <a href='#'>How do skill gaps vary with category of institutions, category of industry, sub-sectors, regions?></a><br/>
+  <a href='#'>Using the data gathered over survey, which skills have the highest gaps as viewed by the industry?</a><br/>
+  <a href='#'>Amongst the identified hot skills which skills have the highest positive/negative gaps?</a><br/>
+  <a href='#'>What are the skill gaps for more employable skills?</a><br/>
+</div>
 {% endblock %}

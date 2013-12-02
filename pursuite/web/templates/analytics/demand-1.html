@@ -1,23 +1,29 @@
 {% extends "article.html" %}
 {% block title %}
-  Analytics
+ Analytics - 1 ({{ analytics_year }})
 {% endblock %}
 
 {% block heading %}
  Analytics - 1 ({{ analytics_year }})
 {% endblock %}
+{% block breadcrumb %} {% endblock %}
 {% block article %}
+<div style="width: 800px; margin: 0 auto;">
+  <h1>Contribution of Revenue</h1>
   <div id="contribution-revenue-nasscom"></div>
   <div id="contribution-revenue-company-type"></div>
   <div class=".clear"></div>
+  <hr/>
+  <h1>Share of gross headcount by top companies</h1>
   <div id="headcount-cumulative"></div>
-
-  <div id="contribution-revenue-company-type">
-  </div>
-  <div class=".clear"></div>
-  <div id="headcount-cumulative"></div>
+  <hr/>
+  <h1>Share of gross hiring by top companies</h1>
   <div id="hiring-cumulative"></div>
+  <hr/>
+  <h1>Hiring by Sub-sector</h1>
   <div id="subsector-trend"></div>
+<hr/>
+</div>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
@@ -82,7 +88,7 @@
       };
       chart = new Highcharts.Chart(options);
     }).fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   }
 
@@ -145,7 +151,7 @@
       };
       chart = new Highcharts.Chart(options);
     }).fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   }
   
@@ -190,7 +196,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   };
   
@@ -232,7 +238,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   };
   
@@ -298,7 +304,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });    
   }
 

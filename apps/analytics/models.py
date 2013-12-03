@@ -36,10 +36,6 @@ REGION_CHOICES = (
     ('SOUTH', 'South'),
     ('EAST', 'East'),
     ('WEST', 'West'),
-    ('NORTH_EAST', 'North East'),
-    ('NORTH_WEST', 'North West'),
-    ('SOUTH_EAST', 'South East'),
-    ('SOUTH_WEST', 'South West'),
     ('CENTRAL', 'Central'),
 )
 

@@ -207,6 +207,7 @@ CMS_TEMPLATES = (
     ('inner-article-with-box.html', 'Inner Article With Box'),
     ('common_blocks.html', 'Common Blocks'),
     ('wfmis.html', 'WFMIS'),
+    ('career-map.html', 'Career Map'),
 )
 CMS_REDIRECTS = True
 

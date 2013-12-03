@@ -36,6 +36,7 @@ def wfmis_json(request):
         {
             'name': occupation.name,
             'sub-sector': occupation.sub_sector.pk,
+            'url': occupation.get_absolute_url(),
             'code': occupation.pk,
         }
         for occupation in occupations

@@ -1,0 +1,79 @@
+{% extends "article.html" %}
+{% load cms_tags %}
+{% block article %}
+  <div class="row-fluid">
+    {% placeholder content %}
+  </div>
+  <div class="row-fluid" id="wfmis">
+    <div class="span6">
+      <div class="heading">
+        Sub-Sectors <i class="icon-forward"></i>
+      </div>
+      <div class="column" id="wfmis_sub_sectors">
+      </div>
+    </div>
+    <div class="span6">
+      <div class="heading">
+        Occupations <i class="icon-forward"></i>
+      </div>
+      <div class="column" id="wfmis_occupations">
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    $(function(){
+      $.getJSON('{% url "wfmis_json" %}', function(data){
+        large_json = data;
+        load_subsectors("IT-ITeS");
+        // pre load
+        var slug = "{{ request.current_page.get_slug }}";
+        var sub_sector = slug.substring(slug.lastIndexOf('-')+1);
+        switch(sub_sector){
+          case 'bpm': magic_load(1); break;
+          case 'erd': magic_load(2); break;
+          case 'its': magic_load(3); break;
+          case 'spd': magic_load(4); break;
+        }
+      });
+    });
+
+  function magic_load(sub_sector){
+    $("#wfmis_sub_sectors").parent().hide();
+    $("#wfmis_occupations").removeClass("column").parent().removeClass("span6")
+    load_occupation(sub_sector);
+  }
+
+  function load_subsectors(sector){
+    $(this).addClass('active').siblings().removeClass('active');
+    $("#wfmis_sub_sectors").html("");
+    $("#wfmis_occupations").html("");
+
+    // Update Sub Sector
+    for(x in large_json['sub-sectors']){
+      obj = large_json['sub-sectors'][x];
+      if(obj["sector"] == sector){
+        $("#wfmis_sub_sectors").append("<a class='box' data-code='" + obj['code'] + "'>" + obj['name'] + "</a>");
+      }
+    }
+    $("#wfmis_sub_sectors a").click(function (){
+      $(this).addClass('active').siblings().removeClass('active');
+      $("#wfmis_occupations").html("");
+
+      // load Occupations
+      load_occupation($(this).data("code"));
+    });
+  }
+
+  function load_occupation(sub_sector){
+    for(x in large_json['occupations']){
+      obj = large_json['occupations'][x];
+      if(obj["sub-sector"] == sub_sector){
+        $("#wfmis_occupations").append("<a class='box' data-code='" + obj['code'] + "' href='" + obj['url'] + "'>" + obj['name'] + "</a>");
+      }
+    }
+  }
+  </script>
+{% endblock %}

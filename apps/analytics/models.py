@@ -7,7 +7,7 @@
     :copyright: (c) 2013 by Openlabs Technologies & Consulting (P) Limited
     :license: see LICENSE for more details.
 """
-
+import operator
 
 from django.db import models
 import django.contrib.admin
@@ -18,7 +18,8 @@ from admin.models import Occupation, Institution, Company, SubSector
 __all__ = ['DEGREE_CHOICES', 'REGION_CHOICES', 'State', 'City', 'SupplyBase',
         'DemandData', 'CompanyYearData', 'DiversityRatioLevel',
         'DiversityRatioSubsector', 'GenderDiversity', 'ITSpend',
-        'RevenueSubsector', 'RevenueOccupation', 'RevenueTotal']
+        'RevenueSubsector', 'RevenueOccupation', 'RevenueTotal',
+        'TalentSaturation']
 
 
 DEGREE_CHOICES = (
@@ -350,6 +351,112 @@ class RevenueTotal(models.Model):
         }
 
 
+class TalentSaturation(models.Model):
+    """
+    Model for talent saturation
+
+    We are keeping headcount because we sum from other models is not equal
+    to the one in worksheet. Perhaps due to lack of data from all
+    companies.
+    """
+    year = models.IntegerField(unique=True)
+    headcount = models.IntegerField()
+    attrition_pc = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name="Annual Attrition (%)",
+        default=5.0,
+    )
+    cagr_pc = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name="CAGR (%)",
+        default=8.6
+    )
+    fresher_hiring_pc = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name="Fresher Hiring (%)",
+        default=95.0
+    )
+    need_for_experience_pc = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name="Need for > 2 years experienced (% of headcount)",
+        default=45.0
+    )
+
+    class Meta:
+        verbose_name_plural = 'Talent Saturation'
+
+    def __unicode__(self):
+        """
+        Returns object display name
+        """
+        return "%d" % (self.year, )
+
+    @property
+    def quitters(self):
+        return int(self.headcount * self.attrition_pc / 100)
+
+    def series(self):
+        "Return talent saturation series"
+        years = []
+        records = TalentSaturation.objects.filter(year__lte=self.year) \
+                    .order_by('year')
+        headcounts = [record.headcount for record in records]
+        years = [record.year for record in records] + \
+                range(self.year + 1, self.year + 8)
+
+        for i in range(7):
+            headcounts.append(int(headcounts[-1] * (1 + self.cagr_pc / 100)))
+
+        # difference between headcounts
+        hirings = map(
+            operator.sub, headcounts, [headcounts[0]] + headcounts[:-1],
+        )
+
+        quitters = [record.quitters for record in records]
+        for i in range(7):
+            quitters.append(int(quitters[-1] * (1 + self.cagr_pc / 100)))
+
+        gross_hiring = map(operator.add, quitters, hirings)
+
+        fresher_pcs = [record.fresher_hiring_pc for record in records] + \
+                [self.fresher_hiring_pc] * 7
+        fresher_hiring = map(
+            lambda g, f: int(g * f / 100),
+            gross_hiring, fresher_pcs
+        )
+
+        experience_need = map(
+            lambda record: int(
+                record.headcount * record.need_for_experience_pc / 100
+            ),
+            records
+        )
+        experience_need += map(
+            lambda x: int(x * self.need_for_experience_pc / 100),
+            headcounts[-7:]
+        )
+
+        demand = map(
+            operator.sub,
+            experience_need, [experience_need[0]] + experience_need[:-1],
+        )
+
+        potential_supply = map(
+            lambda x: int(x * (self.fresher_hiring_pc / 100) ** 2),
+            [0, 0] + fresher_hiring[:-2]
+        )
+
+        return {
+            'years': years[3:],
+            'demand': demand[3:],
+            'potential_supply': potential_supply[3:],
+        }
+
+
 django.contrib.admin.site.register(State)
 django.contrib.admin.site.register(City)
 django.contrib.admin.site.register(SupplyBase)
@@ -362,3 +469,4 @@ django.contrib.admin.site.register(ITSpend)
 django.contrib.admin.site.register(RevenueSubsector)
 django.contrib.admin.site.register(RevenueOccupation)
 django.contrib.admin.site.register(RevenueTotal)
+django.contrib.admin.site.register(TalentSaturation)

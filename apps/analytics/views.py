@@ -551,6 +551,26 @@ def demand_1(request, year):
     return render_to_response('analytics/demand-1.html', c,
             context_instance=RequestContext(request))
 
+
+# Analytics 1
+
+
+def talent_saturation(request, year):
+    "JSON data for talent saturation"
+    record = TalentSaturation.objects.get(year=year)
+    return HttpResponse(json.dumps(record.series()))
+
+
+def demand_2(request, year):
+    "Analytics 1 page"
+    year = int(year)
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/demand-2.html', c,
+            context_instance=RequestContext(request))
+
+
 # Analytics 4
 
 

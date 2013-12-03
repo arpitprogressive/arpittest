@@ -1,0 +1,94 @@
+{% extends "article.html" %}
+{% load filters %}
+
+{% block title %}
+  Check your Competency
+{% endblock %}
+
+{% block heading %}
+   Check your competency - {{ user.userprofile.get_role_display }}
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+  {% if not user_profile.role == 'S' %}
+  <div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> Competency can only be checked by Students and Job Seekers.
+  </div>  
+  {% else %}
+  <div class="row">
+  <div class="span6" >
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1200">
+      {% for job in matching_jobs|slice:":10" %}
+        <circle cx="50" cy="{{ 110|mult:forloop.counter|add:-55 }}" r="50" fill="tomato" />
+        <text x="50" y="{{ 110|mult:forloop.counter|add:-50 }}" 
+          text-anchor="middle" font-size="40" style="fill:white">
+          {{ forloop.counter }}
+        </text>
+
+        <!--<rect x="100" y="{{ 110|mult:forloop.counter }}" 
+          width="400" height="100"
+          rx="20" ry="20"
+          style="fill:green;stroke-width:5;fill-opacity:{{ forloop.revcounter|mult:0.1 }};"/>-->
+        <text x="110" y="{{ 110|mult:forloop.counter|add:-60 }}" font-size="20">
+          <a xlink:href="{{ job.qp.get_absolute_url }}">{{ job.qp }}</a>
+        </text>
+        <text x="110" y="{{ 110|mult:forloop.counter|add:-40 }}" font-size="15">
+          You have {{ job.matching_skills }} of {{ job.qp.os_compulsory.all|length }} required skills
+        </text>
+      {% endfor %}
+    </svg> 
+  </div>
+  <div class="span6 pull-right">
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Your Skills</th></tr>
+      </thead>
+      <tbody>
+        {% for skill in student_profile.key_skills.all %}
+          <tr><td><a href="{{ skill.get_absolute_url }}">{{ skill.code }} - {{ skill.title }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>Job Code</td>
+          <td>Job Role</td>
+          <td>Match Index</td>
+          <td>Skill Gap</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in matching_jobs %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <a href="{{ job.qp.get_absolute_url }}">{{ job.qp }}</a>
+            <ul>
+              <li>Matching Skills: {{ job.matching_skills }} / {{ job.qp.os_compulsory.all|length }}</li>
+            </ul>
+          </td>
+          <td>{{ job.match_index }}</td>
+          <td>
+            <ul>
+            {% for skill in job.skill_gap %}
+              <li>
+                <a href="{{ skill.get_absolute_url }}">
+                  {{ skill.code }} - {{ skill.title }}
+                </a>
+              </li>
+            {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+  {% endif %}
+{% endblock %}

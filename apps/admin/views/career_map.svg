@@ -122,12 +122,15 @@
   <!-- END: Draw outline separators for each track -->
 
   <!-- Draw the Arrow/Legend on the right for the different levels -->
-  <g transform="translate({{ TRACKS_AREA_WIDTH }}, {{ ROW_HEIGHT  }})">
+  <g transform="translate(0, {{ ROW_HEIGHT  }})">
     {% set y = 0 %}
     {% for level in ('ll', 'ml', 'el') %}
       {% if level_counter[level] %}
-        <g transform="translate(0, {{ y }})">
-          {{ arrow(100, ROW_HEIGHT * level_counter[level], level_names[level]) }}
+        <line class="track-separator" stroke-dasharray="5,5"
+          x1="0" x2="{{ SVG_WIDTH }}"
+          y1="{{ y }}" y2="{{ y }}"/>
+        <g transform="translate({{ TRACKS_AREA_WIDTH }}, {{ y }})">
+          {{ arrow(100, (ROW_HEIGHT * level_counter[level]) - 10, level_names[level]) }}
         </g>
         {% set y = y + (ROW_HEIGHT * level_counter[level]) %}
       {% endif %}
@@ -144,7 +147,6 @@
   <!-- Draw each row of job roles at each levels -->
   {% for level, track_map in level_data|dictsort %}
   <!-- Level: {{ level }} -->
-  <!-- {{track_map|pprint }} -->
   <g transform="translate(0, {{ ROW_HEIGHT * loop.revindex }})"> 
       {% for track in tracks %}
         {% set qps = track_map[track] %}
@@ -177,6 +179,8 @@
 
   <!-- Tracks display -->
   <g transform="translate(0, {{ ROW_HEIGHT * (total_levels + 1) }})">
+    <line class="track-separator" stroke-dasharray="5,5"
+          x1="0" x2="{{ SVG_WIDTH }}" y1="0" y2="0" />
     <!-- The row height is ROW_HEIGHT * (total levels + 1 (heading)) -->
     {% for track in tracks %}
       <rect class="track track-{{ track.id }}" 

@@ -8,6 +8,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import admin
+from admin.models import Company
 
 __all__ = [
     'UserProfile', 'StudentProfile', 'IndustryProfile', 'TrainingProfile',
@@ -164,14 +165,16 @@ class IndustryProfile(models.Model):
     contact_person = models.CharField(max_length=20)
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=12)
+    company = models.ForeignKey(
+        Company, default=None, null=True, blank=True
+    )
     is_approved = models.BooleanField()
-    # TODO: Add company model fields
 
     def __unicode__(self):
         """
         Return object display name
         """
-        return self.name
+        return "%s, %s" % (self.name, self.contact_person)
 
 
 class IndustryProfileAdmin(admin.ModelAdmin):
@@ -200,7 +203,6 @@ class TrainingProfile(models.Model):
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=12)
     is_approved = models.BooleanField()
-    # TODO: Add company model fields
 
     def __unicode__(self):
         """

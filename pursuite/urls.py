@@ -73,5 +73,10 @@ urlpatterns = patterns(
     url(
         r'^wfmis-json/$', 'admin.views.common.wfmis_json', name="wfmis_json"
     ),
+
+    # Job URLs
+    url(
+        r'^job/(?P<id>\d+)/$', 'admin.views.job.render', name="render_job"
+    ),
     url(r'^', include('cms.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

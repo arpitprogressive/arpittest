@@ -53,41 +53,44 @@
         {% endfor %}
       </tbody>
     </table>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <td>Job Code</td>
-          <td>Job Role</td>
-          <td>Match Index</td>
-          <td>Skill Gap</td>
-        </tr>
-      </thead>
-      <tbody>
-        {% for job in matching_jobs %}
-        <tr>
-          <td>{{ forloop.counter }}</td>
-          <td>
-            <a href="{{ job.qp.get_absolute_url }}">{{ job.qp }}</a>
-            <ul>
-              <li>Matching Skills: {{ job.matching_skills }} / {{ job.qp.os_compulsory.all|length }}</li>
-            </ul>
-          </td>
-          <td>{{ job.match_index }}</td>
-          <td>
-            <ul>
-            {% for skill in job.skill_gap %}
-              <li>
-                <a href="{{ skill.get_absolute_url }}">
-                  {{ skill.code }} - {{ skill.title }}
-                </a>
-              </li>
-            {% endfor %}
-            </ul>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    {% if debug %}
+      {# Load this debug table if debug is true #}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>Job Code</td>
+            <td>Job Role</td>
+            <td>Match Index</td>
+            <td>Skill Gap</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in matching_jobs %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              <a href="{{ job.qp.get_absolute_url }}">{{ job.qp }}</a>
+              <ul>
+                <li>Matching Skills: {{ job.matching_skills }} / {{ job.qp.os_compulsory.all|length }}</li>
+              </ul>
+            </td>
+            <td>{{ job.match_index }}</td>
+            <td>
+              <ul>
+              {% for skill in job.skill_gap %}
+                <li>
+                  <a href="{{ skill.get_absolute_url }}">
+                    {{ skill.code }} - {{ skill.title }}
+                  </a>
+                </li>
+              {% endfor %}
+              </ul>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
   </div>
   </div>
   {% endif %}

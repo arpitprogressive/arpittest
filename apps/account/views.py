@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 
 from account.models import UserProfile, StudentProfile
 
@@ -58,6 +59,7 @@ def check_competency(request):
             'user_profile': user_profile,
             'student_profile': student_profile,
             'matching_jobs': matching_jobs,
+            'debug': settings.DEBUG,
         },
         context_instance=RequestContext(request)
     )

@@ -901,9 +901,36 @@ def supply_5(request, year):
 #### Skill Gaps ####
 
 
-def skill_gaps_1(request):
+def skillgaps_slides(request, num):
     """
-    Skill Gaps 1
+    Skill Gaps
     """
-    return render_to_response('analytics/skillgaps-1.html', Context({}),
+    num = int(num)
+
+    if num == 1:
+        context = Context({
+            'analytics_title': 'How do skillgaps vary?',
+            'analytics_slides': range(158, 174) + range(175, 180) +
+                                range(26, 29),
+        })
+    elif num == 2:
+        context = Context({
+            'analytics_title': 'Which skills have highest gaps as viewed by '
+                               'by industry?',
+            'analytics_slides': [41, 160, 161, 164, 165, 168, 169, 172, 173]
+        })
+    elif num == 3:
+        context = Context({
+            'analytics_title': 'Amongst the identified hot skills which skills '
+                               'have the highest positive/negative gaps?',
+            'analytics_slides': range(158, 174),
+        })
+    elif num == 4:
+        context = Context({
+            'analytics_title': 'What are the skill gaps for more employable '
+                               'skills?',
+            'analytics_slides': range(158, 174),
+        })
+
+    return render_to_response('analytics/skillgaps-1.html', context,
             context_instance=RequestContext(request))

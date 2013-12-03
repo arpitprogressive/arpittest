@@ -1,0 +1,36 @@
+{% extends "article.html" %}
+{% load analytics_tags %}
+
+{% block title %}
+Analytics - Skill Gaps 
+{% endblock %}
+
+{% block breadcrumb %} {% endblock %}
+
+{% block heading %}
+ Analytics - Skill Gaps - {{ analytics_title }}
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+var slides = {{ analytics_slides }};
+
+$(function() {
+  var output = "";
+  for (var slide in slides) {
+    output += '<img src="{{STATIC_URL}}images/analytics/Slide' + slides[slide] + '.PNG" />';
+  }
+  $("#slides-container").html(output);
+})
+
+</script>
+{% endblock %}
+
+{% block article %}
+
+<div id="slides-container"></div>
+
+{% endblock %}

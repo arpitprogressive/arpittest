@@ -89,4 +89,8 @@ urlpatterns = patterns('analytics.views',
     url(r'^data/supply-split-stream-trend',
         'supply_split_stream_trend', name='supply_split_stream_trend'),
     url(r'^supply-5/(?P<year>\d{4})', 'supply_5', name='supply_5'),
+
+    ######################## Skill-Gaps Analytics ########################
+    url(r'^skillgaps-(?P<num>\d{1})$', 'skillgaps_slides',
+            name='skillgaps_slides'),
 )

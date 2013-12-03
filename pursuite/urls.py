@@ -78,5 +78,17 @@ urlpatterns = patterns(
     url(
         r'^job/(?P<id>\d+)/$', 'admin.views.job.render', name="render_job"
     ),
+    url(
+        r'^jobs/$', 'admin.views.job.render_list', name="render_jobs"
+    ),
+    url(
+        r'^jobs/-new$', 'admin.views.job.new_job', name="new_job"
+    ),
+    url(
+        r'^job/(?P<id>\d+)/-delete$', 'admin.views.job.delete_job',
+        name="delete_job"
+    ),
+
+    # CMS urls
     url(r'^', include('cms.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,6 +12,7 @@ from django.core.urlresolvers import reverse
 from tinymce.models import HTMLField
 from account.models import IndustryProfile
 from analytics.models import State
+from admin.common import html2text
 
 __all__ = ['Job', 'JobIndex']
 
@@ -26,11 +27,11 @@ class Job(models.Model):
         '''
         app_label = 'admin'
 
-    job_title = models.CharField(max_length=50, blank=True, db_index=True)
+    job_title = models.CharField(max_length=50, db_index=True)
     is_internship = models.BooleanField(verbose_name="Internship")
     job_role = models.ForeignKey('QualificationPack', db_index=True)
     industry = models.ForeignKey(IndustryProfile, db_index=True)
-    job_description = HTMLField(blank=True)
+    job_description = HTMLField()
     location = models.ForeignKey(State, db_index=True)
 
     @property
@@ -51,6 +52,28 @@ class Job(models.Model):
             get absolute url
         '''
         return reverse('render_job', args=(self.id,))
+
+    def get_brief(self):
+        '''
+            return brief description string
+        '''
+        return html2text(self.job_description)[:250] + '...'
+
+    def _json(self):
+        '''
+            return serializable dict of this object
+        '''
+        return {
+            'url': self.get_absolute_url(),
+            'id': self.id,
+            'title': self.job_title,
+            'description': self.job_description,
+            'internship': self.is_internship,
+            'job_role': {
+                'url': self.job_role.get_absolute_url(),
+                'title': self.job_role.job_role,
+            },
+        }
 
 
 class JobAdmin(admin.ModelAdmin):

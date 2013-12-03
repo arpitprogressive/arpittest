@@ -1,0 +1,46 @@
+{% extends "article.html" %}
+
+{% block title %}
+  Jobs
+{% endblock %}
+
+{% block heading %}
+  Jobs
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+  {% if request.user.userprofile.industryprofile %}
+    <div>
+      <a href="-new" class="btn btn-theme pull-right">Post new job</a>
+    </div><br>
+  {% endif %}
+  {% for job in jobs %}
+    <div class="job-item">
+      <h2><a href="{{job.get_absolute_url}}">{{job.job_title}}</a> <small>{{job.company}}</small></h2>
+      <p>{{job.get_brief}}</p>
+    </div>
+  {% empty %}
+  <h4 class="center">No job available for now.</h4>
+  {% endfor %}
+
+  <div class="pagination pull-right">
+    <span class="step-links">
+      {% if jobs.has_previous %}
+        <a href="?page={{ jobs.previous_page_number }}">‹‹ previous</a>
+      {% else %}
+        ‹‹ previous
+      {% endif %}
+      <span class="current">
+        | {{ jobs.number }} of {{ jobs.paginator.num_pages }} |
+      </span>
+      {% if jobs.has_next %}
+        <a href="?page={{ jobs.next_page_number }}">next ››</a>
+      {% else %}
+        next ››
+      {% endif %}
+    </span>
+  </div>
+{% endblock %}

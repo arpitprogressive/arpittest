@@ -1,15 +1,17 @@
 {% extends "article.html" %}
 {% block title %}
-  Analytics
+ Analytics - Diversity Ratio ({{ analytics_year }})
 {% endblock %}
+{% block breadcrumb %} {% endblock %}
 
 {% block heading %}
  Analytics - Diversity Ratio ({{ analytics_year }})
 {% endblock %}
 {% block article %}
-  <div id="diversity-ratio-level" style="width: 450px; float: left;"></div>
-  <div id="diversity-ratio-subsector" style="width: 450px; float: right;"></div>  
-  <div class=".clear"></div>
+<div style="width: 800px; margin: 0 auto">
+  <div id="diversity-ratio-level" class="left-float" style="width: 390px;"></div>
+  <div id="diversity-ratio-subsector" style="width: 390px;"></div>  
+</div>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
@@ -82,7 +84,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   }
 
@@ -153,7 +155,7 @@
       chart = new Highcharts.Chart(options);
     })
     .fail(function() {
-      $('#' + container).html("<h1>Data not available!</h1>");
+      $('#' + container).html("<h3>Data not available!</h3>");
     });
   }
 

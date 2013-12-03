@@ -2,13 +2,13 @@
 {% load analytics_tags %}
 
 {% block title %}
-  Analytics - Supply
+Analytics - Demand - Where is demand coming from? ({{analytics_year}})
 {% endblock %}
 
 {% block breadcrumb %} {% endblock %}
 
 {% block heading %}
- Analytics - Supply <span id="analytics-year"></span>
+Analytics - Demand - Where is demand coming from? ({{analytics_year}})
 {% endblock %}
 
 {% block styles %}
@@ -31,10 +31,10 @@
   <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
   <script type="text/javascript">
-    function render_supply(container, year, supply_name, supply_categories, supply_data) {
-      var data = supply_data,
-          name = supply_name, 
-          categories = supply_categories;
+    function render_demand(container, year, demand_name, demand_categories, demand_data) {
+      var data = demand_data,
+          name = demand_name, 
+          categories = demand_categories;
 
       function setChart(name, categories, data, color) {
         chart.xAxis[0].setCategories(categories, false);
@@ -52,7 +52,7 @@
           renderTo: container
         },
         title: {
-          text: 'Supply Analytics'
+          text: 'Demand Analytics'
         },
         subtitle: {
           text: 'Click the columns to drill down'
@@ -62,7 +62,7 @@
         },
         yAxis: {
           title: {
-            text: 'Supply'
+            text: 'Demand'
           }
         },
         plotOptions: {
@@ -105,32 +105,19 @@
     }
 
     function render_chart(year, state_id, container) {
-      $.getJSON('/analytics/data/supply/' + year + '/' + state_id, function(data) {
+      $.getJSON('/analytics/data/demand/' + year + '/' + state_id, function(data) {
         data = data['data'];
-        supply_data = data['data'];
-        supply_name = data['name'];
-        supply_categories = data['categories'];
-        render_supply(container, year, supply_name, supply_categories, supply_data);
+        demand_data = data['data'];
+        demand_name = data['name'];
+        demand_categories = data['categories'];
+        render_demand(container, year, demand_name, demand_categories, demand_data);
       }).fail(function() {
         $('#' + container).html("<h1>Data not available!</h1>");
       });
     }
 
-    var data_year = {% get_year 'supply' %};
-
-    function magic_process(){
-      $("#analytics-year").html("("+data_year['current']+")");
-      render_map(data_year['current'], 'supply', '{{ STATIC_URL }}');
-    }
-
-    $(document).ready(function() {
-      $.each(data_year['years'], function(index, value){
-        link = $("<a class='btn' href='?year=" + value + "'>" + value + "</a>").appendTo("#analytics-years");
-        if (value == data_year['current']){
-          link.addClass('btn-theme');
-        }
-      });
-      magic_process();
-    });
+    $(function() {
+      render_map({{analytics_year}}, 'demand', '{{ STATIC_URL }}');
+    })
   </script>
 {% endblock %}

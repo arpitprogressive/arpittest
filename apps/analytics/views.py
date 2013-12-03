@@ -11,12 +11,20 @@ import json
 from django.template import Context
 from django.http import HttpResponse
 from django.db import connection
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count, Max
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
 from admin.models import SubSector, Institution
 from analytics.models import *
+
+
+def get_latest_year(type):
+    """
+        Return latest year for analytics
+    """
+    Base = DemandData if type == 'demand' else SupplyBase
+    return Base.objects.all().aggregate(year=Max('year'))['year']
 
 
 def home(request):
@@ -36,23 +44,53 @@ def home(request):
             context_instance=RequestContext(request))
 
 
-def demand(request, year):
-    "Main demand page"
-    year = int(year)
+def demand(request, year=None):
+    "Demand main page"
+    year = int(year) if year else get_latest_year('demand')
     c = Context({
         'analytics_year': year
     })
-    return render_to_response('demand.html', c,
+    return render_to_response('analytics/demand.html', c,
             context_instance=RequestContext(request))
 
 
-def supply(request, year):
-    "Main supply page"
+def supply(request, year=None):
+    "Supply main page"
+    year = int(year) if year else get_latest_year('supply')
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/supply.html', c,
+            context_instance=RequestContext(request))
+
+
+def skillgaps(request, year=None):
+    "Skillgaps main page"
+    year = int(year) if year else get_latest_year('demand')
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/skillgaps.html', c,
+            context_instance=RequestContext(request))
+
+
+def demand_3(request, year):
+    "Demand #3 page"
     year = int(year)
     c = Context({
         'analytics_year': year
     })
-    return render_to_response('supply.html', c,
+    return render_to_response('analytics/demand-3.html', c,
+            context_instance=RequestContext(request))
+
+
+def supply_2(request, year):
+    "Supply #2 page"
+    year = int(year)
+    c = Context({
+        'analytics_year': year,
+    })
+    return render_to_response('analytics/supply-2.html', c,
             context_instance=RequestContext(request))
 
 
@@ -857,4 +895,15 @@ def supply_5(request, year):
         'analytics_year': year
     })
     return render_to_response('analytics/supply-5.html', c,
+            context_instance=RequestContext(request))
+
+
+#### Skill Gaps ####
+
+
+def skill_gaps_1(request):
+    """
+    Skill Gaps 1
+    """
+    return render_to_response('analytics/skillgaps-1.html', Context({}),
             context_instance=RequestContext(request))

@@ -1,0 +1,47 @@
+{% extends "article.html" %}
+{% block title %}
+ Analytics - Demand
+{% endblock %}
+{% load analytics_tags %}
+
+{% block heading %}
+ {% demand_latest_year %}
+ Analytics - Demand {{analytics_year}} 
+{% endblock %}
+{% block article %}
+<div style='text-align:center; margin-bottom:10px;' id="analytics-years">
+</div>
+<div class="clear"></div>
+
+<div>
+  {% demand_latest_year %}
+  <h2>Demand in {{ analytics_year }}</h2>
+  <a href='/analytics/demand-1/{{analytics_year}}'>Identification of companies that cover 80 percent of hiring –overall, within each sub-sector, category and region</a><br />
+  <a href='/analytics/demand-2/{{analytics_year}}'>Talent saturation - what is the proportion of entry level talent in the overall workforce</a><br />
+  <a href='/analytics/demand-3/{{analytics_year}}'>Where is the demand coming from?</a><br />
+  <a href='/analytics/demand-4/{{analytics_year}}'>Where is the growth projected from?</a><br />
+  <a href='/analytics/demand-5/{{analytics_year}}'>Comparison of diversity ratios for companies, sectors, category of company, regions</a><br />
+  <a href='/analytics/demand-6/{{analytics_year}}'>What is the relationship between placement numbers and diversity ratio?</a><br />
+  <a href='/analytics/demand-7/{{analytics_year}}'>What is the relationship between talent saturation and growth rate?</a><br />
+</div>
+
+<script type="text/javascript">
+    var data_year = {% get_year 'demand' %};
+
+    function magic_process(){
+      $("#analytics-year").html("("+data_year['current']+")");
+      render_map(data_year['current'], 'demand', '{{ STATIC_URL }}');
+    }
+
+    $(document).ready(function() {
+      $.each(data_year['years'], function(index, value){
+        link = $("<a class='btn' href='/analytics/demand/" + value + "'>" + value + "</a>").appendTo("#analytics-years");
+        if (value == data_year['current']){
+          link.addClass('btn-theme');
+        }
+      });
+      magic_process();
+    });
+</script>
+{% endblock %}
+

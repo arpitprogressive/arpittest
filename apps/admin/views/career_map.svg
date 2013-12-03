@@ -29,7 +29,7 @@
 
 
     {% macro render_qp_name(qp, x, y, tspan_x, split=True) %}
-      {% if qp.get_absolute_url() %}<a xlink:href="{{ qp.get_absolute_url() }}">{% endif %}
+      {% if qp.get_absolute_url() %}<a xlink:href="{{ qp.get_absolute_url() }}" target="_top">{% endif %}
       <text class="track-name"
         x="{{ x }}" 
         y="{{ y }}">

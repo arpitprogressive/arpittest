@@ -7,6 +7,7 @@
 """
 from django.db import models
 from django.contrib import admin
+from django.core.urlresolvers import reverse
 
 __all__ = ['Occupation']
 
@@ -49,6 +50,23 @@ class Occupation(models.Model):
         from admin.models.qualification_pack import QualificationPack
         return QualificationPack.objects.filter(
             occupation=self, is_draft=False
+        )
+
+    @property
+    def career_map(self):
+        """
+            return url for career map svg
+        """
+        return reverse(
+            "career_map", args=[self.slug]
+        )
+
+    def get_absolute_url(self):
+        """
+            url to render occupation
+        """
+        return reverse(
+            "render_occupation", args=[self.slug]
         )
 
 

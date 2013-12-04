@@ -2569,4 +2569,13 @@ h1.ls-s2{
 /* FORM ERRORS */
 .errorlist{
     color: #b94a48;
+    font-size: 15px;
+}
+
+
+/* JOB LIST */
+.job-item{
+    border-left: solid #FBB829 3px;
+    padding: 0px 20px;
+    margin-bottom: 20px;
 }

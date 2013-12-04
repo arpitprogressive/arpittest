@@ -2,49 +2,105 @@
 {% load filters %}
 
 {% block title %}
-  {{ job.job_title }} | Job
+  {{ form.instance.job_title }} | Job
 {% endblock %}
 
 {% block heading %}
-  {{ job.job_title }}
+  {{ form.instance.job_title }}
 {% endblock %}
 
 {% block breadcrumb %}
 {% endblock %}
 
 {% block article %}
-  <table class="span8 offset2">
-    <tr>
-      <td colspan="2">
-        <b>{{ job.job_title }}</b>
-      </td>
-    </tr>
-    {% if job.is_internship %}
+  {% if request.GET.edit and form.instance.industry.user_profile.user == request.user %}
+    <form method="post">
+      {% if form.errors %}
+        <div class="errorlist">* Error in processing form, check error below.</div>
+        <br>
+      {% endif %}
+      <table>
+        {% for field in form %}
+          <tr>
+            <td>
+              {{field.label}}
+              {% if field.field.required %}
+                *
+              {% endif %}
+            </td>
+            <td>
+              {{field.errors}}
+              {{field}}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+      <input type="submit" value="save" class="btn btn-theme">
+      <a href='{{form.instance.get_absolute_url}}' class="btn btn-theme">cancel</a>
+    </form>
+  {% else %}
+    <table class="span8 offset2">
+      {% if form.instance.industry.user_profile.user == request.user %}
+        <tr>
+          <td colspan="2" style="text-align: right;">
+            <a href="?edit=True" class="btn btn-theme">Edit</a>
+            <a id="delete_job" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+      {% endif %}
       <tr>
-        <td>Type</td>
-        <td>Internship</td>
+        <td colspan="2">
+          <b>{{ form.instance.job_title }}</b>
+        </td>
       </tr>
-    {% endif %}
-    <tr>
-      <td>Company</td>
-      <td><a href="{{ job.company.url }}">{{ job.company.name }}</a></td>
-    </tr>
-    <tr>
-      <td>Location</td>
-      <td>
-        {{ job.location }}
-      </td>
-    </tr>
-    <tr>
-      <td>Job role</td>
-      <td><a href="{{ job.job_role.get_absolute_url }}">{{ job.job_role }}</a></td>
-    </tr>
-    <tr>
-      <td>Description</td>
-      <td>
-        {{ job.job_description|safe }}
-      </td>
-    </tr>
-    <tr><td colspan="2"></td></tr>
-  </table>
+      {% if form.instance.is_internship %}
+        <tr>
+          <td>Type</td>
+          <td>Internship</td>
+        </tr>
+      {% endif %}
+      <tr>
+        <td>Company</td>
+        <td><a target="_blank" href="{{ form.instance.company.url }}">{{ form.instance.company.name }}</a></td>
+      </tr>
+      <tr>
+        <td>Location</td>
+        <td>
+          {{ form.instance.location }}
+        </td>
+      </tr>
+      <tr>
+        <td>Job role</td>
+        <td><a href="{{ form.instance.job_role.get_absolute_url }}">{{ form.instance.job_role }}</a></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>
+          {{ form.instance.job_description|safe }}
+        </td>
+      </tr>
+      <tr><td colspan="2"></td></tr>
+    </table>
+  {% endif %}
 {% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+  $(function(){
+    $("#delete_job").click(function(){
+      if(confirm("Delete this job?\n\nOnce you delete a job, there is no going back.")){
+        $.post("-delete", function(data){
+          console.log(data);
+          if (data.status == 'deleted'){
+            location.href = "{% url 'render_jobs' %}";
+          }
+          else{
+            alert("Some error occurred");
+          }
+        });
+      }
+    });
+  });
+</script>
+{% endblock%}

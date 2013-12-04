@@ -53,7 +53,7 @@ class IndustryProfileForm(forms.ModelForm):
     '''
     class Meta:
         model = IndustryProfile
-        exclude = ('user_profile', 'is_approved')
+        exclude = ('user_profile', 'is_approved', 'company')
 
 
 class GovernmentProfileForm(forms.ModelForm):

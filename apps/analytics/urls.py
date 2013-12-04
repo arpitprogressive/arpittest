@@ -38,8 +38,13 @@ urlpatterns = patterns('analytics.views',
 
     url(r'^demand-1/(?P<year>\d{4})', 'demand_1', name='demand_1'),
 
+    ########  Analytics #2 ########
+    url(r'^data/talent-saturation/(?P<year>\d{4})$',
+        'talent_saturation', name='talent_saturation'),
+    url(r'^demand-2/(?P<year>\d{4})/$', 'demand_2', name="demand_2"),
+
     ########  Analytics #3 ########
-    url(r'^demand-3/(?P<year>\d{4})/$', 'demand_3', name="demand_3"),
+    url(r'^demand-3/(?P<year>\d{4})$', 'demand_3', name="demand_3"),
     url(r'^data/demand/(?P<year>\d{4})/$', 'demand_by_state',
         name="demand_by_state"),
     url(r'^data/demand/(?P<year>\d{4})/(?P<state_id>\d+)/$',

@@ -1,0 +1,70 @@
+{% extends "article.html" %}
+{% block title %}
+ Analytics - Demand - Talent Saturation ({{ analytics_year }})
+{% endblock %}
+
+{% block heading %}
+ Analytics - Demand - Talent Saturation ({{ analytics_year }})
+{% endblock %}
+{% block breadcrumb %} {% endblock %}
+{% block article %}
+<div style="width: 800px; margin: 0 auto;">
+  <div id="talent-saturation"></div>
+</div>
+<hr/>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}/css/analytics.css"/>
+  <script type="text/javascript">
+  function render_talent_saturation(year)
+  {
+    var container = "talent-saturation";
+    $.getJSON('/analytics/data/talent-saturation/' + year, function(data) {
+      options = {
+        chart: {
+          type: 'column',
+          renderTo: container
+        },
+        title: {
+          text: 'Talent Saturation'
+        },
+        xAxis: {
+          categories: data.years,
+        },
+        yAxis: {
+          min: 0,
+        },
+        tooltip: {
+          headerFormat: '{point.key}<br/>',
+          pointFormat: '<b>{series.name}</b>: {point.y}<br/>',
+          shared: true,
+          useHTML: true
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+          }
+        },
+        series: [{
+          name: 'Demand',
+          data: data.demand
+
+        }, {
+          name: 'Potential Supply',
+          data: data.potential_supply
+        }]
+      };
+      var chart = new Highcharts.Chart(options);
+    })
+    .fail(function() {
+      $('#' + container).html("<h3>Data not available!</h3>");
+    });    
+  }
+
+  $(function() {
+    render_talent_saturation({{analytics_year}});
+  });
+</script>
+{% endblock %}

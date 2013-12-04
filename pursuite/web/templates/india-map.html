@@ -16,6 +16,7 @@
   <div id="chart-container" class="analytics-chart" style="display:none;">
     <h2 id="state-heading" style="text-align: center; margin-bottom:20px;"></h2>
     {% placeholder "Right side content" %}
+    <p><a target="_self" id="job_availability">Job Availability</a></p>
   </div>
   <div class="clear"></div>
   <script type="text/javascript">
@@ -24,6 +25,7 @@
         proj.scale(7000);
         proj.translate([-1310, 750]);
       }
+      var states = {% get_states %};
 
       var width = 600;
       var height = 600;
@@ -54,6 +56,7 @@
               $("#chart-container").hide();
               $("#state-heading").html(d.id);
               $("#chart-container").stop().fadeTo(500, 1);
+              $("#job_availability").attr("href", "{% url 'render_jobs' %}?location=" + states[d.id] + "&state=" + d.id)
             })
             .on("mouseover", function(d, i){
               d3.select(this).style("opacity", 0.5);

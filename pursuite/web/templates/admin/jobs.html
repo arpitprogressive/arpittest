@@ -6,6 +6,9 @@
 
 {% block heading %}
   Jobs
+  {% if request.GET.location %}
+    for {{request.GET.state}}
+  {% endif %}
 {% endblock %}
 
 {% block breadcrumb %}

@@ -8,7 +8,7 @@
 import json
 
 from django import template
-from analytics.models import DemandData, SupplyBase
+from analytics.models import DemandData, SupplyBase, State
 from analytics import views
 
 register = template.Library()
@@ -61,3 +61,11 @@ def get_latest_year(context, type):
         Return latest year for analytics
     """
     return views.get_latest_year(type)
+
+
+@register.simple_tag()
+def get_states():
+    """
+        Return json for all states
+    """
+    return json.dumps({state.name: state.id for state in State.objects.all()})

@@ -39,7 +39,14 @@
     </form>
   {% else %}
     <table style="width: 800px; margin:auto;">
-      <tr><td colspan='2'><a class="btn btn-theme pull-right" href="{% url 'profile' %}?edit=True">Edit</a></td></tr>
+      <tr><td colspan='2'>
+        <a class="btn btn-theme pull-right" href="{% url 'profile' %}?edit=True">Edit</a>
+        {% if request.user.userprofile.role == 'S' %}
+          <a class="btn btn-theme pull-right" style="margin-right:20px;" href="{% url 'check_competency' %}">
+            Check your Competency
+          </a>
+        {% endif %}
+      </td></tr>
       {% for field in form %}
         <tr>
           <td>{{ field.label }}</td>

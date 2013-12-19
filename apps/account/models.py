@@ -101,6 +101,8 @@ class StudentProfile(models.Model):
 
         matching_jobs = []
         user_key_skills = set(self.key_skills.all())
+        if not user_key_skills:
+            return None
         for qp in QualificationPack.objects.filter(level__lt=30):
             qp_skills_compulsory = set(qp.os_compulsory.all())
             qp_skills_optional = set(qp.os_optional.all())

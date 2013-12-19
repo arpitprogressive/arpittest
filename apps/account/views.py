@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from admin.common import get_cms_page_url
 
 from account.models import UserProfile, StudentProfile
 
@@ -41,18 +42,37 @@ def profile(request):
     )
 
 
-@login_required
 def check_competency(request):
     """
     Render the competency (BS) of the person
     """
-    user_profile = get_object_or_404(UserProfile, user=request.user.id)
+    user_profile = UserProfile.objects.filter(user=request.user.id)
+    if not user_profile:
+        # No user_profile. i.e. user must be django_admin user
+        return HttpResponseRedirect(get_cms_page_url('check-your-competency'))
+
+    user_profile = user_profile.get()
+
+    if user_profile.role != 'S':
+        # Not a student profile
+        return HttpResponseRedirect(get_cms_page_url('check-your-competency'))
 
     student_profile = matching_jobs = None
+    student_profile = StudentProfile.objects.filter(user_profile=user_profile)
+    if not student_profile:
+        # Student profile yet to be created.
+        return HttpResponseRedirect(
+            get_cms_page_url('check-your-competency-student')
+        )
 
-    if user_profile.role == 'S':
-        student_profile = StudentProfile.objects.get(user_profile=user_profile)
-        matching_jobs = student_profile.find_matching_jobs()
+    student_profile = student_profile.get()
+    matching_jobs = student_profile.find_matching_jobs()
+
+    if not matching_jobs:
+        # No Key_skills in profile
+        return HttpResponseRedirect(
+            get_cms_page_url('check-your-competency-student')
+        )
 
     return render_to_response(
         'account/competency.html', {

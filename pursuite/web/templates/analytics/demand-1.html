@@ -257,7 +257,8 @@
         xAxis: {
           title: {
             text: 'Year'
-          }
+          },
+          categories: data.years
         },
         yAxis: {
           min: 0,
@@ -299,7 +300,7 @@
             }
           }
         },
-        series: data
+        series: data.series
       };
       chart = new Highcharts.Chart(options);
     })
@@ -309,10 +310,10 @@
   }
 
   $(function() {
-    render_pie_revenue_membership(2013);
-    render_pie_revenue_company_type(2013);
-    render_area_headcount(2013);
-    render_area_hiring(2013);
+    render_pie_revenue_membership({{analytics_year}});
+    render_pie_revenue_company_type({{analytics_year}});
+    render_area_headcount({{analytics_year}});
+    render_area_hiring({{analytics_year}});
     render_stacked_subsector_trend();
   });
 </script>

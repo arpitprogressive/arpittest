@@ -486,11 +486,10 @@ def _demanddata_contribution(year, field, threshold_company_collect):
     for index, result in enumerate(resultset, 1):
         field_cumulative += result['field']
         percent = (field_cumulative * 100.0) / field_total
-        if index == points[0] or index == count:
+        if (index in points) or index == count:
             cumulative_sums.append(
                 (index, percent)
             )
-            points = points[1:]
         if percent >= threshold_company_collect:
             companies.append(result['company__name'])
     return {
@@ -517,11 +516,13 @@ def hiring_contribution(request, year):
 def hiring_subsector_trend(request):
     "Return hiring for year by sub sector"
     resultset = DemandData.objects.values(
-        'year',
         'occupation__sub_sector',
-        'occupation__sub_sector__name'
+        'occupation__sub_sector__name',
+        'year',
     ).annotate(hiring=Sum('demand')).order_by('year')
     data = {}
+    years = resultset.values('year').distinct()
+    years = map(lambda r: r['year'], years)
 
     for result in resultset:
         year = result['year']
@@ -539,7 +540,10 @@ def hiring_subsector_trend(request):
             'data': points
         })
 
-    return HttpResponse(json.dumps(trend_data))
+    return HttpResponse(json.dumps({
+        'series': trend_data,
+        'years': years,
+    }))
 
 
 def demand_1(request, year):

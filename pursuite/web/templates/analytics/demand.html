@@ -3,11 +3,21 @@
  Analytics - Demand
 {% endblock %}
 {% load analytics_tags %}
-
 {% block heading %}
  {% demand_latest_year %}
  Analytics - Demand {{analytics_year}} 
 {% endblock %}
+
+{% block breadcrumb %}
+{% demand_latest_year %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li>Demand Side ({{analytics_year}}) </li>
+</ul>
+{% endblock %}
+
 {% block article %}
 <div style='text-align:center; margin-bottom:10px;' id="analytics-years">
 </div>

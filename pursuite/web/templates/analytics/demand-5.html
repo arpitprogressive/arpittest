@@ -2,11 +2,21 @@
 {% block title %}
  Analytics - Diversity Ratio ({{ analytics_year }})
 {% endblock %}
-{% block breadcrumb %} {% endblock %}
 
 {% block heading %}
  Analytics - Diversity Ratio ({{ analytics_year }})
 {% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/demand/{{analytics_year}}">Demand Side</a> » </li>
+    <li>Diversity Ratio ({{ analytics_year }})</li>
+</ul>
+{% endblock %}
+
 {% block article %}
 <div style="width: 800px; margin: 0 auto">
   <div id="diversity-ratio-level" class="left-float" style="width: 390px;"></div>

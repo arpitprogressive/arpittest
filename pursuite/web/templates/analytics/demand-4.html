@@ -6,7 +6,17 @@
 {% block heading %}
  Analytics - Demand - Where is growth projected from? ({{ analytics_year }})
 {% endblock %}
-{% block breadcrumb %} {% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/demand/{{analytics_year}}">Demand Side</a> » </li>
+    <li>Where is growth projected from? ({{ analytics_year }})</li>
+</ul>
+{% endblock %}
+
 {% block article %}
 <div style="width: 800px; margin: 0 auto;">
   <h2 style="text-align: center">Revenue Contribution</h2>

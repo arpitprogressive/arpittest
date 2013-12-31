@@ -5,7 +5,15 @@
 Analytics - Demand - Where is demand coming from? ({{analytics_year}})
 {% endblock %}
 
-{% block breadcrumb %} {% endblock %}
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/demand/{{analytics_year}}">Demand Side</a> » </li>
+    <li>Where is demand coming from? ({{analytics_year}})</li>
+</ul>
+{% endblock %}
 
 {% block heading %}
 Analytics - Demand - Where is demand coming from? ({{analytics_year}})

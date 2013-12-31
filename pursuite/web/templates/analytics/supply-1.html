@@ -5,11 +5,20 @@
   Analytics - Where are supply side institutions located?
 {% endblock %}
 
-{% block breadcrumb %} {% endblock %}
-
 {% block heading %}
   Analytics - Where are supply side institutions located?
 {% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/supply/{{analytics_year}}">Supply Side</a> » </li>
+    <li>Where are supply side institutions located?</li>
+</ul>
+{% endblock %}
+
 
 {% block styles %}
   <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/analytics.css"/>

@@ -1,11 +1,21 @@
 {% extends "article.html" %}
 {% block title %}
- Analytics - Relationship between number of student supply and diversity ratio ({{ analytics_year }})
+ Analytics - What is the relationship between placement numbers and diversity ratio? ({{ analytics_year }})
 {% endblock %}
-{% block breadcrumb %} {% endblock %}
 {% block heading %}
- Analytics - Relationship between number of student supply and diversity ratio ({{ analytics_year }})
+ Analytics - What is the relationship between placement numbers and diversity ratio? ({{ analytics_year }})
 {% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/supply/{{analytics_year}}">Supply Side</a> » </li>
+    <li>What is the relationship between placement numbers and diversity ratio? ({{ analytics_year }})</li>
+</ul>
+{% endblock %}
+
 {% block article %}
 <div style="width: 800px; margin: 0 auto">
   <div id="supply-stream-split" style="width: 600px;"></div>

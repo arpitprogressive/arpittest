@@ -5,13 +5,21 @@
 Analytics - Skill Gaps 
 {% endblock %}
 
-{% block breadcrumb %} {% endblock %}
-
 {% block heading %}
  Analytics - Skill Gaps - {{ analytics_title }}
 {% endblock %}
 
 {% block styles %}
+{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/skillgaps">Skill Gaps</a> » </li>
+    <li>{{ analytics_title }}</li>
+</ul>
 {% endblock %}
 
 {% block script %}

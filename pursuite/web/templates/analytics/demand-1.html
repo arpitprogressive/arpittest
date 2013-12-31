@@ -1,12 +1,22 @@
 {% extends "article.html" %}
 {% block title %}
- Analytics - 1 ({{ analytics_year }})
+ Analytics - Demand - Identification of companies that cover 80 percent of hiring overall, within each sub-sector, category and region ({{ analytics_year }})
 {% endblock %}
 
 {% block heading %}
- Analytics - 1 ({{ analytics_year }})
+ Analytics - Demand - Identification of companies that cover 80 percent of hiring overall, within each sub-sector, category and region ({{ analytics_year }})
 {% endblock %}
-{% block breadcrumb %} {% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/demand/{{analytics_year}}">Demand Side</a> » </li>
+    <li>Identification of companies that cover 80 percent of hiring overall, within each sub-sector, category and region ({{ analytics_year }})</li>
+</ul>
+{% endblock %}
+
 {% block article %}
 <div style="width: 800px; margin: 0 auto;">
   <h1>Contribution of Revenue</h1>

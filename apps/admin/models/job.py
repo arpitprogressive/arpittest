@@ -33,6 +33,8 @@ class Job(models.Model):
     industry = models.ForeignKey(IndustryProfile, db_index=True)
     job_description = HTMLField()
     location = models.ForeignKey(State, db_index=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     @property
     def company(self):

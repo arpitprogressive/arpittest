@@ -24,6 +24,8 @@ class Track(models.Model):
     name = models.CharField(
         max_length=100, default=None, unique=True, db_index=True,
     )
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     @property
     def qualification_packs(self):

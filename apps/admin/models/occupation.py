@@ -28,6 +28,8 @@ class Occupation(models.Model):
     tracks = models.ManyToManyField('Track', blank=True, null=True)
     slug = models.SlugField(unique=True)
     sub_sector = models.ForeignKey('SubSector', db_index=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         '''

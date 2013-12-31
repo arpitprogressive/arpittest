@@ -29,6 +29,8 @@ class UserProfile(models.Model):
     }
     user = models.OneToOneField(User)
     role = models.CharField(choices=ROLE_CHOICES, max_length=5)
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def get_profile_model_form(self):
         """
@@ -92,6 +94,8 @@ class StudentProfile(models.Model):
     industry_belongs_to = models.CharField(max_length=50, blank=True)
     functional_area = models.CharField(max_length=50, blank=True)
     current_company = models.CharField(max_length=50, blank=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def find_matching_jobs(self):
         """
@@ -171,6 +175,8 @@ class IndustryProfile(models.Model):
         Company, default=None, null=True, blank=True
     )
     is_approved = models.BooleanField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         """
@@ -205,6 +211,8 @@ class TrainingProfile(models.Model):
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=12)
     is_approved = models.BooleanField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         """
@@ -242,6 +250,8 @@ class GovernmentProfile(models.Model):
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=12)
     is_approved = models.BooleanField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         """

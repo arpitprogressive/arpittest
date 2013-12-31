@@ -56,6 +56,9 @@ class Company(models.Model):
         max_length=3, choices=COMPANY_TYPE_CHOICES, default='N/A'
     )
 
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
+
     def __unicode__(self):
         '''
             Returns object display name

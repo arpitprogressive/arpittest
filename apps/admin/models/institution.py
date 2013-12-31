@@ -39,6 +39,8 @@ class Institution(models.Model):
     university_type = models.CharField(
         max_length=3, choices=UNIVERSITY_CHOICES, null=True, blank=True
     )
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         '''

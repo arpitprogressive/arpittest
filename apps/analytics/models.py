@@ -47,6 +47,8 @@ class State(models.Model):
     """
     name = models.CharField(max_length=50, default=None, unique=True)
     region = models.CharField(max_length=12, choices=REGION_CHOICES)
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('name', 'region',)
@@ -64,6 +66,8 @@ class City(models.Model):
     """
     name = models.CharField(max_length=50, default=None)
     state = models.ForeignKey('State')
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('name', 'state',)
@@ -87,6 +91,8 @@ class SupplyBase(models.Model):
     degree = models.CharField(max_length=3, choices=DEGREE_CHOICES,
             default=None)
     supply = models.IntegerField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('year', 'city', 'occupation', 'institution',
@@ -110,6 +116,8 @@ class DemandData(models.Model):
     company = models.ForeignKey(Company)
     demand = models.IntegerField()
     headcount = models.IntegerField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('year', 'city', 'occupation', 'company',)
@@ -129,6 +137,8 @@ class CompanyYearData(models.Model):
     year = models.IntegerField()
     company = models.ForeignKey(Company)
     revenue = models.IntegerField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('year', 'company', )
@@ -155,6 +165,8 @@ class DiversityRatioLevel(models.Model):
     male_middle = models.IntegerField(
         verbose_name='Percent Male in Middle Level roles'
     )
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     @property
     def female_leadership(self):
@@ -188,6 +200,8 @@ class DiversityRatioSubsector(models.Model):
     year = models.IntegerField()
     subsector = models.ForeignKey(SubSector, verbose_name='Sub-sector')
     male = models.IntegerField(verbose_name='Percent males in subsector')
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     @property
     def female(self):
@@ -212,6 +226,8 @@ class GenderDiversity(models.Model):
     year = models.IntegerField()
     category = models.CharField(max_length=60)
     male = models.IntegerField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('year', 'category', )
@@ -232,6 +248,8 @@ class ITSpend(models.Model):
     sub_sector = models.ForeignKey(SubSector, verbose_name='Sub-sector')
     world_spend = models.IntegerField(verbose_name='World IT Spend')
     india_revenue = models.IntegerField(verbose_name='Indian IT Revenue')
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('year', 'sub_sector', )
@@ -251,6 +269,8 @@ class RevenueSubsector(models.Model):
     year = models.IntegerField()
     sub_sector = models.ForeignKey(SubSector)
     revenue = models.IntegerField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('year', 'sub_sector', )
@@ -273,6 +293,8 @@ class RevenueOccupation(models.Model):
     cagr_next_7_years = models.IntegerField(
         verbose_name='CAGR % for next 7 years'
     )
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('year', 'occupation', )
@@ -305,6 +327,8 @@ class RevenueTotal(models.Model):
         blank=True,
         null=True
     )
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Total Revenues'
@@ -381,6 +405,8 @@ class TalentSaturation(models.Model):
         verbose_name="Need for > 2 years experienced (% of headcount)",
         default=45.0
     )
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Talent Saturation'

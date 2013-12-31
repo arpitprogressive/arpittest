@@ -25,6 +25,8 @@ class Sector(models.Model):
     name = models.CharField(
         max_length=9, default=None, unique=True, db_index=True,
     )
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         '''
@@ -56,6 +58,8 @@ class SubSector(models.Model):
     name = models.CharField(max_length=50, default=None, db_index=True)
     mobility_map = models.FileField(upload_to='mobility_maps', null=True)
     career_guide = models.FileField(upload_to='career_guides', null=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    write_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         '''

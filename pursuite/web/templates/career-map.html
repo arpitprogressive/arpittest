@@ -67,11 +67,19 @@
     });
   }
 
+  function get_current_bc(){
+    var bc = $(".breadcrumb").clone();
+    var x = bc.find("li:last");
+    x.html("<a href='" + location.href + "'>" + x.html() + "</a> » ");
+    return encodeURIComponent(bc.html().replace(/(\n)+/g, '').trim().replace(/(\s)+/g, ' '));
+  }
+
   function load_occupation(sub_sector){
+    get_current_bc();
     for(x in large_json['occupations']){
       obj = large_json['occupations'][x];
       if(obj["sub-sector"] == sub_sector){
-        $("#wfmis_occupations").append("<a class='box' data-code='" + obj['code'] + "' href='" + obj['url'] + "'>" + obj['name'] + "</a>");
+        $("#wfmis_occupations").append("<a class='box' data-code='" + obj['code'] + "' href='" + obj['url'] + "?bc=" + get_current_bc() + "'>" + obj['name'] + "</a>");
       }
     }
   }

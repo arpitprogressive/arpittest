@@ -9,6 +9,12 @@
 {% endblock %}
 
 {% block breadcrumb %}
+<div class="row-fluid">
+  <ul class="breadcrumb">
+    {{ request.GET.bc|safe }}
+    <li>{{ occupation.name }}</li>
+  </ul>
+</div>
 {% endblock %}
 
 {% block article %}

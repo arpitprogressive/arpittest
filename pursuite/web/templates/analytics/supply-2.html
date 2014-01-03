@@ -2,13 +2,21 @@
 {% load analytics_tags %}
 
 {% block title %}
-Analytics - Supply - Where is the supply coming from? {{ analytics_year}}
+Analytics - Supply - Where is the supply coming from? ({{ analytics_year}})
 {% endblock %}
 
-{% block breadcrumb %} {% endblock %}
-
 {% block heading %}
-Analytics - Supply - Where is the supply coming from? {{ analytics_year}}
+Analytics - Supply - Where is the supply coming from? ({{ analytics_year}})
+{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/supply/{{analytics_year}}">Supply Side</a> » </li>
+    <li>Where is supply coming from? ({{ analytics_year}})</li>
+</ul>
 {% endblock %}
 
 {% block styles %}

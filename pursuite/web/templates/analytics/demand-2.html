@@ -6,7 +6,16 @@
 {% block heading %}
  Analytics - Demand - Talent Saturation ({{ analytics_year }})
 {% endblock %}
-{% block breadcrumb %} {% endblock %}
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/demand/{{analytics_year}}">Demand Side</a> » </li>
+    <li>Talent Saturation ({{ analytics_year }})</li>
+</ul>
+{% endblock %}
+
 {% block article %}
 <div style="width: 800px; margin: 0 auto;">
   <div id="talent-saturation"></div>

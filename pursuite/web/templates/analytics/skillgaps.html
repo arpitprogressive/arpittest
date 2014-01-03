@@ -1,18 +1,27 @@
 {% extends "article.html" %}
 {% block title %}
-  Analytics
+  Analytics - Skill Gaps ({{analytics_year}})
 {% endblock %}
-{% block breadcrumb %} {% endblock %}
 
 {% block heading %}
-  Analytics - Supply {{analytics_year}}
+  Analytics - Skill Gaps ({{analytics_year}})
 {% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li>Skill Gaps ({{analytics_year}})</li>
+</ul>
+{% endblock %}
+
 {% block article %}
 <div>
   <h2>Skill Gaps in {{analytics_year}}</h2>
-  <a href='#'>How do skill gaps vary with category of institutions, category of industry, sub-sectors, regions?></a><br/>
-  <a href='#'>Using the data gathered over survey, which skills have the highest gaps as viewed by the industry?</a><br/>
-  <a href='#'>Amongst the identified hot skills which skills have the highest positive/negative gaps?</a><br/>
-  <a href='#'>What are the skill gaps for more employable skills?</a><br/>
+  <a href='/analytics/skillgaps-1'>How do skill gaps vary with category of institutions, category of industry, sub-sectors, regions?></a><br/>
+  <a href='/analytics/skillgaps-2'>Using the data gathered over survey, which skills have the highest gaps as viewed by the industry?</a><br/>
+  <a href='/analytics/skillgaps-3'>Amongst the identified hot skills which skills have the highest positive/negative gaps?</a><br/>
+  <a href='/analytics/skillgaps-4'>What are the skill gaps for more employable skills?</a><br/>
 </div>
 {% endblock %}

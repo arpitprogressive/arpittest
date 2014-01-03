@@ -1,11 +1,22 @@
 {% extends "article.html" %}
 {% block title %}
- Analytics - Gender Diversity in Supply ({{ analytics_year }})
+ Analytics - How does the diversity ratio on the supply side vary with institute category, course and region? ({{ analytics_year }})
 {% endblock %}
-{% block breadcrumb %} {% endblock %}
+
 {% block heading %}
- Analytics - Gender Diversity in Supply ({{ analytics_year }})
+ Analytics - How does the diversity ratio on the supply side vary with institute category, course and region? ({{ analytics_year }})
 {% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/supply/{{analytics_year}}">Supply Side</a> » </li>
+    <li>How does the diversity ratio on the supply side vary with institute category, course and region? ({{ analytics_year}})</li>
+</ul>
+{% endblock %}
+
 {% block article %}
 <div style="width: 800px; margin: 0 auto">
   <div id="container" style="width: 600px;"></div>

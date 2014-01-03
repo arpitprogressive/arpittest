@@ -1,24 +1,41 @@
 {% extends "article.html" %}
-{% load cms_tags %}
+{% load cache cms_tags menu_tags %}
 {% block article %}
   <div class="row-fluid">
-    {% placeholder content %}
-  </div>
-  <div class="row-fluid" id="wfmis">
-    <div class="span6">
-      <div class="heading">
-        Sub-Sectors <i class="icon-forward"></i>
-      </div>
-      <div class="column" id="wfmis_sub_sectors">
-      </div>
-    </div>
-    <div class="span6">
-      <div class="heading">
-        Occupations <i class="icon-forward"></i>
-      </div>
-      <div class="column" id="wfmis_occupations">
+    <!--Sidebar Starts here-->
+    <div class="span3 sidebar">
+      <div class="block content">
+        <ul class="menu">
+          {% cache 500 inner-article-menu %}
+            {% show_menu_below_id "inner-article" 0 100 100 100 "menu/inner-article-list-menu.html" %}
+          {% endcache %}
+        </ul>
       </div>
     </div>
+    <!--Sidebar Ends here-->
+    <!-- ContentArea Starts here -->
+    <div class="span9 article">
+      <div class="row-fluid">
+        {% placeholder content %}
+      </div>
+      <div class="row-fluid" id="wfmis">
+        <div class="span6">
+          <div class="heading">
+            Sub-Sectors <i class="icon-forward"></i>
+          </div>
+          <div class="column" id="wfmis_sub_sectors">
+          </div>
+        </div>
+        <div class="span6">
+          <div class="heading">
+            Occupations <i class="icon-forward"></i>
+          </div>
+          <div class="column" id="wfmis_occupations">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ContentArea Ends here -->
   </div>
 {% endblock %}
 

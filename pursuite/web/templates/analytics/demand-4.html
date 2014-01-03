@@ -1,4 +1,5 @@
 {% extends "article.html" %}
+{% load cache cms_tags menu_tags fix_menu_tags %}
 {% block title %}
  Analytics - Demand - Where is growth projected from? ({{ analytics_year }})
 {% endblock %}
@@ -18,44 +19,68 @@
 {% endblock %}
 
 {% block article %}
-<div style="width: 800px; margin: 0 auto;">
-  <h2 style="text-align: center">Revenue Contribution</h2>
-  <div id="contribution-revenue-nasscom"></div>
-  <div id="contribution-revenue-company-type"></div>
-  <div class="clear"></div>
-  <hr/>
-  <h2 style="text-align: center">Hiring by Sub-sector</h2>
-  <div id="subsector-trend"></div>
-  <div class="clear"></div>
-  <hr/>
-  <h2 style="text-align: center">Demand Supply in Regions</h2>
-  <div id="demand-supply-region">
-    <div id="demand-supply-pie-charts" class="left-float" style="width: 400px">
-      <div id="demand-region-pie"></div>
-      <div id="supply-region-pie"></div>
+  
+    <div class="row-fluid">
+    <!--Sidebar Starts here-->
+    <div class="span3 sidebar">
+      <div class="block content">
+        <ul class="menu">
+          {% cache 500 inner-article-menu %}
+            {% show_menu_below_id "inner-article" 0 100 100 100 "menu/inner-article-list-menu.html" %}
+          {% endcache %}
+        </ul>
+      </div>
     </div>
-    <div id="demand-supply-table-container">
+    <div class="span9 article">
+      <div class="row-fluid">
+        <!--Article Content -->
+        {% placeholder content %}
+
+        <!-- content box -->
+        <div class="row-fluid">             
+          <div style="width: 800px; margin: 0 auto;">
+            <h2 style="text-align: center">Revenue Contribution</h2>
+            <div id="contribution-revenue-nasscom"></div>
+            <div id="contribution-revenue-company-type"></div>
+            <div class="clear"></div>
+            <hr/>
+            <h2 style="text-align: center">Hiring by Sub-sector</h2>
+            <div id="subsector-trend"></div>
+            <div class="clear"></div>
+            <hr/>
+            <h2 style="text-align: center">Demand Supply in Regions</h2>
+            <div id="demand-supply-region">
+              <div id="demand-supply-pie-charts" class="left-float" style="width: 400px">
+                <div id="demand-region-pie"></div>
+                <div id="supply-region-pie"></div>
+              </div>
+              <div id="demand-supply-table-container">
+              </div>
+            </div>
+            <div class="clear"></div>
+            <hr/>
+            <div id="it-spend-container">
+              <h2 style="text-align: center">World IT Spend and Share of Indian IT Industry</h2>
+              <div id="world-spend-chart" class="analytics-diagram left-float" style="width: 400px"></div>
+              <div id="india-revenue-chart" class="analytics-diagram right-float" style="width: 400px"></div>
+            </div>
+            <div class="clear"></div>
+            <hr/>
+            <h2 style="text-align: center">Revenues by subsector</h2>
+            <div id="subsector-revenue-trend"></div>
+            <hr/>
+            <h2 style="text-align: center">Revenues by occupation</h2>
+            <div id="occupation-revenue"></div>
+            <hr/>
+            <h2 style="text-align: center">Total Revenue Growth</h2>
+            <div id="total-revenue-growth"></div>
+            <hr/>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- ContentArea Ends here -->
   </div>
-  <div class="clear"></div>
-  <hr/>
-  <div id="it-spend-container">
-    <h2 style="text-align: center">World IT Spend and Share of Indian IT Industry</h2>
-    <div id="world-spend-chart" class="analytics-diagram left-float" style="width: 400px"></div>
-    <div id="india-revenue-chart" class="analytics-diagram right-float" style="width: 400px"></div>
-  </div>
-  <div class="clear"></div>
-  <hr/>
-  <h2 style="text-align: center">Revenues by subsector</h2>
-  <div id="subsector-revenue-trend"></div>
-  <hr/>
-  <h2 style="text-align: center">Revenues by occupation</h2>
-  <div id="occupation-revenue"></div>
-  <hr/>
-  <h2 style="text-align: center">Total Revenue Growth</h2>
-  <div id="total-revenue-growth"></div>
-  <hr/>
-</div>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>

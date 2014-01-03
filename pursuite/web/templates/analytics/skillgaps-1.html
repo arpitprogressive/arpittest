@@ -1,6 +1,6 @@
 {% extends "article.html" %}
 {% load analytics_tags %}
-
+{% load cache cms_tags menu_tags fix_menu_tags %}
 {% block title %}
 Analytics - Skill Gaps 
 {% endblock %}
@@ -39,6 +39,29 @@ $(function() {
 
 {% block article %}
 
-<div id="slides-container"></div>
+  <div class="row-fluid">
+    <!--Sidebar Starts here-->
+    <div class="span3 sidebar">
+      <div class="block content">
+        <ul class="menu">
+          {% cache 500 inner-article-menu %}
+            {% show_menu_below_id "inner-article" 0 100 100 100 "menu/inner-article-list-menu.html" %}
+          {% endcache %}
+        </ul>
+      </div>
+    </div>
+    <div class="span9 article">
+      <div class="row-fluid">
+        <!--Article Content -->
+        {% placeholder content %}
+
+        <!-- content box -->
+        <div class="row-fluid">
+          <div id="slides-container"></div>
+        </div>
+      </div>
+    </div>
+    <!-- ContentArea Ends here -->
+  </div>
 
 {% endblock %}

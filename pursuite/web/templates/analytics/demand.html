@@ -1,12 +1,12 @@
 {% extends "article.html" %}
 {% load cache cms_tags menu_tags fix_menu_tags %}
 {% block title %}
- Analytics - Demand
+Demand Side
 {% endblock %}
 {% load analytics_tags %}
 {% block heading %}
  {% demand_latest_year %}
- Analytics - Demand {{analytics_year}} 
+Demand Side ({{analytics_year}})
 {% endblock %}
 
 {% block breadcrumb %}

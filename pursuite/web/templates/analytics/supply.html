@@ -1,13 +1,13 @@
 {% extends "article.html" %}
 {% load cache cms_tags menu_tags fix_menu_tags %}
 {% block title %}
-  Analytics - Supply ({{analytics_year}})
+Supply Side
 {% endblock %}
 {% load analytics_tags %}
 
 {% block heading %}
   {% demand_latest_year %}
-  Analytics - Supply ({{analytics_year}})
+  Supply Side ({{analytics_year}})
 {% endblock %}
 
 {% block breadcrumb %}

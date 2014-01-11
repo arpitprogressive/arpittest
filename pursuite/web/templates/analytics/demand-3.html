@@ -43,6 +43,8 @@ Analytics - Demand - Where is demand coming from? ({{analytics_year}})
       var data = demand_data,
           name = demand_name, 
           categories = demand_categories;
+      var drilldown_states = [];
+      var drill_depth = 0;
 
       function setChart(name, categories, data, color) {
         chart.xAxis[0].setCategories(categories, false);
@@ -80,10 +82,14 @@ Analytics - Demand - Where is demand coming from? ({{analytics_year}})
               events: {
                 click: function () {
                   var drilldown = this.drilldown;
-                  if (drilldown) { // drill down
+                  if (drilldown) {
+                    drill_depth += 1;
+                    drilldown_states.push(drilldown);
                     setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
                   } else { // restore
                     setChart(name, categories, data);
+                    drilldown_states = []
+                    drill_depth = 0;
                   }
                 }
               }
@@ -106,7 +112,27 @@ Analytics - Demand - Where is demand coming from? ({{analytics_year}})
           data: data,
         }],
         exporting: {
-          enabled: false
+          enabled: true,
+          buttons: {
+            customButton: {
+              x: -62,
+              onclick: function () {
+                while (drilldown_states.length && drilldown_states.length >= drill_depth) {
+                  drilldown_states.pop();
+                }
+                var drillup = drilldown_states.pop()
+                if (drillup) {
+                  setChart(drillup.name, drillup.categories, drillup.data, drillup.color);
+                  drill_depth -= 1;
+                } else { // restore
+                  setChart(name, categories, data);
+                  drilldown_states = [];
+                  drill_depth = 0;
+                }
+              },
+              text: '<< Back',
+            }
+          }
         }
       };
       chart = new Highcharts.Chart(options);

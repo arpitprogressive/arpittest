@@ -22,7 +22,7 @@
       <table style="width: 800px; margin:auto;">
         {% for field in form %}
           <tr>
-            <td>{{ field.label }}</td>
+            <td>{{ field.label }} {% if field.field.required %}<span class="text-error">*</span>{% endif %}</td>
             <td>
               {{ field }}
               {{ field.errors }}
@@ -30,7 +30,9 @@
           </tr>
         {% endfor %}
         <tr>
-          <td></td>
+          <td>
+            <a class="btn btn-theme pull-right" href="{% url 'profile' %}">Cancel</a>
+          </td>
           <td>
             <input class="btn btn-theme" type="submit" value="Save Changes"/>
           </td>
@@ -77,9 +79,20 @@
     $( "input[name='dob']" ).datepicker({
       changeMonth: true,
       changeYear: true,
-      dateFormat: 'yy-mm-dd'
+      dateFormat: 'dd-mm-yy',
+      yearRange: '-90:-10',
     });
     $("#edit_profile select").chosen();
+
+    $("#id_postal_code, #id_mobile_phone, #id_telephone")
+    .keypress(function(evt){
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+      }
+      return true;
+    });
 
     {% if user.userprofile.role == 'I' %}
       // For Industry

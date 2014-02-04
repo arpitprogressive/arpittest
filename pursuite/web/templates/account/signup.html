@@ -67,7 +67,12 @@
           <div class="controls">
             <div class="input-prepend">
               <span class="add-on"><i class="icon-user"></i></span>
-              {{ form.role }}
+              <select id="id_role" name="role">
+                <option value="S">Students / Job Seekers</option>
+                <option value="T">Training Providers</option>
+                <option value="I">Industry</option>
+                <option value="G">Government</option>
+              </select>
             </div>
           </div>
         </div>

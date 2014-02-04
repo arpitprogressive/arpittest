@@ -76,6 +76,25 @@ class StudentProfile(models.Model):
         ('15+', '15+ years'),
         ('25+', '25+ years'),
     }
+    EDUCATION_CHOICES = {
+        ('Not Pursuing Graduation', 'Not Pursuing Graduation'),
+        ('B.A', 'B.A'),
+        ('B.Arch', 'B.Arch'),
+        ('BCA', 'BCA'),
+        ('B.B.A', 'B.B.A'),
+        ('B.Com', 'B.Com'),
+        ('B.Ed', 'B.Ed'),
+        ('BDS', 'BDS'),
+        ('BHM', 'BHM'),
+        ('B.Pharma', 'B.Pharma'),
+        ('B.Sc', 'B.Sc'),
+        ('B.Tech/B.E.', 'B.Tech/B.E.'),
+        ('LLB', 'LLB'),
+        ('MBBS', 'MBBS'),
+        ('Diploma', 'Diploma'),
+        ('BVSC', 'BVSC'),
+        ('Other', 'Other'),
+    }
     user_profile = models.OneToOneField(UserProfile)
     name = models.CharField(max_length=20)
     dob = models.DateField(null=True, verbose_name="Date of Birth")
@@ -85,15 +104,21 @@ class StudentProfile(models.Model):
     postal_code = models.CharField(max_length=20)
     mobile_phone = models.CharField(max_length=12)
     telephone = models.CharField(max_length=12)
-    educational_background = models.CharField(max_length=100)
+    educational_background = models.CharField(
+        max_length=50, choices=EDUCATION_CHOICES
+    )
     experience = models.CharField(max_length=10, choices=EXPERIENCE_CHOICES)
     key_skills = models.ManyToManyField(
         'admin.OccupationalStandard'
     )
     work_status = models.CharField(choices=WORK_STATUS_CHOICES, max_length=5)
-    industry_belongs_to = models.CharField(max_length=50, blank=True)
+    industry_belongs_to = models.CharField(
+        max_length=50, blank=True, verbose_name="Industry"
+    )
     functional_area = models.CharField(max_length=50, blank=True)
-    current_company = models.CharField(max_length=50, blank=True)
+    current_company = models.CharField(
+        max_length=50, blank=True, verbose_name="Current Company",
+    )
     create_date = models.DateTimeField(auto_now_add=True)
     write_date = models.DateTimeField(auto_now=True)
 

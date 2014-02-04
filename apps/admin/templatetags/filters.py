@@ -10,7 +10,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from admin.common import html2text
 from django import template
-from django.forms.fields import TypedChoiceField
+from django.forms.fields import TypedChoiceField, DateField
 from django.forms.models import ModelMultipleChoiceField
 
 register = template.Library()
@@ -69,6 +69,9 @@ def get_text(field):
         for item in field.field.queryset.filter(id__in=field.value()).all():
             out += "<a href='%s'>%s</a><br>" % (item.get_absolute_url(), item)
         return out
+    if type(field.field) is DateField:
+        return field.value().strftime('%d-%m-%Y')
+
     return field.value()
 
 

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block heading %}
-   Check your competency - {{ user.userprofile.get_role_display }}
+   Check your competency
 {% endblock %}
 
 {% block breadcrumb %}
@@ -21,7 +21,7 @@
   {% else %}
   <div class="row">
   <div class="span6" >
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1200">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1200" width="100%">
       {% for job in matching_jobs|slice:":10" %}
         <circle cx="50" cy="{{ 110|mult:forloop.counter|add:-55 }}" r="50" fill="tomato" />
         <text x="50" y="{{ 110|mult:forloop.counter|add:-50 }}" 

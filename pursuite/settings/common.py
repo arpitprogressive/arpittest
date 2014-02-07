@@ -198,6 +198,8 @@ CMS_TEMPLATES = (
     ('admin/occupational_standards.html', 'List Occupational Standards'),
     ('contact.html', 'Contact'),
     ('india-map.html', 'India Map'),
+    ('india-map-trainer-training.html', 'Trainers Training India Map'),
+    ('india-map-student-training.html', 'Student Training India Map'),
     ('analytics/supply.html', 'Analytics Supply'),
     ('analytics/demand.html', 'Analytics Demand'),
     ('analytics/skillgaps.html', 'Analytics Skillgaps'),

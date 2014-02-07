@@ -1,0 +1,106 @@
+{% extends "article.html" %}
+{% load filters %}
+
+{% block title %}
+  {{ form.instance.training_title }} | Training
+{% endblock %}
+
+{% block heading %}
+  {{ form.instance.training_title }}
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+  {% if request.GET.edit and form.instance.provider.user_profile.user == request.user %}
+    <form method="post">
+      {% if form.errors %}
+        <div class="errorlist">* Error in processing form, check error below.</div>
+        <br>
+      {% endif %}
+      <table>
+        {% for field in form %}
+          <tr>
+            <td>
+              {{field.label}}
+              {% if field.field.required %}
+                *
+              {% endif %}
+            </td>
+            <td>
+              {{field.errors}}
+              {{field}}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+      <input type="submit" value="save" class="btn btn-theme">
+      <a href='{{form.instance.get_absolute_url}}' class="btn btn-theme">cancel</a>
+    </form>
+  {% else %}
+    <table class="span8 offset2">
+      {% if form.instance.provider.user_profile.user == request.user %}
+        <tr>
+          <td colspan="2" style="text-align: right;">
+            <a href="?edit=True" class="btn btn-theme">Edit</a>
+            <a id="delete_training" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+      {% endif %}
+      <tr>
+        <td colspan="2">
+          <b>{{ form.instance.training_title }}</b>
+        </td>
+      </tr>
+      <tr>
+        <td>Training Provider</td>
+        <td><a target="_blank" href="{{ form.instance.provider.url }}">{{ form.instance.provider.name }}</a></td>
+      </tr>
+      <tr>
+        <td>Training for</td>
+        <td>
+          {{ form.instance.get_training_for_display }}
+        </td>
+      </tr>
+      <tr>
+        <td>Location</td>
+        <td>
+          {{ form.instance.location }}
+        </td>
+      </tr>
+      <tr>
+        <td>Job role</td>
+        <td><a href="{{ form.instance.job_role.get_absolute_url }}">{{ form.instance.job_role }}</a></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>
+          {{ form.instance.description|safe }}
+        </td>
+      </tr>
+      <tr><td colspan="2"></td></tr>
+    </table>
+  {% endif %}
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+  $(function(){
+    $("#delete_training").click(function(){
+      if(confirm("Delete this training?\n\nOnce you delete a training, there is no going back.")){
+        $.post("-delete", function(data){
+          console.log(data);
+          if (data.status == 'deleted'){
+            location.href = "{% url 'render_trainings' %}";
+          }
+          else{
+            alert("Some error occurred");
+          }
+        });
+      }
+    });
+  });
+</script>
+{% endblock %}

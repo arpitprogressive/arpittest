@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-    admin.views.job
+    admin.views.training
 
-    :copyright: (c) 2013 by Openlabs Technologies & Consulting (P) Limited
+    :copyright: (c) 2014 by Openlabs Technologies & Consulting (P) Limited
     :license: see LICENSE for more details.
 """
 from django import forms
@@ -17,39 +17,39 @@ from django.views.decorators.csrf import csrf_exempt
 from tinymce.widgets import TinyMCE
 from django.core.exceptions import ObjectDoesNotExist
 
-from admin.models import Job
-from account.models import IndustryProfile, UserProfile
+from admin.models import Training
+from account.models import TrainingProfile, UserProfile
 
 
-class JobForm(forms.ModelForm):
+class TrainingForm(forms.ModelForm):
     '''
         Form for Job
     '''
     class Meta:
-        model = Job
-        exclude = ('industry')
+        model = Training
+        exclude = ('provider')
         widgets = {
-            'job_description': TinyMCE(attrs={'cols': 80, 'rows': 20}),
+            'description': TinyMCE(attrs={'cols': 80, 'rows': 20}),
         }
 
 
 @csrf_exempt  # Disable CSRF for api call
 def render(request, id):
     """
-        Render job
+        Render training
 
     :param id: job id
     """
-    job = get_object_or_404(Job, pk=id)
-    form = JobForm(request.POST or None, instance=job)
+    training = get_object_or_404(Training, pk=id)
+    form = TrainingForm(request.POST or None, instance=training)
     if request.method == 'POST' and \
-            job.industry.user_profile.user == request.user:
+            training.provider.user_profile.user == request.user:
         if form.is_valid():
-            job = form.save()
+            training = form.save()
             if request.is_ajax():
                 # Api call response for success save
                 return HttpResponse(
-                    simplejson.dumps(job._json()),
+                    simplejson.dumps(training._json()),
                     content_type="application/json",
                 )
             return HttpResponseRedirect(form.instance.get_absolute_url())
@@ -62,105 +62,107 @@ def render(request, id):
     if request.is_ajax():
         # Api call response for get
         return HttpResponse(
-            simplejson.dumps(job._json()),
+            simplejson.dumps(training._json()),
             content_type="application/json",
         )
     return render_to_response(
-        'admin/job.html', {'form': form},
+        'admin/training.html', {'form': form},
         context_instance=RequestContext(request),
     )
 
 
 def render_list(request):
     """
-        Render jobs list
+        Render trainings list
     """
     filter = {}
-    if request.GET.get('internship') == 'true':
-        filter['is_internship'] = True
-    if request.GET.get('internship') == 'false':
-        filter['is_internship'] = False
     if request.GET.get('job_role'):
         filter['job_role__id__exact'] = request.GET.get('job_role')
-    if request.GET.get('company'):
-        filter['industry__company__id__exact'] = request.GET.get('company')
+    if request.GET.get('provider'):
+        filter['provider__id__exact'] = request.GET.get('provider')
     if request.GET.get('location'):
         filter['location__id__exact'] = request.GET.get('location')
+    if request.GET.get('for'):
+        filter['training_for__exact'] = request.GET.get('for')
+    if request.GET.get('type'):
+        filter['provider__trainer_type__exact'] = request.GET.get('type')
+
     if request.GET.get('my') == 'true':
         try:
-            filter['industry__id__exact'] = \
-                request.user.userprofile.industryprofile.id
+            filter['provider__id__exact'] = \
+                request.user.userprofile.trainingprofile.id
         except ObjectDoesNotExist:
             # Pass if industry profile not found
             pass
-    job_list = Job.objects.filter(**filter)
+    training_list = Training.objects.filter(**filter)
 
-    paginator = Paginator(job_list, 10)  # Show 10 jobs per page
+    paginator = Paginator(training_list, 10)  # Show 10 jobs per page
     page = request.GET.get('page')
 
     try:
-        jobs = paginator.page(page)
+        trainings = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        jobs = paginator.page(1)
+        trainings = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        jobs = paginator.page(paginator.num_pages)
+        trainings = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
         result = {
             'total_count': paginator.count,
             'num_pages': paginator.num_pages,
             'page_range': paginator.page_range,
-            'jobs': [job._json() for job in jobs]
+            'trainings': [training._json() for training in trainings]
         }
         return HttpResponse(
             simplejson.dumps(result), content_type="application/json",
         )
     return render_to_response(
-        'admin/jobs.html',
-        {'jobs': jobs}, context_instance=RequestContext(request),
+        'admin/trainings.html',
+        {'trainings': trainings}, context_instance=RequestContext(request),
     )
 
 
 @login_required
 @csrf_exempt  # Disable CSRF for api call
-def new_job(request):
+def new_training(request):
     '''
-        Web handler to add new job
+        Web handler to add new training
     '''
-    industry = get_object_or_404(
-        IndustryProfile,
+    provider = get_object_or_404(
+        TrainingProfile,
         is_approved=True,
         user_profile=get_object_or_404(UserProfile, user=request.user)
     )
-    form = JobForm(request.POST or None)
+    form = TrainingForm(request.POST or None)
     if form.is_valid():
-        job = form.save(commit=False)
-        job.industry = industry
-        job.save()
-        return HttpResponseRedirect(job.get_absolute_url())
+        training = form.save(commit=False)
+        training.provider = provider
+        training.save()
+        return HttpResponseRedirect(training.get_absolute_url())
     return render_to_response(
-        'admin/new-job.html', {'form': form},
+        'admin/new-training.html', {'form': form},
         context_instance=RequestContext(request)
     )
 
 
 @login_required
 @csrf_exempt  # Disable CSRF for api call
-def delete_job(request, id):
+def delete_training(request, id):
     '''
+        Delete Training
     '''
     if request.method != 'POST':
         return HttpResponse("<h1>Method not allowed</h1>", status=405)
-    job = get_object_or_404(Job, pk=id)
-    if job.industry.user_profile.user != request.user:
+    training = get_object_or_404(Training, pk=id)
+    if training.provider.user_profile.user != request.user:
         raise Http404
-    job.delete()
+    training.delete()
     if request.is_ajax():
         return HttpResponse(
             simplejson.dumps({
                 "status": "deleted"
             }), content_type="application/json",
         )
-    return HttpResponseRedirect(reverse('render_jobs'))
+    return HttpResponseRedirect(reverse('render_trainings'))

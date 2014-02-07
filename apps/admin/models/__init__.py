@@ -14,3 +14,4 @@ from qualification_pack import *
 from institution import *
 from company import *
 from job import *
+from training import *

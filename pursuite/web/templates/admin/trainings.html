@@ -1,0 +1,49 @@
+{% extends "article.html" %}
+
+{% block title %}
+  Trainings
+{% endblock %}
+
+{% block heading %}
+  Trainings
+  {% if request.GET.location %}
+    in {{request.GET.state}}
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block article %}
+  {% if request.user.userprofile.trainingprofile %}
+    <div>
+      <a href="-new" class="btn btn-theme pull-right">Post new training</a>
+    </div><br>
+  {% endif %}
+  {% for training in trainings %}
+    <div class="job-item">
+      <h2><a href="{{training.get_absolute_url}}">{{training.training_title}}</a> <small>{{training.provider}}</small></h2>
+      <p>{{training.get_brief}}</p>
+    </div>
+  {% empty %}
+  <h4 class="center">No training available for now.</h4>
+  {% endfor %}
+
+  <div class="pagination pull-right">
+    <span class="step-links">
+      {% if trainings.has_previous %}
+        <a href="?page={{ trainings.previous_page_number }}">‹‹ previous</a>
+      {% else %}
+        ‹‹ previous
+      {% endif %}
+      <span class="current">
+        | {{ trainings.number }} of {{ trainings.paginator.num_pages }} |
+      </span>
+      {% if trainings.has_next %}
+        <a href="?page={{ trainings.next_page_number }}">next ››</a>
+      {% else %}
+        next ››
+      {% endif %}
+    </span>
+  </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "article.html" %}
+{% load analytics_tags cms_tags %}
+
+{% block styles %}
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/analytics.css"/>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/d3.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/d3.geo.min.js"></script>
+{% endblock %}
+
+{% block article %}
+  <div class="clear"></div>
+  <div id="india-map" class="analytics-map"></div>
+  <div id="chart-container" class="analytics-chart" style="display:none;">
+    <h2 id="state-heading" style="text-align: center; margin-bottom:20px;"></h2>
+    {% placeholder "Right side content" %}
+    <p><a target="_self" id="company-training">Company</a></p>
+    <p><a target="_self" id="community-training">Community College</a></p>
+    <p><a target="_self" id="state-training">State Government College</a></p>
+    <p><a target="_self" id="central-training">Central Government College</a></p>
+    <p><a target="_self" id="institute-training">Training Institute</a></p>
+  </div>
+  <div class="clear"></div>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      function initialize() {
+        proj.scale(7000);
+        proj.translate([-1310, 750]);
+      }
+      var states = {% get_states %};
+
+      var width = 600;
+      var height = 600;
+      var proj = d3.geo.mercator();
+      var path = d3.geo.path().projection(proj);
+      var trans = proj.translate();
+      var scale = proj.scale();
+
+      var map = d3.select("#india-map").append("svg:svg")
+          .attr("width", width)
+          .attr("height", height)
+          .style("background", "#FFFFFF")
+          .call(initialize);
+      var stats = d3.select("#stats");
+      var india = map.append("svg:g")
+          .attr("id", "india");
+
+      d3.json('{{ STATIC_URL }}' + "/states.json", function (json) {
+        india.selectAll("path")
+            .data(json.features)
+            .enter().append("path")
+            .attr("d", path)
+            .attr("class", "state")
+            .style("fill", "rgb(0, 146, 243)")
+            .on("click", function(d, i){
+              d3.selectAll("path").classed("selected", false);
+              d3.select(this).classed("selected", true);
+              $("#chart-container").hide();
+              $("#state-heading").html(d.id);
+              $("#chart-container").stop().fadeTo(500, 1);
+              var query = {
+                'location': states[d.id],
+                'state': d.id,
+                'for': 'T',
+              }
+              $("#company-training").attr("href", "{% url 'render_trainings' %}?type=C&" + $.param(query))
+              $("#community-training").attr("href", "{% url 'render_trainings' %}?type=CC&" + $.param(query))
+              $("#state-training").attr("href", "{% url 'render_trainings' %}?type=SG&" + $.param(query))
+              $("#central-training").attr("href", "{% url 'render_trainings' %}?type=CG&" + $.param(query))
+              $("#institute-training").attr("href", "{% url 'render_trainings' %}?type=TI&" + $.param(query))
+            })
+            .on("mouseover", function(d, i){
+              d3.select(this).style("opacity", 0.5);
+            })
+            .on("mouseout", function(d, i){
+              d3.select(this).style("opacity", 1);
+            });
+      });
+    });
+  </script>
+{% endblock %}

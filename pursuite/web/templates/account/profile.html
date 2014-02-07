@@ -47,6 +47,14 @@
           <a class="btn btn-theme pull-right" style="margin-right:20px;" href="{% url 'check_competency' %}">
             Check your Competency
           </a>
+        {% elif request.user.userprofile.role == 'I' %}
+          <a class="btn btn-theme pull-right" style="margin-right:20px;" href="{% url 'render_jobs' %}?my=true">
+            My Posted Jobs
+          </a>
+        {% elif request.user.userprofile.role == 'T' %}
+          <a class="btn btn-theme pull-right" style="margin-right:20px;" href="{% url 'render_trainings' %}?my=true">
+            My Posted Trainings
+          </a>
         {% endif %}
       </td></tr>
       {% for field in form %}

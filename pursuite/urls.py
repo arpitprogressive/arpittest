@@ -89,6 +89,26 @@ urlpatterns = patterns(
         name="delete_job"
     ),
 
+    # Training URLs
+    url(
+        r'^training/(?P<id>\d+)/$', 'admin.views.training.render',
+        name="render_training"
+    ),
+    url(
+        r'^trainings/$', 'admin.views.training.render_list',
+        name="render_trainings"
+    ),
+    url(
+        r'^trainings/-new$', 'admin.views.training.new_training',
+        name="new_training"
+    ),
+    url(
+        r'^training/(?P<id>\d+)/-delete$',
+        'admin.views.training.delete_training',
+        name="delete_training"
+    ),
+
+
     # CMS urls
     url(r'^', include('cms.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

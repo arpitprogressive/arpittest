@@ -16,7 +16,7 @@
   <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
   <li><a href="#mobility_map" data-toggle="tab">Mobility Map</a></li>
   <li><a href="#career_guide" data-toggle="tab">Career guide</a></li>
-  <li><a href="#training_provider" data-toggle="tab">Training provider</a></li>
+  <li><a href="#training_provider" data-toggle="tab">Training provider ({{ trainings|length }})</a></li>
   <li><a href="#job" data-toggle="tab">Job ({{ jobs|length }})</a></li>
   <li><a href="#internship" data-toggle="tab">Internship ({{ interns|length }})</a></li>
 </ul>
@@ -126,7 +126,16 @@
     {% endif %}
   </div>
   <div class="tab-pane" id="training_provider">
-    Content will be written soon.
+    {% if trainings %}
+      <ul>
+        {% for training in trainings %}
+          <li><a href="{{ training.get_absolute_url }}">{{ training.training_title }}</a></li>
+        {% endfor %}
+      </ul>
+      <a class="btn btn-theme pull-right" href="{% url 'render_trainings' %}?job_role={{ qualification_pack.id }}">View All</a>
+    {% else %}
+      No training available for now.
+    {% endif %}
   </div>
   <div class="tab-pane" id="job">
     {% if jobs %}
@@ -135,6 +144,7 @@
           <li><a href="{{ job.get_absolute_url }}">{{ job.job_title }}</a></li>
         {% endfor %}
       </ul>
+      <a class="btn btn-theme pull-right" href="{% url 'render_jobs' %}?internship=false&job_role={{ qualification_pack.id }}">View All</a>
     {% else %}
       No job available for now.
     {% endif %}
@@ -146,6 +156,7 @@
           <li><a href="{{ intern.get_absolute_url }}">{{ intern.job_title }} - {{ intern.company }}</a></li>
         {% endfor %}
       </ul>
+      <a class="btn btn-theme pull-right" href="{% url 'render_jobs' %}?internship=true&job_role={{ qualification_pack.id }}">View All</a>
     {% else %}
       No internship available for now.
     {% endif %}

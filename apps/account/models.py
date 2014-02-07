@@ -226,6 +226,14 @@ class TrainingProfile(models.Model):
     """
     Training Profile
     """
+    TRAINER_CHOICES = {
+        ('C', 'Company'),
+        ('CC', 'Community College'),
+        ('SG', 'State Government'),
+        ('CG', 'Central Government'),
+        ('TI', 'Training Institute'),
+    }
+
     user_profile = models.OneToOneField(UserProfile)
     name = models.CharField(max_length=100)
     est_year = models.IntegerField(
@@ -235,6 +243,9 @@ class TrainingProfile(models.Model):
     contact_person = models.CharField(max_length=20)
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=12)
+    trainer_type = models.CharField(
+        max_length=2, choices=TRAINER_CHOICES
+    )
     is_approved = models.BooleanField()
     create_date = models.DateTimeField(auto_now_add=True)
     write_date = models.DateTimeField(auto_now=True)

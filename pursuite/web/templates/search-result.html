@@ -45,7 +45,7 @@
                         {% if s.0 == 'it_services' %}
                           IT Services
                         {% elif s.0 == 'ites' %}
-                          ITeS
+                          IT-IteS
                         {% elif s.0 == 'engineering_and_r_d' %}
                           Engineering and R&D
                         {% else %}
@@ -101,7 +101,15 @@
                 <li class="disabled"><a>Prev</a></li>
               {% endif %}
 
-              <li><a href="?q={{query}}&amp;page={{page.number}}">{{page.number}}/{{page.paginator.num_pages}}</a></li>
+              {% for pageno in paginator.page_range %}
+                <li
+                  {% if page.number == pageno %}
+                  class="active"
+                  {% endif %}
+                >
+                  <a href="?q={{query}}&amp;page={{pageno}}">{{pageno}}</a>
+                </li>
+              {% endfor %}
 
               {% if page.has_next %}
                 <li><a href="?q={{ query }}&amp;page={{ page.next_page_number }}">Next</a></li>

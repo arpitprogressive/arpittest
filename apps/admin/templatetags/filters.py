@@ -69,7 +69,7 @@ def get_text(field):
         for item in field.field.queryset.filter(id__in=field.value()).all():
             out += "<a href='%s'>%s</a><br>" % (item.get_absolute_url(), item)
         return out
-    if type(field.field) is DateField:
+    if type(field.field) is DateField and field.value():
         return field.value().strftime('%d-%m-%Y')
 
     return field.value()

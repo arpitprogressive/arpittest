@@ -376,6 +376,16 @@
         $("a[rel=popover]").popover({html : true});
       })(jQuery);
     </script>
+    <script type="text/javascript">
+      // Open every .pdf in new window
+      $(function (){
+        $('.plugin_file a').each(function () {
+          if($(this).attr('href').substr(-4) == '.pdf') {
+            $(this).attr('target', '_blank');
+          }
+        });
+      });
+    </script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
     <div id="cboxOverlay" style="display: none;"></div>
     {% block script %} {% endblock %}

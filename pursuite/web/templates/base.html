@@ -139,9 +139,9 @@
                               {% if user.userprofile %}
                                 <li class="menu-356 first"><a href="{% url 'profile' %}">Profile</a></li>
                               {% endif %}
-                              <li class="menu-357 last"><a href="{% url 'account_logout' %}">Log out</a></li>
+                              <li class="menu-357 last"><a href="{% url 'account_logout' %}">Logout</a></li>
                             {% else %}
-                              <li class="menu-356 first"><a href="{% url 'account_login' %}">Log in</a></li>
+                              <li class="menu-356 first"><a href="{% url 'account_login' %}">Login</a></li>
                               <li class="menu-357 last"><a href="{% url 'account_signup' %}">Create new account</a></li>
                             {% endif %}
                           </ul>

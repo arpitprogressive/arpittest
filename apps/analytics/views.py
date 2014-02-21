@@ -436,13 +436,15 @@ def revenue_company(request, year):
     nasscom_members = queryset.exclude(
         company__nasscom_membership_number__exact='N/A'
     ).aggregate(count=Count('revenue'), revenue=Sum('revenue'))
+    nasscom_members['revenue'] = nasscom_members['revenue'] or 0
 
     non_nasscom_members = queryset.filter(
         company__nasscom_membership_number__exact='N/A'
     ).aggregate(count=Count('revenue'), revenue=Sum('revenue'))
+    non_nasscom_members['revenue'] = non_nasscom_members['revenue'] or 0
 
     total = nasscom_members['revenue'] + non_nasscom_members['revenue']
-    percent = lambda x: (x * 100.0) / total
+    percent = lambda x: (x * 100.0) / (total or 1)
 
     return HttpResponse(json.dumps({
         'nasscom_members_num': nasscom_members['count'],
@@ -462,7 +464,7 @@ def revenue_company_type(request, year):
     return_result = []
     total = CompanyYearData.objects.filter(year=year). \
             aggregate(sum=Sum('revenue'))['sum']
-    percent = lambda x: (x * 100.0) / total
+    percent = lambda x: (x * 100.0) / (total or 1)
 
     for item in result:
         return_result.append((item['company__company_type'],
@@ -485,7 +487,7 @@ def _demanddata_contribution(year, field, threshold_company_collect):
     count = resultset.count()
     for index, result in enumerate(resultset, 1):
         field_cumulative += result['field']
-        percent = (field_cumulative * 100.0) / field_total
+        percent = (field_cumulative * 100.0) / (field_total or 1)
         if (index in points) or index == count:
             cumulative_sums.append(
                 (index, percent)

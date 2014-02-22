@@ -71,6 +71,12 @@ urlpatterns = patterns('analytics.views',
         name='diversity_ratio_level'),
     url(r'^demand-5/(?P<year>\d{4})', 'demand_5', name='demand_5'),
 
+    ########  Analytics #6 ########
+    url(r'^demand-6/(?P<year>\d{4})', 'demand_6', name='demand_6'),
+
+    ########  Analytics #7 ########
+    url(r'^demand-7/(?P<year>\d{4})', 'demand_7', name='demand_7'),
+
     ######################## Supply Analytics ########################
 
     ########  Analytics #1 ########
@@ -90,10 +96,17 @@ urlpatterns = patterns('analytics.views',
         'gender_diversity_data', name='gender_diversity_data'),
     url(r'^supply-3/(?P<year>\d{4})', 'supply_3', name='supply_3'),
 
+    ########  Analytics #4 ########
+    url(r'^supply-4/(?P<year>\d{4})', 'supply_4', name='supply_4'),
+
     ########  Analytics #5 ########
     url(r'^data/supply-split-stream-trend',
         'supply_split_stream_trend', name='supply_split_stream_trend'),
     url(r'^supply-5/(?P<year>\d{4})', 'supply_5', name='supply_5'),
+
+    ########  Analytics #6 ########
+    url(r'^supply-6/(?P<year>\d{4})', 'supply_6', name='supply_6'),
+
 
     ######################## Skill-Gaps Analytics ########################
     url(r'^skillgaps-(?P<num>\d{1})$', 'skillgaps_slides',

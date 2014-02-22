@@ -772,6 +772,29 @@ def demand_5(request, year):
             context_instance=RequestContext(request))
 
 
+# Analytics 6
+
+def demand_6(request, year):
+    "Analytics 6 page"
+    year = int(year)
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/demand-6.html', c,
+            context_instance=RequestContext(request))
+
+# Analytics 7
+
+def demand_7(request, year):
+    "Analytics 7 page"
+    year = int(year)
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/demand-7.html', c,
+            context_instance=RequestContext(request))
+
+
 ###### Supply Analytics #######
 
 # Analytics 1
@@ -861,6 +884,16 @@ def supply_3(request, year):
             context_instance=RequestContext(request))
 
 
+# Analytics 4
+
+def supply_4(request, year):
+    "Where does talent move to?"
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/supply-4.html', c,
+            context_instance=RequestContext(request))
+
 # Analytics 5
 
 def supply_split_stream_trend(request):
@@ -921,6 +954,19 @@ def supply_5(request, year):
         'analytics_year': year
     })
     return render_to_response('analytics/supply-5.html', c,
+            context_instance=RequestContext(request))
+
+# Analytics 6
+
+def supply_6(request, year):
+    """
+        What is the relationship between number of student supply and
+        diversity ratio?
+    """
+    c = Context({
+        'analytics_year': year
+    })
+    return render_to_response('analytics/supply-6.html', c,
             context_instance=RequestContext(request))
 
 

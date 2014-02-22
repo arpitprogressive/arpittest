@@ -1,0 +1,66 @@
+{% extends "article.html" %}
+{% load cache cms_tags menu_tags fix_menu_tags %}
+
+{% block title %}
+Supply Side - Where does talent move to? ({{ analytics_year }})
+{% endblock %}
+
+{% block heading %}
+Supply Side - Where does talent move to? ({{ analytics_year }})
+{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> » </li>
+    <li><a href="/ssc-projects/">SSC Projects</a> » </li>
+    <li><a href="/ssc-projects/analytics/">Analytics</a> » </li>
+    <li><a href="/analytics/supply/{{analytics_year}}">Supply Side</a> » </li>
+    <li>Where does talent move to? ({{ analytics_year }})</li>
+</ul>
+{% endblock %}
+
+
+{% block styles %}
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/analytics.css"/>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/d3.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/d3.geo.min.js"></script>
+{% endblock %}
+
+{% block article %}
+  <div class="row-fluid">
+    <!--Sidebar Starts here-->
+    <div class="span3 sidebar">
+      <div class="block content">
+        <ul class="menu">
+          {% cache 500 inner-article-menu %}
+            {% show_menu_below_id "inner-article" 0 100 100 100 "menu/inner-article-list-menu.html" %}
+          {% endcache %}
+        </ul>
+      </div>
+    </div>
+    <div class="span9 article">
+      <div class="row-fluid">
+        <!--Article Content -->
+        {% placeholder content %}
+
+        <!-- content box -->
+        <div class="row-fluid">
+          <div style="width: 800px; margin: 0 auto;">
+            <div>
+              Content to be uploaded soon.
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+    </div>
+    <!-- ContentArea Ends here -->
+  </div>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/modules/exporting.js"></script>
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}/css/analytics.css"/>
+{% endblock %}

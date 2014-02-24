@@ -785,6 +785,7 @@ def demand_6(request, year):
 
 # Analytics 7
 
+
 def demand_7(request, year):
     "Analytics 7 page"
     year = int(year)
@@ -896,6 +897,7 @@ def supply_4(request, year):
 
 # Analytics 5
 
+
 def supply_split_stream_trend(request):
     """
     Return json data for supply split by stream
@@ -957,6 +959,7 @@ def supply_5(request, year):
             context_instance=RequestContext(request))
 
 # Analytics 6
+
 
 def supply_6(request, year):
     """

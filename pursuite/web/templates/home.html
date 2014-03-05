@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cms_tags %}
+{% load cms_tags admin_tags %}
 {% block styles %}
     <!-- GOOGLE FONTS CSS -->
     <style type="text/css">
@@ -317,34 +317,7 @@
               </div>
               <div class="content">
                 <div class="comment-pop" style="position: relative; height: 346px;">
-                  <!-- testimonial 1 -->
-                  <div class="block-testimonial" style="position: absolute; top: 0px; z-index: 2; opacity: 0.295936; display: block;">
-                    <!-- testimonail comment goes here- -->
-                    <div class="review">
-                      "The economic complications and the inter-twined business environment today have made projecting the future, a rare art. Unlike in the past, it needs much more than just the knowledge of the present to envision the future. It needs greater foresight to not just project the future,
-                      <div class="notch"></div>
-                    </div>
-                    <div class="reviewer">
-                      <!-- you can replace image path and client name -->
-                      <img src="http://t0.gstatic.com/images?q=tbn:ANd9GcSldlth-uNM9YGf1kX61Kwee-fJB9HemJsBpwCvUeOmN8xtup35_-iitxc">
-                      <br>
-                      - Natarajan Chandrasekaran
-                    </div>
-                  </div>
-                  <!-- testimonial 2 -->
-                  <div class="block-testimonial" style="position: absolute; top: 0px; z-index: 1; display: block; opacity: 0.704064;">
-                    <!-- testimonail comment goes here- -->
-                    <div class="review">
-                      "but to imagine the “unknown” and prepare for it and if need be, engineer and co-create it. <br>The new-look leaders will have to be“Imagineers” who don’t just predict but transform the future.<br>  I look forward to seeing a lot many of them at NILF 2013.""
-                      <div class="notch"></div>
-                    </div>
-                    <div class="reviewer">
-                      <!-- you can replace image path and client name -->
-                      <img src="http://t0.gstatic.com/images?q=tbn:ANd9GcSldlth-uNM9YGf1kX61Kwee-fJB9HemJsBpwCvUeOmN8xtup35_-iitxc">
-                      <br>
-                      - Natarajan Chandrasekaran
-                    </div>
-                  </div>
+                  {% testimonial %}
                 </div>
               </div>
             </div>

@@ -2311,16 +2311,6 @@ h1.black{
   sans-serif;
 }
 .article p a{
-  color: #fff;
-  text-decoration: none;
-  padding: 3px;
-  background-color: #fbb82a;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  behavior: url(PIE.htc);
-}
-.article p a:hover{
   background: none;
   color: #fbb82a;
 }

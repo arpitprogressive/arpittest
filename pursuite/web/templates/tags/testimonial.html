@@ -1,0 +1,13 @@
+{% for testimonial in testimonials %}
+  <div class="block-testimonial" style="position: absolute; top: 0px; z-index: 1; display: block; opacity: 0.704064;">
+    <div class="review">
+      "{{ testimonial.content }}"
+      <div class="notch"></div>
+    </div>
+    <div class="reviewer">
+      <img src="{{ testimonial.display_pic.url }}">
+      <br>
+      - {{ testimonial.name }}
+    </div>
+  </div>
+{% endfor %}

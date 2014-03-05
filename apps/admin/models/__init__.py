@@ -15,3 +15,4 @@ from institution import *
 from company import *
 from job import *
 from training import *
+from testimonial import *

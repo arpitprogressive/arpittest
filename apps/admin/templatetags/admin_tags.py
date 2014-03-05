@@ -8,6 +8,7 @@
 from django.db.models import Count
 from admin.models.qualification_pack import QualificationPack
 from admin.models.occupational_standard import OccupationalStandard
+from admin.models.testimonial import Testimonial
 from django import template
 
 register = template.Library()
@@ -51,5 +52,19 @@ def list_os(context):
     ).annotate(Count('code'))
     return {
         'occupational_standards': occupational_standards,
+        'request': context['request'],
+    }
+
+
+@register.inclusion_tag('tags/testimonial.html', takes_context=True)
+def testimonial(context):
+    """
+    Renders all the testimonial
+
+    :param context: context
+    """
+    testimonials = Testimonial.objects.all().order_by('-create_date')
+    return {
+        'testimonials': testimonials,
         'request': context['request'],
     }

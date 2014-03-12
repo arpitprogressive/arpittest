@@ -3,11 +3,17 @@ python:
   - "2.7"
 services:
   - elasticsearch
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 install:
   - pip install flake8
   - python setup.py install
+  - pip install selenium
 script:
   # FIXME: Test all
   - python manage.py test admin --settings=pursuite.settings.testing
   - python manage.py test analytics --settings=pursuite.settings.testing
+  - python -m unittest discover -s intergration_test/header -p '*.py'
+  - python -m unittest discover -s intergration_test/banner -p '*.py'
   - flake8 .

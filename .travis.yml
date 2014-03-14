@@ -24,4 +24,6 @@ script:
   - python -m unittest discover -s intergration_test/ssc_projects -p '*.py'
   - python -m unittest discover -s intergration_test/industry_speak -p '*.py'
   - python -m unittest discover -s intergration_test/career_information -p '*.py'
+  - python -m unittest discover -s intergration_test/feedback_support -p '*.py'
+  - python -m unittest discover -s intergration_test/footer -p '*.py'
   - flake8 .

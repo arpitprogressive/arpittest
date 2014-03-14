@@ -14,16 +14,5 @@ script:
   # FIXME: Test all
   - python manage.py test admin --settings=pursuite.settings.testing
   - python manage.py test analytics --settings=pursuite.settings.testing
-  - python -m unittest discover -s intergration_test/header -p '*.py'
-  - python -m unittest discover -s intergration_test/banner -p '*.py'
-  - python -m unittest discover -s intergration_test/menubar -p '*.py'
-  - python -m unittest discover -s intergration_test/search -p '*.py'
-  - python -m unittest discover -s intergration_test/lets_grow_together -p '*.py'
-  - python -m unittest discover -s intergration_test/assessment_certification -p '*.py'
-  - python -m unittest discover -s intergration_test/industry_where_we_are -p '*.py'
-  - python -m unittest discover -s intergration_test/ssc_projects -p '*.py'
-  - python -m unittest discover -s intergration_test/industry_speak -p '*.py'
-  - python -m unittest discover -s intergration_test/career_information -p '*.py'
-  - python -m unittest discover -s intergration_test/feedback_support -p '*.py'
-  - python -m unittest discover -s intergration_test/footer -p '*.py'
+  - python intergration_test/integration_test.py
   - flake8 .

@@ -19,7 +19,7 @@ setup(
         'django>=1.5,<1.6',
         'mysql-python',
         'django-tinymce',
-        'django-cms',
+        'django-cms>=2.4,<2.5',
         'django-hvad',
         'django-reversion',
         'djangocms_admin_style',

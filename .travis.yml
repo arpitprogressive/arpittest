@@ -1,8 +1,12 @@
 language: python
+virtualenv:
+  system_site_packages: true
 python:
   - "2.7"
 services:
   - elasticsearch
+before_install:
+  - sudo apt-get install python-lxml
 install:
   - pip install flake8
   - python setup.py install

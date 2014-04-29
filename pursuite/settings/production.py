@@ -55,8 +55,8 @@ LOGGING = {
 # Raven configuration
 # Set your DSN value
 RAVEN_CONFIG = {
-    'dsn': 'http://e542381309e640bebb79ae26123e52e5:' + \
-            '85869376ce9143a699ed05d07b552059@sentry.openlabs.co.in/22',
+    'dsn': 'http://c832ebf4689e40c8a6585e65299830df:'
+           '560dbc317d78408ea995b0f84ed68ad6@sentry.openlabs.co.in/32',
 }
 
 # Add amazon s3 as a storage mechanism
@@ -70,13 +70,23 @@ AWS_STORAGE_BUCKET_NAME = "pursuite-production"
 AWS_QUERYSTRING_AUTH = False
 
 MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
-MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+# MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = '//d3ehxvmjnyu31p.cloudfront.net/media/'    # CDN
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 # Setup caching
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': ' pursuite.vbzolj.cfg.apse1.cache.amazonaws.com:11211',
+        'LOCATION': 'pursuite.vbzolj.cfg.apse1.cache.amazonaws.com:11211',
     }
+}
+
+# Setup elastic search connection
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://search.sscnasscom.com:9200/',
+        'INDEX_NAME': 'haystack',
+    },
 }

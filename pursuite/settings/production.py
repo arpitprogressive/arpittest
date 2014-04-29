@@ -8,14 +8,18 @@
 #Flake8: noqa
 from common import *
 
+STATIC_ROOT = '/opt/pursuite/www/static'
+MEDIA_ROOT = '/opt/pursuite/www/media'
+ALLOWED_HOSTS = ['sscnasscom.com']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'NAME': 'pursuite',
+        'USER': 'masteruser',
+        'PASSWORD': 'masterpassword',
+        'HOST': 'pursuite.cghk8zawexlj.ap-southeast-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
@@ -45,5 +49,34 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+    }
+}
+
+# Raven configuration
+# Set your DSN value
+RAVEN_CONFIG = {
+    'dsn': 'http://e542381309e640bebb79ae26123e52e5:' + \
+            '85869376ce9143a699ed05d07b552059@sentry.openlabs.co.in/22',
+}
+
+# Add amazon s3 as a storage mechanism
+INSTALLED_APPS += ('storages', 's3_folder_storage',)
+DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
+DEFAULT_S3_PATH = "media"
+#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = "AKIAIT5S5O6FUGYEAO5Q"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "pursuite-production"
+AWS_QUERYSTRING_AUTH = False
+
+MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
+MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+# Setup caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': ' pursuite.vbzolj.cfg.apse1.cache.amazonaws.com:11211',
     }
 }

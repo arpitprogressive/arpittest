@@ -85,6 +85,7 @@ MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
 # MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = '//d3ehxvmjnyu31p.cloudfront.net/media/'    # CDN
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+STATIC_URL = '//dwhthovhck5dk.cloudfront.net/static/'
 
 # Setup caching
 CACHES = {

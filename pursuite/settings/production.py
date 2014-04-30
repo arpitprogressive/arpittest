@@ -19,7 +19,7 @@ try:
     EC2_PRIVATE_IP  =   requests.get('http://169.254.169.254/latest/meta-data/local-ipv4', timeout = 0.01).text
 except requests.exceptions.RequestException:
     pass
- 
+
 if EC2_PRIVATE_IP:
     ALLOWED_HOSTS.append(EC2_PRIVATE_IP)
 
@@ -34,6 +34,15 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+# Email Settings
+DEFAULT_FROM_EMAIL = 'no-reply@sscnasscom.com'
+EMAIL_SUBJECT_PREFIX = '[SSC-NASSCOM] '
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'email-smtp.eu-west-1.amazonaws.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'AKIAIUWKC7L5IYUUZ45A'
+EMAIL_HOST_PASSWORD = 'Ai9KREEHk93RbZ1xAbOJBonTgCJd4/QiWMEkoImF/SBT'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -75,17 +84,19 @@ RAVEN_CONFIG = {
 INSTALLED_APPS += ('storages', 's3_folder_storage',)
 DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
 DEFAULT_S3_PATH = "media"
-#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
+STATIC_S3_PATH = "static"
+
 AWS_ACCESS_KEY_ID = "AKIAIT5S5O6FUGYEAO5Q"
 AWS_SECRET_ACCESS_KEY = "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"
 AWS_STORAGE_BUCKET_NAME = "pursuite-production"
 AWS_QUERYSTRING_AUTH = False
 
 MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
-# MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = '//d3ehxvmjnyu31p.cloudfront.net/media/'    # CDN
+STATIC_ROOT = "/%s/" % STATIC_S3_PATH
+STATIC_URL = '//d3ehxvmjnyu31p.cloudfront.net/static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-STATIC_URL = '//dwhthovhck5dk.cloudfront.net/static/'
 
 # Setup caching
 CACHES = {

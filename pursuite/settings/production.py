@@ -19,7 +19,7 @@ try:
     EC2_PRIVATE_IP  =   requests.get('http://169.254.169.254/latest/meta-data/local-ipv4', timeout = 0.01).text
 except requests.exceptions.RequestException:
     pass
- 
+
 if EC2_PRIVATE_IP:
     ALLOWED_HOSTS.append(EC2_PRIVATE_IP)
 
@@ -34,6 +34,13 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+# Email Settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'email-smtp.eu-west-1.amazonaws.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'AKIAIUWKC7L5IYUUZ45A'
+EMAIL_HOST_PASSWORD = 'Ai9KREEHk93RbZ1xAbOJBonTgCJd4/QiWMEkoImF/SBT'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

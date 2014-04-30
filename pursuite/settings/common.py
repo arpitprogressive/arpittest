@@ -186,6 +186,7 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
     'south',
     'pagination',
+    'fileplugin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

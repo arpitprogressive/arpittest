@@ -36,6 +36,7 @@ DATABASES = {
 }
 
 # Email Settings
+DEFAULT_FROM_EMAIL = 'no-reply@sscnasscom.com'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'email-smtp.eu-west-1.amazonaws.com'
 EMAIL_PORT = 587

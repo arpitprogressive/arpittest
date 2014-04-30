@@ -6,11 +6,23 @@
     :license: see LICENSE for more details.
 """
 #Flake8: noqa
+import requests
 from common import *
+from django.conf import settings
 
 STATIC_ROOT = '/opt/pursuite/www/static'
 MEDIA_ROOT = '/opt/pursuite/www/media'
-ALLOWED_HOSTS = ['sscnasscom.com']
+ALLOWED_HOSTS = ['www.sscnasscom.com', 'app.sscnasscom.com']
+
+EC2_PRIVATE_IP  =   None
+try:
+    EC2_PRIVATE_IP  =   requests.get('http://169.254.169.254/latest/meta-data/local-ipv4', timeout = 0.01).text
+except requests.exceptions.RequestException:
+    pass
+ 
+if EC2_PRIVATE_IP:
+    ALLOWED_HOSTS.append(EC2_PRIVATE_IP)
+
 
 DATABASES = {
     'default': {

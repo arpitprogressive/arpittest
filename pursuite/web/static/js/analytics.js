@@ -19,7 +19,7 @@ function render_map(year, map_type, static_url) {
   var india = map.append("svg:g")
       .attr("id", "india");
 
-  d3.json(static_url + "/states.json", function (json) {
+  d3.json(static_url + "states.json", function (json) {
     india.selectAll("path")
         .data(json.features)
         .enter().append("path")

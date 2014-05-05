@@ -64,7 +64,7 @@ Supply Side - Where are supply side institutions located?
       var india = map.append("svg:g")
           .attr("id", "india");
 
-      d3.json("{{ STATIC_URL }}/states.json", function (json) {
+      d3.json('{{ STATIC_URL }}states.json', function (json) {
         india.selectAll("path")
             .data(json.features)
             .enter().append("path")

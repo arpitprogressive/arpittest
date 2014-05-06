@@ -247,6 +247,7 @@ TINYMCE_DEFAULT_CONFIG = {
       {'title' : 'Button', 'selector' : 'a', 'classes' : 'btn btn-theme'},
     ],
 }
+TINYMCE_JS_URL = '/static/tiny_mce/tiny_mce.js'
 
 LANGUAGES = [
     ('en', 'English'),

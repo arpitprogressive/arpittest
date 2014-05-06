@@ -84,7 +84,7 @@ RAVEN_CONFIG = {
 INSTALLED_APPS += ('storages', 's3_folder_storage',)
 DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
 DEFAULT_S3_PATH = "media"
-STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
+#STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
 STATIC_S3_PATH = "static"
 
 AWS_ACCESS_KEY_ID = "AKIAIT5S5O6FUGYEAO5Q"
@@ -94,7 +94,7 @@ AWS_QUERYSTRING_AUTH = False
 
 MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
 MEDIA_URL = '//d3ehxvmjnyu31p.cloudfront.net/media/'    # CDN
-STATIC_ROOT = "/%s/" % STATIC_S3_PATH
+#STATIC_ROOT = "/%s/" % STATIC_S3_PATH
 STATIC_URL = '//d3ehxvmjnyu31p.cloudfront.net/static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 

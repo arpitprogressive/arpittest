@@ -29,12 +29,12 @@
     $(document).ready(function() {
       function initialize() {
         proj.scale(7000);
-        proj.translate([-1310, 750]);
+        proj.translate([-1310, 800]);
       }
       var states = {% get_states %};
 
       var width = 600;
-      var height = 600;
+      var height = 650;
       var proj = d3.geo.mercator();
       var path = d3.geo.path().projection(proj);
       var trans = proj.translate();

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load cache cms_tags menu_tags %}
+{% block content %}
+  <!--Title region start-->
+  <div id="title-region">
+    <div class="WrapperWidth">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="inner">
+            <h1 class="page-title">
+            {% block heading %}
+              {% placeholder heading or %}
+                {% page_attribute "page_title" %}
+              {% endplaceholder %}
+            {% endblock %}
+            </h1>
+            <!-- search box-->
+            <div id="searchFormSkifi">
+              <div class="region region-search-box">
+                <div id="block-search-form" class="clearfix block block-search">
+                  <div class="content">
+                    <form id="custom-search-form" class="form-search form-horizontal pull-right" action="/search" method="GET">
+                      <div class="input-append">
+                          <input type="text" name="q" class="search-query" placeholder="Search">
+                          <button type="submit" class="btn"><i class="icon-search"></i></button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Title region ends-->
+  <!-- Content and Sidebar Region Start-->
+  <div id="contentAndSidebars">
+    <div class="container article">
+      <!--breadcrumb starts here-->
+      {% block breadcrumb %}
+      <div class="row-fluid">
+        <ul class="breadcrumb">
+          {% show_breadcrumb %}
+        </ul>
+      </div>
+      {% endblock %}
+      <!-- breadcrumb ends here -->
+      {% block article %}
+        <ul id="site-map">
+          {% cache 500 main_menu %}
+            {% show_menu_below_id "home" 0 100 100 100 "menu/site-map.html" %}
+          {% endcache %}
+        </ul>
+      {% endblock %}
+      <script type="text/javascript">
+        $(function(){
+          $('#site-map i.icon-caret-down').click(function(){
+            $(this).siblings('ul').slideToggle();
+            return false;
+          });
+          $('#site-map li').children('ul').toggle();
+        });
+      </script>
+    </div>
+  </div>
+  <!-- Content and Sidebar Region Ends  -->
+{% endblock %}

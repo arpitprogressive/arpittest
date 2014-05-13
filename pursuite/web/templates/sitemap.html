@@ -49,7 +49,7 @@
       <!-- breadcrumb ends here -->
       {% block article %}
         <ul id="site-map">
-          {% cache 500 main_menu %}
+          {% cache 500 site_map_menu %}
             {% show_menu_below_id "home" 0 100 100 100 "menu/site-map.html" %}
           {% endcache %}
         </ul>

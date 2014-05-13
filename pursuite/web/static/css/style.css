@@ -2573,3 +2573,11 @@ h1.ls-s2{
 .zocial{
   width: 250px;
 }
+
+#site-map, #site-map ul{
+  list-style-type: none;
+}
+
+#site-map .icon-caret-up{
+  color: #fff;
+}

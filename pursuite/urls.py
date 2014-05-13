@@ -6,6 +6,7 @@ from haystack.forms import FacetedSearchForm
 from haystack.query import SearchQuerySet
 
 # Uncomment the next two lines to enable the admin:
+from cms.sitemaps import CMSSitemap
 from django.contrib import admin
 admin.autodiscover()
 
@@ -111,4 +112,8 @@ urlpatterns = patterns(
 
     # CMS urls
     url(r'^', include('cms.urls')),
+    url(
+        r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap',
+        {'sitemaps': {'cmspages': CMSSitemap}}
+    ),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

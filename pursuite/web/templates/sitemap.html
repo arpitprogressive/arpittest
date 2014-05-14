@@ -51,6 +51,40 @@
         <ul id="site-map">
           {% cache 500 site_map_menu %}
             {% show_menu_below_id "home" 0 100 100 100 "menu/site-map.html" %}
+            <li>
+              <i class="icon-caret-up"></i>
+              <a href="{% url 'check_competency' %}">Check your Competency</a>
+            </li>
+            <li>
+              <i class="icon-caret-down"></i>
+              <a>Stakeholders</a>
+              <ul>
+                {% show_menu_below_id "stakeholders" 0 100 100 100 "menu/site-map.html" %}
+              </ul>
+            </li>
+            {% show_menu_below_id "inner-article" 0 100 100 100 "menu/site-map.html" %}
+            <li>
+              <i class="icon-caret-down"></i>
+              <a>Lists</a>
+              <ul>
+                {% show_menu_below_id "lists" 0 100 100 100 "menu/site-map.html" %}
+                {% show_menu_below_id "ssc-list" 0 100 100 100 "menu/site-map.html" %}
+              </ul>
+            </li>
+            <li>
+              <i class="icon-caret-down"></i>
+              <a href="{% page_url "recent-news" %}">Recent News</a>
+              <ul>
+                {% show_menu_below_id "recent-news" 0 100 100 100 "menu/site-map.html" %}
+              </ul>
+            </li>
+            <li>
+              <i class="icon-caret-down"></i>
+              <a>Policy and Site Map</a>
+              <ul>
+                {% show_menu_below_id "policy-site-map" 0 100 100 100 "menu/site-map.html" %}
+              </ul>
+            </li>
           {% endcache %}
         </ul>
       {% endblock %}

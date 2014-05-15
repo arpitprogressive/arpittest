@@ -1,5 +1,5 @@
 # Makefile for Sphinx documentation
-#SSC NASSCP<
+#SSC NASSCOM
 
 # You can set these variables from the command line.
 SPHINXOPTS    =

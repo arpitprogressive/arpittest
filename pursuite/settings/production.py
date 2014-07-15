@@ -99,12 +99,12 @@ STATIC_URL = '//d3ehxvmjnyu31p.cloudfront.net/static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 # Setup caching
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': 'pursuite.vbzolj.cfg.apse1.cache.amazonaws.com:11211',
-    }
-}
+#CACHES = {
+    #'default': {
+        #'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        #'LOCATION': 'pursuite.vbzolj.cfg.apse1.cache.amazonaws.com:11211',
+    #}
+#}
 
 # Setup elastic search connection
 HAYSTACK_CONNECTIONS = {

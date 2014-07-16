@@ -232,6 +232,10 @@ CMS_PLACEHOLDER_CONF = {
     },
 }
 
+CMS_CACHE_DURATIONS {
+    'menus': 0
+}
+
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
     'theme_advanced_toolbar_location' : "top",

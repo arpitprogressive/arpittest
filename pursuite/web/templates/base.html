@@ -154,9 +154,7 @@
                                   <li>
                                     <a href="{% page_url 'home' %}" class="active">Home</a>
                                   </li>
-{% cache 500 main_menu %}
                                   {% show_menu_below_id "home" 0 100 100 100 %}
-{% endcache %}
                                 </ul>
                               </div>
                             </div>
@@ -186,9 +184,7 @@
                                   <li>
                                     <a href="{% page_url 'home' %}" class="active">Home</a>
                                   </li>
-{% cache 500 main_menu %}
                                   {% show_menu_below_id "home" 0 100 100 100 %}
-{% endcache %}
                                 </ul>
                               </div>
                             </div>
@@ -204,7 +200,6 @@
             {% block content %}
             {% endblock %}
             <!-- footer blocks -->
-            {% cache 500 footer_region %}
             <div id="FooterRegion">
               <div class="WrapperWidth">
                 <div class="row-fluid">
@@ -348,7 +343,6 @@
               </div>
             </div>
             <!-- footer blocks -->
-            {% endcache %}
           </div>
           <!-- MAIN STRUCTURE -->
         </div>

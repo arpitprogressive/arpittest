@@ -232,7 +232,7 @@ CMS_PLACEHOLDER_CONF = {
     },
 }
 
-CMS_CACHE_DURATIONS {
+CMS_CACHE_DURATIONS = {
     'menus': 0
 }
 

@@ -78,3 +78,10 @@ def get_text(field):
 @register.filter()
 def mult(value, value2):
     return value * value2
+
+
+@register.filter()
+def not_none(value):
+    if not value:
+        raise
+    return value

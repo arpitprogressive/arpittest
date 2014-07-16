@@ -10,7 +10,7 @@ from setuptools import setup
 
 setup(
     name='Pursuite',
-    version='1.7.8',
+    version='1.7.9',
     description='Django - Pursuite',
     author='Openlabs Technologies & Consulting (P) Limited',
     author_email='info@openlabs.co.in',

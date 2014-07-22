@@ -5,7 +5,7 @@
     {% if child.ancestor %}ancestor{% endif %}
     {% if child.sibling %}sibling{% endif %}
     {% if child.descendant %}descendant{% endif %}">
-    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title | not_none }}</a>
     <span class="menu-arrow"></span>
 </li>
 {% endfor %}

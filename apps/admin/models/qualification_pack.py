@@ -75,10 +75,10 @@ class QualificationPack(models.Model):
     role_description = models.TextField(blank=True)
     nveqf_level = models.CharField(max_length=5, blank=True)
     min_educational_qualification = models.CharField(
-        max_length=50, blank=True,
+        max_length=100, blank=True,
     )
     max_educational_qualification = models.CharField(
-        max_length=50, blank=True,
+        max_length=100, blank=True,
     )
     training = models.TextField(blank=True)
     experience = models.TextField(blank=True)

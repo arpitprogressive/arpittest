@@ -5,7 +5,7 @@
       <span class="field-content">
         <span class="icon-file-text-alt orange"></span>&nbsp;&nbsp;
         <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
-          {{ child.get_menu_title }}
+          {{ child.get_menu_title | not_none }}
         </a><br>
         <span class="field-content">Post date: {{ child.page.publication_date }}</span>
       </span>

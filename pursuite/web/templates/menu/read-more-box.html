@@ -2,7 +2,7 @@
 {% for child in children %}
   <div class="span6" style='margin-left:0px;'>
     <div class="mid-box-flip" style=" min-height:202px;">
-      <h1>{{ child.get_menu_title }}</h1>
+      <h1>{{ child.get_menu_title | not_none }}</h1>
       <p>
         {{ child.page|get_description }}
       </p>

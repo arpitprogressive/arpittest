@@ -2,7 +2,7 @@
 {% autopaginate children 10 %}
 {% for child in children %}
   <div>
-    <h4>{{ child.get_menu_title }}</h4>
+    <h4>{{ child.get_menu_title | not_none }}</h4>
     <p>
       {{ child.page|get_description }}
     </p>

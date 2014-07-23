@@ -3,7 +3,7 @@
     <li>
         <span class="icon-globe orange"></span>&nbsp;&nbsp;
         <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
-            {{ child.get_menu_title }}
+            {{ child.get_menu_title | not_none }}
         </a>
     </li>
     {% if child.children %}

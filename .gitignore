@@ -1,4 +1,4 @@
-*.logarpit
+*.log
 *.pot
 *.pyc
 local_settings.py
